@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+body {
+	background-image: url("background.jpg");
+ 	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}       
+
+.btn {
+  padding:0.3em 1em;
+  border-radius: 6px 25px;
+  color:#158FAD;
+  background-color:#ffffff;
+  font-size:1.1em;
+  border:0;
+  cursor:pointer;
+  margin:1em;
+  text-decoration: none;
+}
+
+</style>
+
+<hr class="grey">
+<center>
+<a href="Play/form.html"  class="btn" data-role="button" data-inline="true" >Play</a>
+<a href="previous/video/" class="btn" data-role="button" data-inline="true" >Previous game</a>
+</center>
+<hr class="grey">
+
+<center>
+<div class="mistvideo" id="livestream_0OK0wM8t1e3Y">
+  <noscript>
+    <a href="http://78.60.223.54:8080/livestream.html" target="_blank">
+      Click here to play this video
+    </a>
+  </noscript>
+  <script>
+    var a = function(){
+      mistPlay("livestream",{
+        target: document.getElementById("livestream_0OK0wM8t1e3Y"),
+        controls: false
+      });
+    };
+    if (!window.mistplayers) {
+      var p = document.createElement("script");
+      p.src = "http://78.60.223.54:8080/player.js"
+      document.head.appendChild(p);
+      p.onload = a;
+    }
+    else { a(); }
+  </script>
+</div>
+</center>
+
+<hr class="grey">
+<center>
+<a href="file:///C:/Users/Ernestino/Desktop/tor_service2/contact/index.html"  class="btn" data-role="button" data-inline="true" >Contact us</a>
+<a href="file:///C:/Users/Ernestino/Desktop/tor_service2/previous/video/" class="btn" data-role="button" data-inline="true" >How to</a>
+</center>
+<hr class="grey">
+
+</body>
+</html>
