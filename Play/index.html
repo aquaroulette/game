@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <body>
 <style>
 body {
@@ -30,40 +31,6 @@ body {
   text-decoration: none;
   font-weight:bold;
 }
-	
-</style>
-
-
-<center>	
-<form>
-<hr class="grey">
- <input type="button" class="btn" data-inline="true" value="Go back" onclick="history.back()">
-<hr class="grey">
-</form>
-
-
-<head>
-
-	<meta charset="UTF-8">
-	<title>HTML Form</title>
-
-	<style>
-	*{
-		margin: 10;
-		padding: 10;
-		font-family: sans-serif;
-	}
-	body{
-		margin: 50px 50px;
-	}
-	.myform input{
-		padding: 10px 15px;
-		font-size: 16px;
-		margin: 0px 0px;
-	}
-	</style>
-	
-	<style>
 .greenCircle {
     width: 30px;
     line-height: 30px;
@@ -74,20 +41,50 @@ body {
 	color: #ffffff;
     border: 2px solid #666;
 }
-	</style>
-	
+</style>
+<hr class="grey">
+<center>
+<a href="file:///C:/Users/Ernestino/Desktop/tor_service2/index.html"  class="btn" data-role="button" data-inline="true">Go back</a>
+<a href="previous/video/" class="btn" data-role="button" data-inline="true">How to</a>
+</center>
+<hr class="grey">
+
+
+<head>
+
+	<meta charset="UTF-8">
+	<title>HTML Form</title>
+
+<style>
+	*{
+		margin: 10;
+		padding: 10;
+		font-family: sans-serif;
+	}
+	body{
+		margin: 10px 0px;
+	}
+	.myform input{
+		padding: 10px 15px;
+		font-size: 16px;
+		margin: 0px 0px;
+	}
+</style>
+			
 </head>
 <script type="text/javascript">var submitted=false;</script>
-<iframe name="hidden_iframe" id="hidden_iframe" style="display: none" onload="if(submitted){window.location='check_email';}"></iframe>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display: none" onload="if(submitted){window.location='file:///C:/Users/Ernestino/Desktop/tor_service2/check_email/index.html';}"></iframe>
 <br />
 
 <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdq2WKL6GjKVZMnFmgY87bYANA-N5Tsc6-eGSidU5LlhrDwEQ/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true" class="myform">
 	<center>
-	<input type="text" placeholder="Email to receive QR" name="entry.1029738239"><br/>
-	<input type="text" placeholder="Your ReddCoin Address" name="entry.795109340"><br/>
-	<p><b>Chose your lucky number:</b></p>
 	
-<b>
+	<input type="text" id="email" placeholder="Email to receive QR" name="entry.1029738239"><br/>
+
+	<input type="address" id="addresss" placeholder="Your ReddCoin Address" name="entry.795109340"><br/>
+
+	<p><b>Chose your lucky number:</b></p>
+	<b>
 	<p><input type="radio" id="0" name="entry.727048587" value="0">
 	<label for="0">0</label><br>
 	<b><p></p>
