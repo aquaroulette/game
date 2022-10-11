@@ -30,24 +30,30 @@ body {
 </p>
 <hr class="grey">
 
-<center>
-<iframe
-  src="https://live.aquaroulette.com/embed/video"
-  title="Owncast"
-  height="350px" width="550px"
-  referrerpolicy="origin"
-  scrolling="no"
-  allowfullscreen>
-</iframe>
-<center>
+<div style="position: relative; width: 0; height: 0">
+    <div style="position: absolute; left: 700px; top: 150px">
 
-<p align="left">
+
+<iframe
+  src="https://live.aquaroulette.com/embed/video?autoplay=1" title="Owncast" height="350px" width="550px"
+  referrerpolicy="origin" scrolling="no" allow="autoplay" autoplay="1">
+</iframe>
+
+
+</div>
+</div>
+
+
+
+<div style="position: relative; width: 0; height: 0">
+    <div style="position: absolute; left: 100px; top: 0px">
+	
 <script type="text/javascript">var submitted=false;</script>
 <iframe name="hidden_iframe" id="hidden_iframe" style="display: none" onload="if(submitted){window.location='check_email/index.html';}"></iframe>
 <br />
 
 <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdq2WKL6GjKVZMnFmgY87bYANA-N5Tsc6-eGSidU5LlhrDwEQ/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true" class="myform">
-	
+	<center>
 	<p><b>Choose your lucky number:</b></p>
 	<b>
 	<p><input type="radio" id="0" name="entry.727048587" value="0">
@@ -160,20 +166,19 @@ body {
 	<a>&emsp;</a>
 	<input type="radio" id="36" name="entry.727048587" value="36">
 	<label for="36">36</label><br>
-	</p>	
+	</p>
 	<p>
-	
 	<b>
 	<p></p>
 	<p></p>
 	<p>Recomended to use
 	<a href="https://10minemail.com" target="_blank">10minemail.com</a></b></p>
-	<input type="text" id="email" placeholder="Email to receive QR" name="entry.1029738239">
+	<input type="text" id="email" placeholder="Email to receive QR" style="height:25px;width:250px" name="entry.1029738239">
 	
 	<p><b>Your receiving Reddcoin Address</b></p>
-	<input type="address" id="addresss" placeholder="Your ReddCoin Address" name="entry.795109340">
+	<input type="address" id="addresss" placeholder="Your ReddCoin Address" style="height:25px;width:250px" name="entry.795109340">
 	<p></p>
-<input type="submit" class="btn" value="Request QR">
+<input type="submit" class="btn" value="Confirm">
 
 </form>
 		
@@ -183,12 +188,12 @@ body {
 <p>MAX: 1000 RDD</p>
 <p>Payout: 36:1</p?>
 <p>Further instructions will be sent to email.
-
 </p>
-
 <p>Wish you good luck, have fun!</p>
 </b>
 </p>
-
+    </div>
+</div>
+</center>
 </body>
 </html>
