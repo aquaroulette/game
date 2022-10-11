@@ -29,30 +29,17 @@ body {
 <a href="/how_to" class="btn" data-role="button" data-inline="true">How to play</a>
 </p>
 <hr class="grey">
-<center>
-<div class="mistvideo" id="livestream_0OK0wM8t1e3Y">
-  <noscript>
-    <a href="https://live.aquaroulette.com" target="_blank">
-      Click here to play this video
-    </a>
-  </noscript>
-  <script>
-    var a = function(){
-      mistPlay("livestream",{
-        target: document.getElementById("livestream_0OK0wM8t1e3Y"),
-        controls: false
-      });
-    };
-    if (!window.mistplayers) {
-      var p = document.createElement("script");
-      p.src = "https://live.aquaroulette.com"
-      document.head.appendChild(p);
-      p.onload = a;
-    }
-    else { a(); }
-  </script>
-</div>
-</center>
+
+
+<iframe
+  src="https://live.aquaroulette.com/embed/video"
+  title="Owncast"
+  height="350px" width="550px"
+  referrerpolicy="origin"
+  scrolling="no"
+  allowfullscreen>
+</iframe>
+
 
 <iframe src="https://free.timeanddate.com/clock/i8fdexyk/fs16/tct/pct/ahl/ftb/tt0/tw0/tm1/tb1" frameborder="0" width="217" height="16" allowtransparency="true"></iframe>
 
