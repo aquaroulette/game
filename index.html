@@ -3,6 +3,11 @@
 <body>
 	<link rel="icon" href="Logo.png" type="image/icon type">
 <style>
+#wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width:1300px;
+}
 body {
 	background-image: url("background.jpg");
  	background-repeat: no-repeat;
@@ -24,17 +29,50 @@ body {
 p {
     line-height: 80%;
 }
-
-
-
-
+.green {
+  background: #5EA226;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.6em; 
+}
+.red {
+  background: red;
+   border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.6em; 
+}
+.black {
+  background: black;
+   border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.6em; 
+}
+.green:hover { background: #66cc33; }
+.red:hover { background: #ff6666; }
+.black:hover { background: #222222; }
 </style>
-
-
-
-
-
-
+<div id="wrapper">
 <img src="Logo.png" width="153" height="44" />
 <hr class="grey">
 <p align="right">
@@ -43,199 +81,182 @@ p {
 <a href="/how_to" class="btn" data-role="button" data-inline="true">How to play</a>
 </p>
 <hr class="grey">
-
-
-
 <center>
 <iframe
   src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1"" title="Owncast" height="500px" width="800px"
   referrerpolicy="origin" scrolling="no" allow="autoplay" autoplay="1" frameborder="0">
 </iframe>
 </center>
-
-
-
-
-
-
-	
 <script type="text/javascript">var submitted=false;</script>
 <iframe name="hidden_iframe" id="hidden_iframe" style="display: none" onload="if(submitted){window.location='check_email/index.html';}"></iframe>
-
 <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdq2WKL6GjKVZMnFmgY87bYANA-N5Tsc6-eGSidU5LlhrDwEQ/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true" class="myform">
 	<center>
 	<p><b>Choose your number:</b></p>
 	<b>
 
-	<p><input type="radio" id="0" name="entry.727048587" value="0">
-	<label for="0">0</label><br>
+	<p><input type="radio" id="0"  name="entry.727048587" value="0">
+	<label class="green" for="0">0</label><br>
 	<p></p>
 	
 	<input type="radio" id="1" name="entry.727048587" value="1">
-	<label for="1">1<a>&nbsp;&nbsp;</a></label>
+	<label class="red" for="1">1</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="2" name="entry.727048587" value="2">
-	<label for="2">2<a>&nbsp;&nbsp;</a></label>
+	<label class="black" for="2">2</label>
 	<a>&emsp;</a>
 
 	<input type="radio" id="3" name="entry.727048587" value="3">
-	<label for="3">3<a>&nbsp;&nbsp;</a></label>
+	<label class="red" for="3">3</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="4" name="entry.727048587" value="4">
-	<label for="4">4<a>&nbsp;&nbsp;</a></label>
+	<label class="black" for="4">4</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="5" name="entry.727048587" value="5">
-	<label for="5">5<a>&nbsp;&nbsp;</a></label>
+	<label class="red" for="5">5</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="6" name="entry.727048587" value="6">
-	<label for="6">6<a>&nbsp;&nbsp;</a></label>
+	<label class="black" for="6">6</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="7" name="entry.727048587" value="7">
-	<label for="7">7<a>&nbsp;&nbsp;</a></label>
+	<label class="red" for="7">7</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="8" name="entry.727048587" value="8">
-	<label for="8">8<a>&nbsp;&nbsp;</a></label>
+	<label class="black" for="8">8</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="9" name="entry.727048587" value="9">
-	<label for="9">9<a>&nbsp;&nbsp;</a></label>
+	<label class="red" for="9">9</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="10" name="entry.727048587" value="10">
-	<label for="10">10</label>
+	<label class="black" for="10">10</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="11" name="entry.727048587" value="11">
-	<label for="11">11</label>
+	<label class="black" for="11">11</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="12" name="entry.727048587" value="12">
-	<label for="12">12</label>
+	<label class="red" for="12">12</label>
 	<p></p>
 	
 	<input type="radio" id="13" name="entry.727048587" value="13">
-	<label for="13">13</label>
+	<label class="black" for="13">13</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="14" name="entry.727048587" value="14">
-	<label for="14">14</label>
+	<label class="red" for="14">14</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="15" name="entry.727048587" value="15">
-	<label for="15">15</label>
+	<label class="black" for="15">15</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="16" name="entry.727048587" value="16">
-	<label for="16">16</label>
+	<label class="red" for="16">16</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="17" name="entry.727048587" value="17">
-	<label for="17">17</label>
+	<label class="black" for="17">17</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="18" name="entry.727048587" value="18">
-	<label for="18">18</label>
+	<label class="red" for="18">18</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="19" name="entry.727048587" value="19">
-	<label for="19">19</label>
+	<label class="black" for="19">19</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="20" name="entry.727048587" value="20">
-	<label for="20">20</label>
+	<label class="black" for="20">20</label>
 	<a>&emsp;</a>
 
 	<input type="radio" id="21" name="entry.727048587" value="21">
-	<label for="21">21</label>
+	<label class="red" for="21">21</label>
 	<a>&emsp;</a>	
 	
 	<input type="radio" id="22" name="entry.727048587" value="22">
-	<label for="22">22</label>
+	<label class="black" for="22">22</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="23" name="entry.727048587" value="23">
-	<label for="23">23</label>
+	<label class="red" for="23">23</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="24" name="entry.727048587" value="24">
-	<label for="24">24</label>
+	<label class="black" for="24">24</label>
 	<p></p>
 	
 	<input type="radio" id="25" name="entry.727048587" value="25">
-	<label for="25">25</label>
+	<label class="red" for="25">25</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="26" name="entry.727048587" value="26">
-	<label for="26">26</label>
+	<label class="black" for="26">26</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="27" name="entry.727048587" value="27">
-	<label for="27">27</label>
+	<label class="red" for="27">27</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="28" name="entry.727048587" value="28">
-	<label for="28">28</label>
+	<label class="red" for="28">28</label>
 	<a>&emsp;</a>
 
 	<input type="radio" id="29" name="entry.727048587" value="29">
-	<label for="29">29</label>
+	<label class="black" for="29">29</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="30" name="entry.727048587" value="30">
-	<label for="30">30</label>
+	<label class="red" for="30">30</label>
 	<a>&emsp;</a>
 
 	<input type="radio" id="31" name="entry.727048587" value="31">
-	<label for="31">31</label>
+	<label class="black" for="31">31</label>
 	<a>&emsp;</a>
 
 	<input type="radio" id="32" name="entry.727048587" value="32">
-	<label for="32">32</label>
+	<label class="red" for="32">32</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="33" name="entry.727048587" value="33">
-	<label for="33">33</label>
+	<label class="black" for="33">33</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="34" name="entry.727048587" value="34">
-	<label for="34">34</label>
+	<label class="red" for="34">34</label>
 	<a>&emsp;</a>
 	
 	<input type="radio" id="35" name="entry.727048587" value="35">
-	<label for="35">35</label>
+	<label class="black" for="35">35</label>
 	<a>&emsp;</a>
 
 	<input type="radio" id="36" name="entry.727048587" value="36">
-	<label for="36">36</label>
+	<label class="red" for="36">36</label>
 	<p></p>
 	<br>
 	</p>
-
 	<p>Recomended to use
 	<a href="https://10minemail.com" target="_blank">10minemail.com</a></p>
-	
 	<input type="text" id="email" placeholder="Email to receive QR" style="height:25px;width:300px" name="entry.1029738239">
 	<p></p>
 	<p>Your receiving Reddcoin Address</p>
-
 	<input type="address" id="addresss" placeholder="Your ReddCoin Address" style="height:25px;width:300px" name="entry.795109340">
-	
 	<p><input type="submit" class="btn" value="Confirm"></p>
 	</form>
 	<p></p>
 <p>Payout: 36:1</p>
 <p>MIN: 10 RDD &emsp; MAX: 1000 RDD</p>
 <p>Further instructions will be sent to email.</p>
-<br>
-
 </b>
-
+<br>
 </div>
 </center>
 </body>
