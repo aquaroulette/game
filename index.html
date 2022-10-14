@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <body>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="Logo.png" type="image/icon type">
 <style>
 #wrapper {
     margin-left:auto;
     margin-right:auto;
+	text-align: center;
     width:1060px;
-	height:1130px;
+	height:1100px;	
+}
+#wrappergrey {
+    margin-left:auto;
+    margin-right:auto;
+	text-align: center;
+    width:1060px;
+	height:1100px;
 	background-color:#CCCCCC;	
 }
 #btncntr {
@@ -20,9 +27,7 @@
 body {
 	background-image: url("background.jpg");
  	background-repeat: no-repeat;
-    	overflow-x: hidden;
 	background-attachment: fixed;
-    
 	background-size: cover;
 }       
 .btn {
@@ -33,8 +38,9 @@ body {
   font-size:1.1em;
   border:0;
   cursor:pointer;
-  margin:1em;
+  margin:5px;
   text-decoration: none;
+  
 }
 .btn:hover { background: #a6a6a6; }
 p {
@@ -90,35 +96,34 @@ p {
   font-size:1.1em;
   border:0;
   cursor:pointer;
-  margin:1em;
+  margin:1px;
   text-decoration: none;
 }
 .confirm:hover { background: #64b5f6; }
+.div {text-align: center;}
 </style>
+<div id="wrapper">
 <center>
 <img src="Logo.png" width="199" height="57" />
-<hr style="Margin:15px auto;clear:both;font-size:1px;width:1000px;height:0px;line-height:1px;" class="grey">
+<hr style="Margin:5px auto;clear:both;font-size:1px;width:1060px;height:0px;line-height:1px;" class="grey">
 </center>
-<p align="center">
+<div>
 <a href="/how_to" class="btn" data-role="button" data-inline="true">HOW TO PLAY</a>
 <a href="previous/video/" class="btn" data-role="button" data-inline="true">LAST GAME</a>
 <a href="/contact" class="btn" data-role="button" data-inline="true">CONTACT US</a>
-</p>
-
-<hr style="Margin:15px auto;clear:both;font-size:1px;width:1000px;height:0px;line-height:1px;" class="grey">
-<div id="wrapper">
-
+</div>
+<hr style="Margin:5px auto;clear:both;font-size:1px;width:1060px;height:0px;line-height:1px;" class="grey">
+<div id="wrappergrey">
 <center>
 <iframe
   src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1"" title="Owncast" height="500px" width="800px"
-  referrerpolicy="origin" scrolling="no" allow="autoplay" autoplay="1" frameborder="0">
+  referrerpolicy="origin" scrolling="no" allow="autoplay" autoplay="1" muted=1 frameborder="0">
 </iframe>
 </center>
-
 <script type="text/javascript">var submitted=false;</script>
 <iframe name="hidden_iframe" id="hidden_iframe" style="display: none" onload="if(submitted){window.location='check_email/index.html';}"></iframe>
 <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdq2WKL6GjKVZMnFmgY87bYANA-N5Tsc6-eGSidU5LlhrDwEQ/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true" class="myform">
-<hr style="Margin:15px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">	
+<hr style="Margin:1px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">	
 	<center>
 	<p><b>Choose your number:</b></p>
 	<b>
@@ -235,24 +240,23 @@ p {
 	
 	<input type="radio" id="36" name="entry.727048587" value="36">
 	<label class="red" for="36">36</label>
-	<p></p>
-	<br>
 	</p>
+	<br>
 	<p>Recomended to use
 	<a href="https://10minemail.com" target="_blank">10minemail.com</a></p>
-	<input type="text" id="email" placeholder="Email to receive QR" style="height:25px;width:300px" name="entry.1029738239">
+	<input type="text" id="email" placeholder="Email to receive QR" style="height:40px;width:350px" name="entry.1029738239">
 	<p></p>
 	<p>Your receiving Reddcoin Address</p>
-	<input type="address" id="addresss" placeholder="Your ReddCoin Address" style="height:25px;width:300px" name="entry.795109340">
+	<input type="address" id="addresss" placeholder="Your ReddCoin Address" style="height:40px;width:350px" name="entry.795109340">
 	<p><input type="submit" class="confirm" value="Confirm"></p>
 	</form>
-	<p></p>
 <p>Payout: 36:1</p>
 <p>MIN: 10 RDD &emsp; MAX: 1000 RDD</p>
 <p>Further instructions will be sent to email.</p>
-<hr style="Margin:15px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
+<hr style="Margin:1px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
 </b>
 <br>
+</div>
 </div>
 </center>
 </body>
