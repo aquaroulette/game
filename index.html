@@ -135,15 +135,40 @@ input::placeholder {
     color:#158FAD;
 	font-size:30px;
 }
+h1 {
+        font-size:130px;
+        text-align: center;
+        color: #fff;
+        text-shadow: 2px 2px #000;
+        animation: flash 4s infinite;
+		transform: translateY(-10%);
+      }
+      .random {
+        animation: pulse 200s infinite;
+		
+      }
+      
+      @keyframes pulse {
+        0% {
+          color: #d6c9f8;
+        }
+		25% {
+          color: #8c38a5;
+        }
+		50% {
+          color: #7e36a7;
+        }
+		75% {
+          color: #8937a5;
+        }		
+        100% {
+          color: #9b7ced;
+        }
+      }
 </style>
 
-
+<h1 class="random">AquaRoulette</h1>
 <b>
-<p align="center">
-   <a href="https://aquaroulette.com/">
-<img src="Logo.png" width="700" height="100" />
-</p>
-</a>
 <div id="wrapperC">
 <div id="wrapper">
 <center>
