@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html>
 <body>
-<meta name="viewport" content="width=device-width, initial-scale=0.43, maximum-scale=3.0, user-scalable=no" />
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=0.43, maximum-scale=3.0, user-scalable=no" />
 <style>
 
 #wrapperC {
-	width:device-width;
 	height:device-height;
 	color:white;
 	transform: translateY(-4%);
-	width:device-width;
 	text-align: center;
 }
-}
 body {
-    max-width: 1000px;
+    max-width:device-width;
 	margin-left:auto;
     margin-right:auto;
     overflow-x: hidden;
-}
-body {
 	background-color: #FFFFFF;
 	background-image: url("background.jpg");
  	background-repeat: no-repeat;
-	background-attachment: fixed;
 	background-size: cover;
-	background-position: center;	
+	background-position: center;
+	width:device-width;
+	
 }       
 .btn {
   padding:0.3em 2em;
@@ -165,12 +161,10 @@ h1 {
 <b>
 <div id="wrapperC">
 
-<center>
+
 <iframe
-  src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" title="Owncast" width="device-width" height="auto"
-  referrerpolicy="origin" scrolling="no" allow="autoplay;fullscreen" autoplay="1" muted=1 frameborder="0">
+  src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" title="Owncast" width="1300" height="780" referrerpolicy="origin" scrolling="no" allow="autoplay;fullscreen" autoplay="1" muted=1 frameborder="0">
 </iframe>
-</center>
 <script type="text/javascript">var submitted=false;</script>
 <iframe name="hidden_iframe" id="hidden_iframe" style="display: none" onload="if(submitted){window.location='check_email/index.html';}"></iframe>
 <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdq2WKL6GjKVZMnFmgY87bYANA-N5Tsc6-eGSidU5LlhrDwEQ/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true" class="myform">
