@@ -28,8 +28,8 @@ border-radius: 50%;
 color: #ffffff;
 display: inline-block;
 font-weight: bold;
-font-size: 5vw;
-line-height: 1.6em;
+font-size: 4vw;
+line-height: 200%;
 margin-right: 3%;
 margin-top: 2%;
 text-align: center;
@@ -43,7 +43,7 @@ color: #ffffff;
 display: inline-block;
 font-weight: bold;
 font-size: 4vw;
-line-height: 190%;
+line-height: 200%;
 margin-right: 3%;
 margin-top: 2%;
 text-align: center;
@@ -57,7 +57,7 @@ color: #ffffff;
 display: inline-block;
 font-weight: bold;
 font-size: 4vw;
-line-height: 190%;
+line-height: 200%;
 margin-right: 3%;
 margin-top: 2%;
 text-align: center;
@@ -79,7 +79,8 @@ margin:1px;
 text-decoration: none;
 }
 .confirm {
- font-size: 2vw;
+margin-top:2%;
+ font-size: 4vw;
 }
 .confirm:hover { background: #64b5f6; }
 .divv {
@@ -99,8 +100,9 @@ display: grid;
 grid-template-areas: "radio";
 }
 #numberlayout {
+posision:fixed;
 width:100%;
-height:100%;
+height:auto;
 align: center;
 }
 #textcolor {
@@ -116,10 +118,10 @@ font-size:4vw;
 h1 {
 user-select:none;
 font-size:15vw;
+Margin:2%;
 color: #fff;
 text-shadow: 3px 3px #000;
 animation: flash 4s infinite;
-transform: translateY(-55%);
     }
 
 .random {
@@ -144,12 +146,8 @@ transform: translateY(-55%);
 		}
 }
 	.address{
-	font-size:4vw;
+	
 	}	
-.placeholder{
-font-size: 5vw;
-text-align: center;
-}
 input[type="address"]::placeholder {
 font-size: 3vw;
 text-align:center;
@@ -157,7 +155,8 @@ text-align:center;
 input[type="radio"]{
     border: 0px;
     width: 5%;
-    height: 100px;
+    height: 3vw;
+	align: center;
 }
 
 </style>
@@ -166,7 +165,7 @@ input[type="radio"]{
 <body>
 
 <h1 class="h1">AquaRoulette</h1>
-<iframe style="width:90vw; height:50vw;" src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" title="Aquaroulette" referrerpolicy="origin" scrolling="no" allow="autoplay;fullscreen" autoplay="1" muted="1" frameborder="0" allowfullscreen></iframe>
+<iframe style="width:90vw; height:53.8vw;" src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" title="Aquaroulette" referrerpolicy="origin" scrolling="no" allow="autoplay;fullscreen" autoplay="1" muted="1" frameborder="0" allowfullscreen></iframe>
 
 
 <script type="text/javascript">var submitted=false;</script>
@@ -194,6 +193,8 @@ input[type="radio"]{
 	<input class="checked" type="radio" id="5" name="entry.727048587" value="5">
 	<label class="red" for="5">5</label>
 	<p></p>
+	</div>
+	<div id="numberlayout">
 	<input class="checked" type="radio" id="6" name="entry.727048587" value="6">
 	<label class="black" for="6">6</label>
 	<input class="checked" type="radio" id="7" name="entry.727048587" value="7">
@@ -205,6 +206,7 @@ input[type="radio"]{
 	<input class="checked" type="radio" id="10" name="entry.727048587" value="10">
 	<label class="black" for="10">10</label>
 	<p></p>
+	</div>
 	<input class="checked" type="radio" id="11" name="entry.727048587" value="11">
 	<label class="black" for="11">11</label>
 	<input class="checked" type="radio" id="12" name="entry.727048587" value="12">
@@ -263,7 +265,7 @@ input[type="radio"]{
 	<input class="checked" type="radio" id="36" name="entry.727048587" value="36">
 	<label class="red" for="36">36</label>
 	</div>
-	</p>
+	<p></p>
 	<br>
 	<hr style="Margin:1px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
 	<div id="textcolor2"><p>Payout: 36:1</p>
@@ -273,11 +275,11 @@ input[type="radio"]{
 	<div id="textcolor"><p><b>Enter credencials:</b></p></div>
 	<div id="textcolor2"><p>Recomended to use
 	<a href="https://10minemail.com" style="color: inherit;" target="_blank">10minemail.com</a>:</p></div>
-	<input type="address" id="email" placeholder="Email to receive QR" style="height:6%;width:60%;font-size:3vw;text-align:center;text-size:10%;" minlength="5" maxlength="50" name="entry.1029738239" required>
+	<input type="address" id="email" placeholder="Email to receive QR" style="width:90%;font-size:4vw;text-align:center;" minlength="5" maxlength="50" name="entry.1029738239" required>
 	<p></p>
 	<div id="textcolor2"><p>Your receiving Reddcoin Address:</p></div>
-	<input type="address" id="address" placeholder="Your ReddCoin Address" style="height:6%;width:60%;font-size:3vw;text-align:center;text-size:10%;" minlength="34" maxlength="34" name="entry.795109340" required>
-	<p><input type="submit" class="confirm" style="top:15%; value="Confirm"></p>
+	<input type="address" id="address" placeholder="Your ReddCoin Address" style="width:90%;font-size:4vw;text-align:center;" minlength="34" maxlength="34" name="entry.795109340" required>
+	<p><input type="submit" class="confirm" style="value="Confirm"></p>
 	</form>
 	
 	<div id="textcolor">Further instructions will be emailed.</div>
