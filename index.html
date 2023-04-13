@@ -9,8 +9,7 @@ body {
     background-color: #FFFFFF;
     background-image: url("background.jpg");
     background-repeat: no-repeat;
-    background-size: 100%;
-    background-posision: center;
+    background-size:100% 100%;
     width: 100%;
     height: auto;
     margin: 0;
@@ -21,9 +20,6 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
-
-
 	
 .btn {
   padding:0.3em 2em;
@@ -37,110 +33,112 @@ body {
   font-size: 20px;
   text-decoration: none; 
 }
-.btn:hover { background: #000000; }
+.btn:hover {background: #000000;}
 
 .green {
-  background: #228b22;
-   border-radius: 0.8em;
-  -moz-border-radius: 0.8em;
-  -webkit-border-radius: 0.8em;
-  color: #ffffff;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 30pt;
-  line-height: 1.6em;
-  margin-right: 30px;
-  margin-top: 10px;
-  text-align: center;
-  width: 1.6em; 
+background: #228b22;
+border-radius: 0.8em;
+-moz-border-radius: 0.8em;
+-webkit-border-radius: 0.8em;
+color: #ffffff;
+display: inline-block;
+font-weight: bold;
+font-size: 5vw;
+line-height: 1.6em;
+margin-right: 30px;
+margin-top: 10px;
+text-align: center;
+width: 1.6em; 
 }
-
-
-
 .red {
-  background: red;
-   border-radius: 0.8em;
-  -moz-border-radius: 0.8em;
-  -webkit-border-radius: 0.8em;
-  color: #ffffff;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 30pt;
-  line-height: 1.6em;
-  margin-right: 30px;
-  margin-top: 10px;
-  text-align: center;
-  width: 1.6em; 
-}
+user-select:none;
+border-radius: 0.8em;
+background: red;
+border-radius: 50%;
+color: #ffffff;
+display: inline-block;
+font-weight: bold;
+font-size: 5vw;
+line-height: 1.6em;
+margin-right: 30px;
+margin-top: 10px;
+text-align: center;
+width: 1.6em; 
+} 
 .black {
-  background: black;
-   border-radius: 0.8em;
-  -moz-border-radius: 0.8em;
-  -webkit-border-radius: 0.8em;
-  color: #ffffff;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 30pt;
-  line-height: 1.6em;
-  margin-right: 30px;
-  margin-top: 10px;
-  text-align: center;
-  width: 1.6em; 
+user-select: none;
+border-radius: 0.8em;
+background-color: #000000;
+border-radius: 50%;
+color: #ffffff;
+display: inline-block;
+font-weight: bold;
+font-size: 5vw;
+line-height: 1.6em;
+margin-right: 30px;
+margin-top: 10px;
+text-align: center;
+width: 1.6em; 
 }
 .green:hover { background: #5EA226; }
 .red:hover { background: #ff6666; }
 .black:hover { background: #444444; }
+.green:active { background: #5EA226; }
 .confirm {
-  padding:0.3em 1em;
-  border-radius: 6px 25px;
-  color:#FFFFFF;
-  background-color:#24a0ed;
-  font-size:1.1em;
-  border:0;
-  cursor:pointer;
-  margin:1px;
-  text-decoration: none;
+padding:0.3em 1em;
+border-radius: 6px 25px;
+color:#FFFFFF;
+background-color:#24a0ed;
+font-size:1.1em;
+border:0;
+cursor:pointer;
+margin:1px;
+text-decoration: none;
 }
 .confirm {
-  font-size: 40px;
+ font-size: 40px;
 }
 .confirm:hover { background: #64b5f6; }
 .divv {
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width:100%;
-	height:100%;
-	////////https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1
-	}
+text-align: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width:100%;
+height:100%;
+}
 input::placeholder {
-	font-size: 20px;
-	}	
+font-size: 20px;
+}	
 .grid-container {
-	display: grid;
-    grid-template-areas: "radio";
+display: grid;
+grid-template-areas: "radio";
 }
 #numberlayout {
-	width:100%;
-	}
+width:100%;
+height:100%;
+align: center;
+}
 #textcolor {
-    color:#FFFFFF;
-	font-size:60px;
+user-select:none;
+color:#FFFFFF;
+font-size:6vw;
 }
 #textcolor2 {
-    color:#158FAD;
-	font-size:30px;
+user-select:none;
+color:#158FAD;
+font-size:4vw;
 }
 h1 {
-        size:100%;
-		posision:center;
-        color: #fff;
-        text-shadow: 3px 3px #000;
-        animation: flash 4s infinite;
-		transform: translateY(-55%);
+user-select:none;
+font-size:15vw;
+color: #fff;
+text-shadow: 3px 3px #000;
+animation: flash 4s infinite;
+transform: translateY(-55%);
     }
+
 .random {
         animation: pulse 200s infinite;
       }
@@ -162,22 +160,35 @@ h1 {
           color: #9b7ced;
 		}
 }
-		
-		
-
+	.address{
+	font-size:4vw;
+	}	
+.placeholder{
+font-size: 5vw;
+text-align: center;
+}
+input[type="address"]::placeholder {
+font-size: 3vw;
+text-align:center;
+}
+input[type="radio"]{
+    border: 0px;
+    width: 5%;
+    height: 100px;
+}
 
 </style>
 </head>
 
 <body>
 
-<h1 class="random">AquaRoulette</h1>
+<h1 class="h1">AquaRoulette</h1>
 
 <b>
 
 
 
-  <iframe style="top:0%; width:device-width; height:auto; left: 0%;" src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" title="Owncast" referrerpolicy="origin" scrolling="no" allow="autoplay;fullscreen" autoplay="1" muted="1" frameborder="0" allowfullscreen></iframe>
+<iframe style="top:0%; width:90vw; height:50vw; left: 0%;" src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" title="Owncast" referrerpolicy="origin" scrolling="no" allow="autoplay;fullscreen" autoplay="1" muted="1" frameborder="0" allowfullscreen></iframe>
 
 
 <script type="text/javascript">var submitted=false;</script>
@@ -190,87 +201,86 @@ h1 {
 	<center>	
 	<div id="textcolor"><p><b>Choose your number:</b></p></div>
 	</center>
-	<b>
-	<p><input type="radio" id="0"  name="entry.727048587" value="0">
+	<p><input class="checked" type="radio" id="0"  name="entry.727048587" value="0">
 	<label class="green" for="0">0</label><br>
 	<p></p>
 	<div id="numberlayout">
-	<input type="radio" id="1" name="entry.727048587" value="1">
+	<input class="checked" type="radio" id="1" name="entry.727048587" value="1">
 	<label class="red" for="1">1</label>
-	<input type="radio" id="2" name="entry.727048587" value="2">
+	<input class="checked" type="radio" id="2" name="entry.727048587" value="2">
 	<label class="black" for="2">2</label>
-	<input type="radio" id="3" name="entry.727048587" value="3">
+	<input class="checked" type="radio" id="3" name="entry.727048587" value="3">
 	<label class="red" for="3">3</label>
-	<input type="radio" id="4" name="entry.727048587" value="4">
+	<input class="checked" type="radio" id="4" name="entry.727048587" value="4">
 	<label class="black" for="4">4</label>
-	<input type="radio" id="5" name="entry.727048587" value="5">
+	<input class="checked" type="radio" id="5" name="entry.727048587" value="5">
 	<label class="red" for="5">5</label>
-	<input type="radio" id="6" name="entry.727048587" value="6">
+	<input class="checked" type="radio" id="6" name="entry.727048587" value="6">
 	<label class="black" for="6">6</label>
 	<p></p>
-	<input type="radio" id="7" name="entry.727048587" value="7">
+	<input class="checked" type="radio" id="7" name="entry.727048587" value="7">
 	<label class="red" for="7">7</label>
-	<input type="radio" id="8" name="entry.727048587" value="8">
+	<input class="checked" type="radio" id="8" name="entry.727048587" value="8">
 	<label class="black" for="8">8</label>
-	<input type="radio" id="9" name="entry.727048587" value="9">
+	<input class="checked" type="radio" id="9" name="entry.727048587" value="9">
 	<label class="red" for="9">9</label>
-	<input type="radio" id="10" name="entry.727048587" value="10">
+	<input class="checked" type="radio" id="10" name="entry.727048587" value="10">
 	<label class="black" for="10">10</label>
-	<input type="radio" id="11" name="entry.727048587" value="11">
+	<input class="checked" type="radio" id="11" name="entry.727048587" value="11">
 	<label class="black" for="11">11</label>
-	<input type="radio" id="12" name="entry.727048587" value="12">
+	<input class="checked" type="radio" id="12" name="entry.727048587" value="12">
 	<label class="red" for="12">12</label>
 	<p></p>
-	<input type="radio" id="13" name="entry.727048587" value="13">
+	<input class="checked" type="radio" id="13" name="entry.727048587" value="13">
 	<label class="black" for="13">13</label>
-	<input type="radio" id="14" name="entry.727048587" value="14">
+	<input class="checked" type="radio" id="14" name="entry.727048587" value="14">
 	<label class="red" for="14">14</label>
-	<input type="radio" id="15" name="entry.727048587" value="15">
+	<input class="checked" type="radio" id="15" name="entry.727048587" value="15">
 	<label class="black" for="15">15</label>
-	<input type="radio" id="16" name="entry.727048587" value="16">
+	<input class="checked" type="radio" id="16" name="entry.727048587" value="16">
 	<label class="red" for="16">16</label>
-	<input type="radio" id="17" name="entry.727048587" value="17">
+	<input class="checked" type="radio" id="17" name="entry.727048587" value="17">
 	<label class="black" for="17">17</label>
-	<input type="radio" id="18" name="entry.727048587" value="18">
+	<input class="checked" type="radio" id="18" name="entry.727048587" value="18">
 	<label class="red" for="18">18</label>
 	<p></p>
-	<input type="radio" id="19" name="entry.727048587" value="19">
+	<input class="checked" type="radio" id="19" name="entry.727048587" value="19">
 	<label class="black" for="19">19</label>
-	<input type="radio" id="20" name="entry.727048587" value="20">
+	<input class="checked" type="radio" id="20" name="entry.727048587" value="20">
 	<label class="black" for="20">20</label>
-	<input type="radio" id="21" name="entry.727048587" value="21">
+	<input class="checked" type="radio" id="21" name="entry.727048587" value="21">
 	<label class="red" for="21">21</label>
-	<input type="radio" id="22" name="entry.727048587" value="22">
+	<input class="checked" type="radio" id="22" name="entry.727048587" value="22">
 	<label class="black" for="22">22</label>
-	<input type="radio" id="23" name="entry.727048587" value="23">
+	<input class="checked" type="radio" id="23" name="entry.727048587" value="23">
 	<label class="red" for="23">23</label>
-	<input type="radio" id="24" name="entry.727048587" value="24">
+	<input class="checked" type="radio" id="24" name="entry.727048587" value="24">
 	<label class="black" for="24">24</label>
 	<p></p>
-	<input type="radio" id="25" name="entry.727048587" value="25">
+	<input class="checked" type="radio" id="25" name="entry.727048587" value="25">
 	<label class="red" for="25">25</label>
-	<input type="radio" id="26" name="entry.727048587" value="26">
+	<input class="checked" type="radio" id="26" name="entry.727048587" value="26">
 	<label class="black" for="26">26</label>
-	<input type="radio" id="27" name="entry.727048587" value="27">
+	<input class="checked" type="radio" id="27" name="entry.727048587" value="27">
 	<label class="red" for="27">27</label>
-	<input type="radio" id="28" name="entry.727048587" value="28">
+	<input class="checked" type="radio" id="28" name="entry.727048587" value="28">
 	<label class="red" for="28">28</label>
-	<input type="radio" id="29" name="entry.727048587" value="29">
+	<input class="checked" type="radio" id="29" name="entry.727048587" value="29">
 	<label class="black" for="29">29</label>
-	<input type="radio" id="30" name="entry.727048587" value="30">
+	<input class="checked" type="radio" id="30" name="entry.727048587" value="30">
 	<label class="red" for="30">30</label>
 	<p></p>
-	<input type="radio" id="31" name="entry.727048587" value="31">
+	<input class="checked" type="radio" id="31" name="entry.727048587" value="31">
 	<label class="black" for="31">31</label>
-	<input type="radio" id="32" name="entry.727048587" value="32">
+	<input class="checked" type="radio" id="32" name="entry.727048587" value="32">
 	<label class="red" for="32">32</label>
-	<input type="radio" id="33" name="entry.727048587" value="33">
+	<input class="checked" type="radio" id="33" name="entry.727048587" value="33">
 	<label class="black" for="33">33</label>
-	<input type="radio" id="34" name="entry.727048587" value="34">
+	<input class="checked" type="radio" id="34" name="entry.727048587" value="34">
 	<label class="red" for="34">34</label>
-	<input type="radio" id="35" name="entry.727048587" value="35">
+	<input class="checked" type="radio" id="35" name="entry.727048587" value="35">
 	<label class="black" for="35">35</label>
-	<input type="radio" id="36" name="entry.727048587" value="36">
+	<input class="checked" type="radio" id="36" name="entry.727048587" value="36">
 	<label class="red" for="36">36</label>
 	</div>
 	</p>
@@ -283,10 +293,10 @@ h1 {
 	<div id="textcolor"><p><b>Enter credencials:</b></p></div>
 	<div id="textcolor2"><p>Recomended to use
 	<a href="https://10minemail.com" style="color: inherit;" target="_blank">10minemail.com</a>:</p></div>
-	<input type="text" id="email" placeholder="Email to receive QR" style="height:80px;width:510px;font-size:18pt" minlength="5" maxlength="50" name="entry.1029738239" required>
+	<input type="address" id="email" placeholder="Email to receive QR" style="height:6%;width:60%;font-size:3vw;text-align:center;text-size:10%;" minlength="5" maxlength="50" name="entry.1029738239" required>
 	<p></p>
 	<div id="textcolor2"><p>Your receiving Reddcoin Address:</p></div>
-	<input type="address" id="addresss" placeholder="Your ReddCoin Address"  style="height:80px;width:510px;font-size:18pt" minlength="34" maxlength="34" name="entry.795109340" required>
+	<input type="address" id="address" placeholder="Your ReddCoin Address" style="height:6%;width:60%;font-size:3vw;text-align:center;text-size:10%;" minlength="34" maxlength="34" name="entry.795109340" required>
 	<p><input type="submit" class="confirm" value="Confirm"></p>
 	</form>
 	
@@ -297,7 +307,7 @@ h1 {
 	<b><div id="textcolor">Watch last game</b></div>
 	<p></p>
 <center>
-	<video width="device-width" height="auto" controls>
+	<video width="90%" height="auto" controls>
 	<source src="last_game.mp4" type="video/mp4">
 	Your browser does not support the video tag.
 </video>
@@ -307,7 +317,7 @@ h1 {
 </b>
 <p><b><div id="textcolor">How to play - 1 minute tutorial</b></p></div>
 <center>
-	<video width="device-width" height="auto" controls>
+	<video width="90%" height="auto" controls>
 	<source src="Tutorial.mp3" type="video/mp4">
 	Your browser does not support the video tag.
 </video>
