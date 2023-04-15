@@ -5,22 +5,21 @@
 <head>
 <style>
 body {
-    text-align:center;
-    background-color: #FFFFFF;
-    background-image: url("background.jpg");
-    background-repeat: no-repeat;
-    background-size:100% 100%;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    top: 0;
-    bottom: 0;
-    overflow: auto;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-	
+text-align:center;
+background-color: #FFFFFF;
+background-image: url("background.jpg");
+background-repeat: no-repeat;
+background-size:100% 100%;
+width: 100%;
+height: auto;
+margin: 0;
+padding: 0;
+top: 0;
+bottom: 0;
+overflow: auto;
+overflow-y: scroll;
+overflow-x: hidden;
+}	
 .green {
 user-select:none;
 background: #228b22;
@@ -29,14 +28,13 @@ color: #ffffff;
 display: inline-block;
 font-weight: bold;
 font-size: 4vw;
-margin:2%;
+margin:0%;
 margin-top: 4%;
 line-height: 200%;
 text-align: center;
 width: 8%; 
 }
 .red {
-
 user-select:none;
 background: red;
 border-radius: 50%;
@@ -44,7 +42,7 @@ color: #ffffff;
 display: inline-block;
 font-weight: bold;
 font-size: 4vw;
-margin:2%;
+margin:0;
 margin-top: 4%;
 line-height: 200%;
 text-align: center;
@@ -58,16 +56,23 @@ color: #ffffff;
 display: inline-block;
 font-weight: bold;
 font-size: 4vw;
-margin:2%;
+margin:0;
 margin-top: 4%;
 line-height: 200%;
 text-align: center;
 width: 8%; 
 }
-.green:hover { background: #5EA226; }
-.red:hover { background: #ff6666; }
-.black:hover { background: #444444; }
-.green:active { background: #5EA226; }
+.green:hover {background: #5EA226;
+}
+.red:hover {
+background: #ff6666;
+}
+.black:hover {
+background: #444444;
+}
+.green:active {
+background: #5EA226;
+}
 .confirm {
 padding:0.3em 1em;
 border-radius: 6px 25px;
@@ -97,17 +102,10 @@ input::placeholder {
 font-size: 20px;
 }	
 .grid-container {
-display: grid;
+
 grid-template-areas: "radio";
 }
-.numberlayout {
-posision:fixed;
-width:device-width;
-height:100%;
-align:center;
-min-width:327px;
 
-}
 #textcolor {
 user-select:none;
 color:#FFFFFF;
@@ -125,36 +123,29 @@ Margin:2%;
 Margin-top:-2%;
 color: #fff;
 text-shadow: 3px 3px #000;
-animation: pulse 60s infinite;
+animation: pulse 30s infinite;
 }
       
 @keyframes pulse {
-        0% {
-          color: #9b7ced;
-        }
-		50% {
-          color: #8c38a5;
-		  }
-        100% {
-          color: #9b7ced;
-		}
+0%{
+color: #9b7ced;}
+50% {
+color: #8c38a5;}
+100% {
+color: #9b7ced;}
 }
-	.address{
-	
-	}	
 input[type="address"]::placeholder {
 font-size: 3vw;
 text-align:center;
 }
 input[type="radio"]{
-	margin-right:-2%;
-	margin-top:2%;
+visibility:hidden;
 }
 .live {
-size:fixed;
-width:100vw;
-height:100vw;
-margin-bottom:-35%;
+size:absolute;
+width:95vw;
+height:96vw;
+margin-bottom:-30%;
 }
 
 </style>
@@ -177,6 +168,7 @@ margin-bottom:-35%;
 	<div id="textcolor"><p><b>Choose your number:</b></p></div>
 	</center>
 	<div id="numberlayout">
+	<center>
 	<p><input class="checked" type="radio" id="0"  name="entry.727048587" value="0">
 	<label class="green" for="0">0</label><br>
 	<p></p>
@@ -257,10 +249,11 @@ margin-bottom:-35%;
 	<label class="black" for="35">35</label>
 	<input class="checked" type="radio" id="36" name="entry.727048587" value="36">
 	<label class="red" for="36">36</label>
+	</center>
 	</div>
-	<p></p>
-	<br>
-	<hr style="Margin:1px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
+<p></p>
+	<b>
+	<hr style="Margin:1px auto;Margin-top:10%;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
 	<div id="textcolor2"><p>Payout: 36:1</p>
 <p>MIN BET: 1000 RDD &emsp; MAX BET: 100 000 RDD</p></div>
 <hr style="Margin:1px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
@@ -275,7 +268,7 @@ margin-bottom:-35%;
 	<p><input type="submit" class="confirm" style="value="Confirm"></p>
 	</form>
 	
-	<div id="textcolor">Further instructions will be emailed.</div>
+
 	<p></p>
 	<hr style="Margin:1px auto;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
 	<p></p>
