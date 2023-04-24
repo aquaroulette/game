@@ -1,15 +1,23 @@
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.43, maximum-scale=3.0, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style>
 body {
-	background-color: #FFFFFF;
-	background-image: url("background.jpg");
- 	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
-	background-position: center;	
-}
+text-align:center;
+background-color: #000000;
+background-image: url("background.jpg");
+background-repeat: no-repeat;
+background-size:100% 100%;
+width: 100%;
+height: auto;
+margin: 0;
+padding: 0;
+top: 0;
+bottom: 0;
+overflow: auto;
+overflow-y: scroll;
+overflow-x: hidden;
+}	
       .btn {
         padding: 0.3em 1em;
         border-radius: 12px 50px;
@@ -31,18 +39,21 @@ body {
         line-height: 1.5; /* adjust line height */
 		color: #f3e7d3;
       }
-      /* adjust font size for smaller screens */
-      @media (max-width: 600px) {
-        .center {
-          font-size: 1.5em;
-        }
-      }
+	  #textcolor {
+		user-select:none;
+		color:#FFFFFF;
+		font-size:3.5vw;
+		position: absolute;
+		margin-top: 8%;
+		margin-left: 15%;
+		width: device-width;
+		height: 0;
+}
     </style>
   </head>
   <body>
-    <div class="center">
-      <b>
-	  <center>
+    <div id="textcolor">
+	
         <p>Please check your email,</p>
         <p>Your QR code is being generated.</p>
         <p>This might take a couple of minutes.</p>
@@ -51,7 +62,6 @@ body {
         <p>In this case, try again tomorrow.</p>
 		<p><a href="/" class="btn" data-role="button" data-inline="true">Home</a></p>
         </center>
-      </b>
     </div>
   </body>
 </html>
