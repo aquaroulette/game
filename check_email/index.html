@@ -1,67 +1,60 @@
+<!DOCTYPE html>
 <html>
-  <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <style>
-body {
-text-align:center;
-background-color: #000000;
-background-image: url("background.jpg");
-background-repeat: no-repeat;
-background-size:100% 100%;
-width: 100%;
-height: auto;
-margin: 0;
-padding: 0;
-top: 0;
-bottom: 0;
-overflow: auto;
-overflow-y: scroll;
-overflow-x: hidden;
-}	
-      .btn {
-        padding: 0.3em 1em;
-        border-radius: 12px 50px;
-        color: #f3e7d3;
-        background-color: #4863A0;
-        font-size: 1.1em;
-        border: 0;
-        cursor: pointer;
-        margin: 1em;
-        text-decoration: none;
-      }
-	  .btn:hover { background: #6667AB; }
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      text-align: center;
+      background-color: #000000;
+      background-image: url("background.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+    }
+    .btn {
+      padding: 0.3em 1em;
+      border-radius: 12px 50px;
+      color: #f3e7d3;
+      background-color: #4863A0;
+      font-size: 1.1em;
+      border: 0;
+      cursor: pointer;
+      margin: 1em;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #6667AB;
+    }
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 50vh;
+      font-size: 2.5vw;
+      line-height: 1.2;
+      color: #f3e7d3;
+      margin-top: 10%;
+    }
+    @media (max-width: 768px) {
+      /* Adjust styles for mobile devices */
       .center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-size: 250%; /* adjust font size */
-        line-height: 1.5; /* adjust line height */
-		color: #f3e7d3;
+        font-size: 8vw;
       }
-	  #textcolor {
-		user-select:none;
-		color:#FFFFFF;
-		font-size:3.5vw;
-		position: absolute;
-		margin-top: 8%;
-		margin-left: 15%;
-		width: device-width;
-		height: 0;
-}
-    </style>
-  </head>
-  <body>
-    <div id="textcolor">
-	
-        <p>Please check your email,</p>
-        <p>Your QR code is being generated.</p>
-        <p>This might take a couple of minutes.</p>
-        <p>If you don't receive any email,</p>
-        <p>We have reached our 100-QR-code/24hour limit.</p>
-        <p>In this case, try again tomorrow.</p>
-		<p><a href="/" class="btn" data-role="button" data-inline="true">Home</a></p>
-        </center>
-    </div>
-  </body>
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    Please check your email,
+    <p>Your QR code is being generated.</p>
+    <p>This might take a couple of minutes.
+    If you don't receive any email,
+    We have reached our 100-QR-code/24hour limit.
+    In this case, try again tomorrow.</p>
+    <a href="https://aquaroulette.com" class="btn">Home</a>
+  </div>
+</body>
 </html>
