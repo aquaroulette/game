@@ -3,186 +3,8 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <head>
-<style>
-body {
-text-align:center;
-background-color: #000000;
-background-image: url("background.jpg");
-background-repeat: no-repeat;
-background-size:100% 100%;
-width: 100%;
-height: auto;
-margin: 0;
-padding: 0;
-top: 0;
-bottom: 0;
-overflow: auto;
-overflow-y: scroll;
-overflow-x: hidden;
-}	
-.green {
-user-select:none;
-background: #228b22;
-border-radius: 50%;
-color: #ffffff;
-display: inline-block;
-font-weight: bold;
-font-size: 4vw;
-margin:0%;
-margin-top: 5%;
-margin-bottom: 1%;
-line-height: 200%;
-text-align: center;
-width: 8%; 
-}
-.red {
-user-select:none;
-background: red;
-border-radius: 50%;
-color: #ffffff;
-display: inline-block;
-font-weight: bold;
-font-size: 4vw;
-margin:0;
-margin-top: 4%;
-line-height: 200%;
-text-align: center;
-width: 8%; 
-} 
-.black {
-user-select: none;
-background-color: #000000;
-border-radius: 50%;
-color: #ffffff;
-display: inline-block;
-font-weight: bold;
-font-size: 4vw;
-margin:0;
-margin-top: 4%;
-line-height: 200%;
-text-align: center;
-width: 8%; 
-}
-.green:hover {background: #5EA226;
-}
-.red:hover {
-background: #FF8886;
-}
-.black:hover {
-background: #444444;
-}
-.green:active {
-background: #5EA226;
-}
-.confirm {
-padding:0.3em 1em;
-border-radius: 13% 13%;
-color:#FFFFFF;
-background-color:#4E895C;
-border:0;
-cursor:pointer;
-margin:1px;
-text-decoration: none;
-margin-top:1%;
-margin-bottom:1%;
-font-size: 4vw;
-}
-.confirm:hover {
-background: #6AB186;
-}
-.divv {
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width:100%;
-height:100%;
-}
-input::placeholder {
-font-size: 20px;
-}	
-#textcolor {
-user-select:none;
-color:#FFFFFF;
-font-size:6vw;
-margin-top:1%;
-margin-bottom:1%;
-}
+<link rel="stylesheet" type="text/css" href="styles.css">
 
-#textcolor2 {
-user-select:none;
-color:#FFFFFF;
-font-size:4vw;
-}
-#textcolor3 {
-user-select:none;
-color:#FFFFFF;
-font-size:6vw;
-margin-top:7%;
-margin-bottom:-2%;
-}
-#textcolor4 {
-user-select:none;
-color:#FFFFFF;
-font-size:6vw;
-margin-top:1%;
-margin-bottom:-3%;
-}
-#textcolormin {
-user-select:none;
-color:#228b22;
-font-size:4vw;
-}
-#textcolormax {
-user-select:none;
-color:red;
-font-size:4vw;
-}
-h1 {
-user-select:none;
-font-size:15vw;
-Margin:2%;
-Margin-top:-2%;
-color: #fff;
-text-shadow: 3px 3px #000;
-animation: pulse 30s infinite;
-}    
-@keyframes pulse {
-0%{
-color: #9b7ced;}
-50% {
-color: #8c38a5;}
-100% {
-color: #9b7ced;}
-}
-input[type="address"]::placeholder {
-font-size: 3vw;
-text-align:center;
-}
-input[type="radio"]{
-visibility:10%;
-input:required;
-margin:0%;
-}
-.video-container {
-position: relative;
-padding-bottom: 56.25%; /* 16:9 aspect ratio (change based on your video aspect ratio) */
-padding-top: 30px;
-height: 0;
-overflow: hidden;
-}
-.video-container iframe {
-position: absolute;
-top: 0;
-left: 5%;
-width: 90%;
-height: 100%;
-}
-::placeholder {
-color: #f5f5f5; /* Pearl white color */
-}
-</style>
 </head>
 <body>
 <h1 class="h1">AquaRoulette</h1>
@@ -287,9 +109,14 @@ color: #f5f5f5; /* Pearl white color */
 <div id="textcolor3"><b>Enter credencials:</b></div>
 <div id="textcolor2"><p><b>Recomended to use</b>
 <a href="https://10minemail.com" style="color: inherit;" target="_blank">10minemail.com</a>:</p></div>
-<input type="address" id="email" placeholder="Email to receive QR" style="width: 90%; font-size: 4vw; text-align: center; background-color: transparent; border: none;border-bottom: 0.5px solid #ccc; outline: none; padding: 5px;color:#DBAE58;" minlength="5" maxlength="50" name="entry.1029738239" required>
-<p></p>
-<input type="address" id="address" placeholder="Your receiving Reddcoin Address" style="width: 90%; font-size: 4vw; text-align: center; background-color: transparent; border: none;border-bottom: 0.5px solid #ccc; outline: none; padding: 5px;color:#DBAE58;;" minlength="34" maxlength="34" name="entry.entry.795109340" required>
+<input type="address" id="email" placeholder="Email to receive QR" style="width: 90%; font-size: 4vw; text-align: center; background-color: transparent; border: none;border-bottom: 0px solid #ccc; outline: none; padding: 5px;color:#DBAE58;" minlength="5" maxlength="35" name="entry.1029738239" required>
+
+<hr style="Margin:1px 5%;margin-bottom:2%;margin-top:0%;clear:both;font-size:1px;height:0px;line-height:1px;border-bottom: 1px solid #FFB380;">
+
+<input type="address" id="address" placeholder="Your receiving Reddcoin Address" style="width: 90%; font-size: 4vw; text-align: center; background-color: transparent; border: none;border-bottom: 0px solid #ccc; outline: none; padding: 5px;color:#DBAE58;;" minlength="34" maxlength="34" name="entry.entry.795109340" required>
+
+<hr style="Margin:1px 5%;margin-bottom:2%;margin-top:0%;clear:both;font-size:1px;height:0px;line-height:1px;border-bottom: 1px solid #FFB380;">
+
 <p><input type="submit" class="confirm" style="value="Confirm"></p>
 </form>
 <p></p>
