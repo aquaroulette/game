@@ -1,64 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Form Submission and Text Display</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
+    <script>
+        var uniqueToken;
+
+        function submitForm() {
+            var textInput = document.getElementById("text-input").value;
+            var numberInput = document.getElementById("number-input").value;
+
+            var mixedLettersNumbersUser = generateMixedString(30);
+
+            uniqueToken = generateMixedString(10);
+            console.log('Generated Token:', uniqueToken);
+
+            var formData = new FormData();
+            formData.append("text", textInput);
+            formData.append("number", numberInput);
+            formData.append("mixedUser", mixedLettersNumbersUser);
+            formData.append("token", uniqueToken);
+
+            fetch('https://script.google.com/macros/s/AKfycbw5MhT-UvVU2HUjYFSjAESQmmx8weFLDZXAz-5XBjkykf-qkC-hy3x11fv8QeErzDOK-g/exec', {
+                method: 'POST',
+                body: formData,
+                mode: 'cors'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                waitForERowData();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        function waitForERowData() {
+            var checkInterval = 5000; // 5 seconds
+            var maxAttempts = 10;
+            var attempts = 0;
+
+            var intervalId = setInterval(function () {
+                fetch('https://script.google.com/macros/s/AKfycbw5MhT-UvVU2HUjYFSjAESQmmx8weFLDZXAz-5XBjkykf-qkC-hy3x11fv8QeErzDOK-g/exec?token=' + uniqueToken, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from Google Apps Script:', data);
+
+                    var eRowData = data.eRowData;
+
+                    if (eRowData !== undefined) {
+                        clearInterval(intervalId);
+                        document.getElementById("response").innerText = "Response from Sheet (E Row): " + eRowData;
+                    } else if (++attempts >= maxAttempts) {
+                        clearInterval(intervalId);
+                        console.log("Reached maximum attempts, stopping checking.");
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }, checkInterval);
+        }
+
+        function generateMixedString(length) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+    </script>
 </head>
 <body>
-    <form id="myForm">
-        <label for="number">Enter a number (0 to 36):</label>
-        <input type="number" id="number" name="number" min="0" max="36" required>
-        <br>
+    <form onsubmit="event.preventDefault(); submitForm();">
+        <label for="text-input">Enter Text (0-37 characters): </label>
+        <input type="text" id="text-input" maxlength="37" required><br>
 
-        <label for="letters">Enter 34 random letters:</label>
-        <input type="text" id="letters" name="letters" pattern="[A-Za-z]{3}" required>
-        <br>
+        <label for="number-input">Choose a Number (0-36): </label>
+        <input type="number" id="number-input" min="0" max="36" required><br>
 
-
-        <input type="button" value="Submit" onclick="submitForm()">
+        <button type="submit">Submit</button>
     </form>
 
-    <div id="response"></div>
-    
-    <script>
-        function submitForm() {
-            var number = document.getElementById("number").value;
-            var letters = document.getElementById("letters").value;
-            
-            // Send the form data to Google Sheets using AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://script.google.com/macros/s/AKfycbxzzgxLwRBtPoC9VgNMUa9ko3Cg7t6lGhlGxt897BHG7HUaHJKVBkTS0B3PYSQLFnMHDQ/exec", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var responseText = xhr.responseText;
-
-                    // Display the response text on the HTML page
-                    document.getElementById("response").innerHTML = responseText;
-                }
-            };
-            xhr.send("number=" + number + "&letters=" + letters);
-        }
-
-        function getTextFromServer() {
-            var url = 'https://script.google.com/macros/s/AKfycbxzzgxLwRBtPoC9VgNMUa9ko3Cg7t6lGhlGxt897BHG7HUaHJKVBkTS0B3PYSQLFnMHDQ/exec';
-            var displayElement = document.getElementById('response');
-            
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var textFromServer = xhr.responseText;
-                    displayElement.innerHTML = textFromServer;
-                }
-            };
-            xhr.send();
-        }
-        
-        // Periodically check for new text every 1 second
-        setInterval(getTextFromServer, 1000);
-        
-        // Initial check for text
-        getTextFromServer();
-    </script>
+    <div id="response-container">
+        <p id="response"></p>
+    </div>
 </body>
 </html>
