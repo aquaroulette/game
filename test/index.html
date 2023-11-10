@@ -38,8 +38,8 @@
         }
 
         function waitForERowData() {
-            var checkInterval = 5000; // 5 seconds
-            var maxAttempts = 10;
+            var checkInterval = 2000; // 5 seconds
+            var maxAttempts = 200;
             var attempts = 0;
 
             var intervalId = setInterval(function () {
@@ -69,7 +69,7 @@
 
         function generateMixedString(length) {
             var result = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var characters = '!@#$%^&*()_+*-qwertyuiop[]asdfghjkl;zxcvbnm,./1234567890';
             for (var i = 0; i < length; i++) {
                 result += characters.charAt(Math.floor(Math.random() * characters.length));
             }
