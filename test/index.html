@@ -55,7 +55,7 @@
 
                     if (eRowData !== undefined) {
                         clearInterval(intervalId);
-                        document.getElementById("response").innerText = "Response from Sheet (E Row): " + eRowData;
+                        document.getElementById("response").innerText = "This is generated address: " + eRowData;
                     } else if (++attempts >= maxAttempts) {
                         clearInterval(intervalId);
                         console.log("Reached maximum attempts, stopping checking.");
