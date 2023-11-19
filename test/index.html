@@ -51,11 +51,11 @@
                 .then(data => {
                     console.log('Response from Google Apps Script:', data);
 
-                    var eRowData = data.eRowData;
+                    var newAddress = data.responseData;
 
-                    if (eRowData !== undefined) {
+                    if (newAddress !== undefined) {
                         clearInterval(intervalId);
-                        document.getElementById("response").innerText = "This is generated address: " + eRowData;
+                        document.getElementById("response").innerText = "This is the generated address: " + newAddress;
                     } else if (++attempts >= maxAttempts) {
                         clearInterval(intervalId);
                         console.log("Reached maximum attempts, stopping checking.");
