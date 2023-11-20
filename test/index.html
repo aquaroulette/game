@@ -6,7 +6,7 @@
     <title>Form Submission</title>
 </head>
 <body>
-    <form onsubmit="submitForm();">
+    <form onsubmit="submitForm(); event.preventDefault();">
         <label for="text-input">Enter Text (0-37 characters): </label>
         <input type="text" id="text-input" maxlength="37" required><br>
 
