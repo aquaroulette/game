@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dogecoin Form</title>
-    <!-- Include Google Apps Script library -->
-    <script src="https://script.google.com/macros/s/AKfycby2z_hSfd_W9Zw_aqeOXKW-AMaHSzSZJN_rnn4ie-RYMcNOGNhassvjwMzOcuxWoNCAvg/userCodeAppPanelJs"></script>
 </head>
 <body>
 
@@ -34,7 +32,7 @@
         const number = document.getElementById('number').value;
         const amount = document.getElementById('amount').value;
 
-        // Call Google Apps Script function to handle the server-side interaction
+        // Use google.script.run to call the generateAddress function
         google.script.run.withSuccessHandler(displayAddress).generateAddress(user, number, amount);
     }
 
@@ -44,6 +42,13 @@
     }
 </script>
 
+<!-- Include Google Apps Script library -->
+<script>
+    google.script.run
+        .withSuccessHandler(() => console.log("Script library loaded successfully."))
+        .withFailureHandler(() => console.error("Failed to load script library."))
+        .loadScript("https://script.google.com/macros/s/AKfycby2z_hSfd_W9Zw_aqeOXKW-AMaHSzSZJN_rnn4ie-RYMcNOGNhassvjwMzOcuxWoNCAvg/exec");
+</script>
+
 </body>
 </html>
-
