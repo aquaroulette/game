@@ -4,7 +4,85 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <head>
 <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        var uniqueToken;
 
+        function submitForm() {
+            var textInput = document.getElementById("text-input").value;
+            var numberInput = document.getElementById("number-input").value;
+
+            var mixedLettersNumbersUser = generateMixedString(30);
+
+            uniqueToken = generateMixedString(10);
+            console.log('Generated Token:', uniqueToken);
+
+            var formData = new FormData();
+            formData.append("text", textInput);
+            formData.append("number", numberInput);
+            formData.append("mixedUser", mixedLettersNumbersUser);
+            formData.append("token", uniqueToken);
+
+            // Update the web app URL
+            var webAppUrl = 'https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec';
+
+            fetch(webAppUrl, {
+                method: 'POST',
+                body: formData,
+                mode: 'cors'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                waitForERowData();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        function waitForERowData() {
+            var checkInterval = 1000; // 5 seconds
+            var maxAttempts = 200;
+            var attempts = 0;
+
+            var intervalId = setInterval(function () {
+                fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from Google Apps Script:', data);
+
+                    var eRowData = data.eRowData;
+
+                    if (eRowData !== undefined) {
+                        clearInterval(intervalId);
+                        document.getElementById("response").innerText = "This is generated address: " + eRowData;
+                    } else if (++attempts >= maxAttempts) {
+                        clearInterval(intervalId);
+                        console.log("Reached maximum attempts, stopping checking.");
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }, checkInterval);
+        }
+
+        function generateMixedString(length) {
+            var result = '';
+            var characters = '!@#$%^&*(){}"?><.,/+thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        function setNumberInput(value) {
+            document.getElementById("number-input").value = value;
+        }
+    </script>
 </head>
 <body>
 <h1 class="h1">AquaRoulette</h1>
@@ -12,8 +90,8 @@
 <iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
 </div>
 <script type="text/javascript">var submitted=false;</script>
-<iframe name="hidden_iframe" id="hidden_iframe" style="display: none" onload="if(submitted){window.location='check_email/index.html';}"></iframe>
-<form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdq2WKL6GjKVZMnFmgY87bYANA-N5Tsc6-eGSidU5LlhrDwEQ/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true" class="myform">
+
+
 <center>	
 <div id="textcolor" style="margin-top:0%";><b>Choose your number:</b></div>
 <hr style="Margin:1px auto; margin-bottom:-20px;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">	
