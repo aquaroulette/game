@@ -3,94 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Submission</title>
+    <title>Dogecoin Form</title>
 </head>
 <body>
-    <form onsubmit="submitForm(); event.preventDefault();">
-        <label for="text-input">Enter Text (0-37 characters): </label>
-        <input type="text" id="text-input" maxlength="37" required><br>
 
-        <label for="number-input">Choose a Number (0-36): </label>
-        <input type="number" id="number-input" min="0" max="36" required><br>
+<form id="dogecoinForm">
+    <label for="user">User:</label>
+    <input type="text" id="user" name="user" required><br>
 
-        <button type="submit">Submit</button>
-    </form>
+    <label for="number">Number (0-36):</label>
+    <input type="number" id="number" name="number" min="0" max="36" required><br>
 
-    <div id="response-container">
-        <p id="response"></p>
-    </div>
+    <label for="amount">Amount:</label>
+    <select id="amount" name="amount">
+        <option value="100">100 DOGE</option>
+        <option value="1000">1000 DOGE</option>
+        <option value="10000">10000 DOGE</option>
+    </select><br>
 
-    <script>
-        var uniqueToken;
+    <button type="button" onclick="submitForm()">Submit</button>
+</form>
 
-        function submitForm() {
-            var textInput = document.getElementById("text-input").value;
-            var numberInput = document.getElementById("number-input").value;
+<div id="response"></div>
 
-            var mixedLettersNumbersUser = generateMixedString(30);
+<script>
+    async function submitForm() {
+        const user = document.getElementById('user').value;
+        const number = document.getElementById('number').value;
+        const amount = document.getElementById('amount').value;
 
-            uniqueToken = generateMixedString(10);
-            console.log('Generated Token:', uniqueToken);
+        // Call Google Apps Script function to handle the server-side interaction
+        google.script.run.withSuccessHandler(displayAddress).generateAddress(user, number, amount);
+    }
 
-            var formData = new FormData();
-            formData.append("text", textInput);
-            formData.append("number", numberInput);
-            formData.append("mixedUser", mixedLettersNumbersUser);
-            formData.append("token", uniqueToken);
+    function displayAddress(address) {
+        // Display the address in the HTML
+        document.getElementById('response').innerText = `New address: ${address}`;
+    }
+</script>
 
-            fetch('https://script.google.com/macros/s/AKfycbyBp8wMYba4oG1vMmqeynIxcL8IDEMywARKQ8W2-F7-PYHYGGKXxXTCg0oD-DbSA2jrDw/exec', {
-                method: 'POST',
-                body: formData,
-                mode: 'cors'
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                waitForERowData();
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-
-        function waitForERowData() {
-            var checkInterval = 1000; // 5 seconds
-            var maxAttempts = 200;
-            var attempts = 0;
-
-            var intervalId = setInterval(function () {
-                fetch('https://script.google.com/macros/s/AKfycbyBp8wMYba4oG1vMmqeynIxcL8IDEMywARKQ8W2-F7-PYHYGGKXxXTCg0oD-DbSA2jrDw/exec?token=' + uniqueToken, {
-                    method: 'GET',
-                    mode: 'cors'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Response from Google Apps Script:', data);
-
-                    var eRowData = data.eRowData;
-
-                    if (eRowData !== undefined) {
-                        clearInterval(intervalId);
-                        document.getElementById("response").innerText = "This is the generated address: " + eRowData;
-                    } else if (++attempts >= maxAttempts) {
-                        clearInterval(intervalId);
-                        console.log("Reached maximum attempts, stopping checking.");
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-            }, checkInterval);
-        }
-
-        function generateMixedString(length) {
-            var result = '';
-            var characters = '!@#$%^&*(){}"?><.,/+thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            return result;
-        }
-    </script>
 </body>
 </html>
