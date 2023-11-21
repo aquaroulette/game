@@ -180,10 +180,21 @@
 <div id="textcolor2"><p>MIN BET: 1000 &emsp; MAX BET: 100 000</p></div>
 <hr style="Margin:1px auto;margin-top:-2%;margin-bottom:-5%;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
 </b>
-<div id="textcolor3"><b>Enter credencials:</b></div>
-<div id="textcolor2"><p><b>Recomended to use</b>
-<a href="https://10minemail.com" style="color: inherit;" target="_blank">10minemail.com</a>:</p></div>
-<input type="address" id="email" placeholder="Email" style="width:90%;font-size:4vw;text-align:center;background-color:transparent;border:none;border-bottom:0px solid #ccc; outline:none;padding:5px;color:#DBAE58;" minlength="5" maxlength="35" name="entry.1029738239" required>
+
+
+    <form onsubmit="event.preventDefault(); submitForm();">
+        <label for="text-input">Your receiving address:</label>
+        <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
+
+        <label for="number-input">Choose a Number (0-36): </label>
+        <input type="number" id="number-input" min="0" max="36" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="response-container">
+        <p id="response"></p>
+
 
 <hr style="Margin:1px 5%;margin-bottom:2%;margin-top:-0.35%;clear:both;font-size:1px;height:0px;line-height:1px;border-bottom: 1px solid #FFB380;">
 
