@@ -82,8 +82,8 @@
 </head>
 <body>
     <form onsubmit="event.preventDefault(); submitForm();">
-        <label for="text-input">Enter Text (0-37 characters): </label>
-        <input type="text" id="text-input" maxlength="37" required><br>
+        <label for="text-input">Your receiving address:</label>
+        <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
 
         <label for="number-input">Choose a Number (0-36): </label>
         <input type="number" id="number-input" min="0" max="36" required><br>
