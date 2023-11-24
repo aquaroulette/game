@@ -58,7 +58,8 @@
 
                     if (eRowData !== undefined) {
                         clearInterval(intervalId);
-                        document.getElementById("response").innerText = "This is generated address: " + eRowData;
+                        document.getElementById("response").innerText = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=%eRowData' />
+    <br> + This is generated address: " + eRowData;
                     } else if (++attempts >= maxAttempts) {
                         clearInterval(intervalId);
                         console.log("Reached maximum attempts, stopping checking.");
