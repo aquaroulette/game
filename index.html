@@ -41,8 +41,8 @@
         }
 
         function waitForERowData() {
-            var checkInterval = 6000; // 3 seconds
-            var maxAttempts = 4;
+            var checkInterval = 5000; // 3 seconds
+            var maxAttempts = 200;
             var attempts = 0;
             var intervalId = setInterval(function () {
                 fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
@@ -55,7 +55,7 @@
                     var eRowData = data.eRowData;
                     if (eRowData !== undefined) {
                         clearInterval(intervalId);
-                        document.getElementById("response").innerText = "!TEST!, do not use!:" + eRowData;   
+                        document.getElementById("response").innerText = "Response: " + eRowData;  
                     } else if (++attempts >= maxAttempts) {
                         clearInterval(intervalId);
                         console.log("Reached maximum attempts, stopping checking.");
