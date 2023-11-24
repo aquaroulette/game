@@ -56,10 +56,32 @@
 
                     var eRowData = data.eRowData;
 
+
+
+
                     if (eRowData !== undefined) {
-                        clearInterval(intervalId);
-                        document.getElementById("response").innerText = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=%eRowData' />
-    <br> + This is generated address: " + eRowData;
+                    clearInterval(intervalId);
+    
+    // Display the received address
+    document.getElementById("response").innerText = "This is the generated address: " + eRowData;
+
+    // Generate and display the QR code
+    var qrCodeUrl = "https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(eRowData);
+    
+    // Create an image element for the QR code
+    var qrCodeImg = document.createElement("img");
+    qrCodeImg.src = qrCodeUrl;
+
+    // Append the image element to a container div (assuming you have a div with id "qrCodeContainer")
+    document.getElementById("qrCodeContainer").appendChild(qrCodeImg);
+}
+
+
+
+                    
+
+
+                    
                     } else if (++attempts >= maxAttempts) {
                         clearInterval(intervalId);
                         console.log("Reached maximum attempts, stopping checking.");
