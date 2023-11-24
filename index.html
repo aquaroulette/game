@@ -41,10 +41,9 @@
         }
 
         function waitForERowData() {
-            var checkInterval = 3200; // 3 seconds
+            var checkInterval = 100; // 3 seconds
             var maxAttempts = 200;
             var attempts = 0;
-
             var intervalId = setInterval(function () {
                 fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
                     method: 'GET',
@@ -53,7 +52,6 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Response from Google Apps Script:', data);
-
                     var eRowData = data.eRowData;
                     if (eRowData !== undefined) {
                         clearInterval(intervalId);
