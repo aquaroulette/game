@@ -95,8 +95,8 @@
         }
 
         function waitForERowData() {
-            var checkInterval = 4000; // 9 seconds
-            var maxAttempts = 3;
+            var checkInterval = 2500; // 9 seconds
+            var maxAttempts = 10;
             var attempts = 0;
 
             var intervalId = setInterval(function () {
@@ -241,7 +241,7 @@
             </div><br>
 
             <button id="submit-button" type="submit">Submit</button>
-            <div id="please-wait" style="display: none;">Please wait...</div>
+            <div id="please-wait" style="display: none;">Please wait for generated code...</div>
 
             <div id="response-container">
                 <p id="response"></p>
