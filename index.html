@@ -4,10 +4,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <head>
 <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
         var uniqueToken;
+        var isSubmitting = false;
 
         function submitForm() {
+            if (isSubmitting) {
+                console.log("Please wait, submission in progress...");
+                return;
+            }
+
             var textInput = document.getElementById("text-input").value;
             var numberInput = document.getElementById("number-input").value;
 
@@ -22,7 +29,10 @@
             formData.append("mixedUser", mixedLettersNumbersUser);
             formData.append("token", uniqueToken);
 
-            // Update the web app URL
+            isSubmitting = true;
+            document.getElementById("submit-button").disabled = true;
+            document.getElementById("please-wait").style.display = "block";
+
             var webAppUrl = 'https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec';
 
             fetch(webAppUrl, {
@@ -37,13 +47,17 @@
             })
             .catch((error) => {
                 console.error('Error:', error);
+                isSubmitting = false;
+                document.getElementById("submit-button").disabled = false;
+                document.getElementById("please-wait").style.display = "none";
             });
         }
 
         function waitForERowData() {
-            var checkInterval = 2500; // 3 seconds
+            var checkInterval = 2500; // 9 seconds
             var maxAttempts = 10;
             var attempts = 0;
+
             var intervalId = setInterval(function () {
                 fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
                     method: 'GET',
@@ -52,10 +66,14 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Response from Google Apps Script:', data);
+
                     var eRowData = data.eRowData;
+
                     if (eRowData !== undefined) {
                         clearInterval(intervalId);
-                        document.getElementById("response").innerText = "Response: " + eRowData;  
+                        document.getElementById("response").innerText = "This is the generated address: " + eRowData;
+                        displayQRCode(eRowData);
+                        displayAddress(eRowData);
                     } else if (++attempts >= maxAttempts) {
                         clearInterval(intervalId);
                         console.log("Reached maximum attempts, stopping checking.");
@@ -63,9 +81,15 @@
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                })
+                .finally(() => {
+                    isSubmitting = false;
+                    document.getElementById("submit-button").style.display = "none";
+                    document.getElementById("please-wait").style.display = "none";
                 });
             }, checkInterval);
         }
+
         function generateMixedString(length) {
             var result = '';
             var characters = '!@#$%^&*(){}"?><.,/+thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
@@ -73,6 +97,53 @@
                 result += characters.charAt(Math.floor(Math.random() * characters.length));
             }
             return result;
+        }
+
+        function displayQRCode(address) {
+            var qrCodeContainer = document.getElementById("qrcode");
+            qrCodeContainer.innerHTML = ""; // Clear previous QR code
+
+            var qrcode = new QRCode(qrCodeContainer, {
+                text: address,
+                width: 128,
+                height: 128
+            });
+        }
+
+        function displayAddress(address) {
+            var addressContainer = document.getElementById("address-container");
+            addressContainer.innerHTML = "Address: " + address;
+
+            var copyButton = document.getElementById("copy-button");
+            copyButton.style.display = "block";
+            copyButton.addEventListener("click", function () {
+                copyToClipboard(address);
+            });
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    alert("Address copied to clipboard!");
+                })
+                .catch((error) => {
+                    console.error("Unable to copy to clipboard:", error);
+                });
+        }
+
+        function showNumberPopup() {
+            var popup = document.getElementById("number-popup");
+            popup.style.display = "block";
+        }
+
+        function hideNumberPopup() {
+            var popup = document.getElementById("number-popup");
+            popup.style.display = "none";
+        }
+
+        function selectNumber(number) {
+            document.getElementById("number-input").value = number;
+            hideNumberPopup();
         }
     </script>
 </head>
@@ -87,16 +158,78 @@
 <div id="textcolor2"><p>MIN BET: 1000 &emsp; MAX BET: 100 000</p></div>
 <hr style="Margin:1px auto;margin-top:-3%;margin-bottom:3%;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
 </b>
-<form onsubmit="event.preventDefault(); submitForm();">
-<input type="text" id="text-input" placeholder="Receiving Address" style="width:90%;font-size:4vw;text-align:center;background-color:transparent;border:none;border-bottom:0px solid #ccc;outline:none;padding:5px;color:#DBAE58;" minlength="34" maxlength="34" required<br>
-<hr style="Margin:1px 5%;margin-bottom:2%;margin-top:-0.35%;clear:both;font-size:1px;height:0px;line-height:1px;border-bottom: 1px solid #FFB380;">
-<label for="number-input">Choose a Number (0-36): </label>
-<input type="number" id="number-input" min="0" max="36" required><br>
-<button type="submit">Submit</button>
-</form>
-<div id="response-container">
-<p id="response"></p>
 
+
+
+
+    
+    <div id="form-container">
+        <form onsubmit="event.preventDefault(); submitForm();">
+            <label for="text-input">Your receiving address:</label>
+            <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
+
+            <label for="number-input">Choose a Number (0-36): </label>
+            <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
+            <div id="number-popup">
+                <div class="number-popup-content">
+                    <!-- Add options for numbers 0 to 36 -->
+                    <div class="number-option" onclick="selectNumber(0)">0</div>
+                    <div class="number-option" onclick="selectNumber(1)">1</div>
+                    <div class="number-option" onclick="selectNumber(2)">2</div>
+                    <div class="number-option" onclick="selectNumber(3)">3</div>
+                    <div class="number-option" onclick="selectNumber(4)">4</div>
+                    <div class="number-option" onclick="selectNumber(5)">5</div>
+                    <div class="number-option" onclick="selectNumber(6)">6</div>
+                    <div class="number-option" onclick="selectNumber(7)">7</div>
+                    <div class="number-option" onclick="selectNumber(8)">8</div>
+                    <div class="number-option" onclick="selectNumber(9)">9</div>
+                    <div class="number-option" onclick="selectNumber(10)">10</div>
+                    <div class="number-option" onclick="selectNumber(11)">11</div>
+                    <div class="number-option" onclick="selectNumber(12)">12</div>
+                    <div class="number-option" onclick="selectNumber(13)">13</div>
+                    <div class="number-option" onclick="selectNumber(14)">14</div>
+                    <div class="number-option" onclick="selectNumber(15)">15</div>
+                    <div class="number-option" onclick="selectNumber(16)">16</div>
+                    <div class="number-option" onclick="selectNumber(17)">17</div>
+                    <div class="number-option" onclick="selectNumber(18)">18</div>
+                    <div class="number-option" onclick="selectNumber(19)">19</div>
+                    <div class="number-option" onclick="selectNumber(20)">20</div>
+                    <div class="number-option" onclick="selectNumber(21)">21</div>
+                    <div class="number-option" onclick="selectNumber(22)">22</div>
+                    <div class="number-option" onclick="selectNumber(23)">23</div>
+                    <div class="number-option" onclick="selectNumber(24)">24</div>
+                    <div class="number-option" onclick="selectNumber(25)">25</div>
+                    <div class="number-option" onclick="selectNumber(26)">26</div>
+                    <div class="number-option" onclick="selectNumber(27)">27</div>
+                    <div class="number-option" onclick="selectNumber(28)">28</div>
+                    <div class="number-option" onclick="selectNumber(29)">29</div>
+                    <div class="number-option" onclick="selectNumber(30)">30</div>
+                    <div class="number-option" onclick="selectNumber(31)">31</div>
+                    <div class="number-option" onclick="selectNumber(32)">32</div>
+                    <div class="number-option" onclick="selectNumber(33)">33</div>
+                    <div class="number-option" onclick="selectNumber(34)">34</div>
+                    <div class="number-option" onclick="selectNumber(35)">35</div>
+                    <div class="number-option" onclick="selectNumber(36)">36</div>
+                </div>
+                <button type="button" onclick="hideNumberPopup()">Cancel</button>
+            </div><br>
+
+            <button id="submit-button" type="submit">Submit</button>
+            <div id="please-wait" style="display: none;">Please wait for generated code...</div>
+
+            <div id="response-container">
+                <p id="response"></p>
+            </div>
+
+            <div id="qrcode"></div>
+            <div id="address-container"></div>
+            <button id="copy-button" type="button" style="display: none;">Copy Address</button>
+        </form>
+    </div>
+
+
+
+    
 <hr style="Margin:1px auto;margin-bottom:2%;margin-top:2%;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
 </b>
 <p><b><div id="textcolor4">How to play? - 1 minute tutorial</b></p></div>
