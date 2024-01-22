@@ -31,7 +31,7 @@ body {
             transform: translate(-50%, -50%);
             background-color: #f9f9f9;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 4px solid #ccc;
             z-index: 1;
         }
 
@@ -41,40 +41,28 @@ body {
             justify-content: space-between;
         }
 
-        .number-option {
-            margin: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
-
-
-
-
-.green {
+.number-green {
   user-select: none;
   background: #228b22;
   border-radius: 50%;
   color: #ffffff;
   display: inline-block;
   font-weight: bold;
-  font-size: 4vw;
+  font-size: 2vw;
   margin: 0%;
-  margin-top: 5%;
-  margin-bottom: 1%;
+  margin-top: 4%;
   line-height: 200%;
   text-align: center;
   width: 8%;
 }
-
-.red {
+.number-red {
   user-select: none;
   background: red;
   border-radius: 50%;
   color: #ffffff;
   display: inline-block;
   font-weight: bold;
-  font-size: 4vw;
+  font-size: 2vw;
   margin: 0;
   margin-top: 4%;
   line-height: 200%;
@@ -82,14 +70,14 @@ body {
   width: 8%;
 }
 
-.black {
+.number-black {
   user-select: none;
   background-color: #000000;
   border-radius: 50%;
   color: #ffffff;
   display: inline-block;
   font-weight: bold;
-  font-size: 4vw;
+  font-size: 2vw;
   margin: 0;
   margin-top: 4%;
   line-height: 200%;
@@ -97,15 +85,15 @@ body {
   width: 8%;
 }
 
-.green:hover {
+.number-green:hover {
   background: #5EA226;
 }
 
-.red:hover {
+.number-red:hover {
   background: #FF8886;
 }
 
-.black:hover {
+.number-black:hover {
   background: #444444;
 }
 
