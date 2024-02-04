@@ -72,7 +72,7 @@
 
                     if (eRowData !== undefined) {
                         clearInterval(intervalId);
-                        document.getElementById("response").innerText = "This is the generated address: " + eRowData;
+                        
                         displayQRCode(eRowData);
                         displayAddress(eRowData);
                     } else if (++attempts >= maxAttempts) {
