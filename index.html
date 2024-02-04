@@ -146,28 +146,6 @@
             document.getElementById("number-input").value = number;
             hideNumberPopup();
         }
-        function displayQRCode(address) {
-    var qrCodeContainer = document.getElementById("qrcode");
-    qrCodeContainer.innerHTML = ""; // Clear previous QR code
-
-    var qrcode = new QRCode(qrCodeContainer, {
-        text: address,
-        width: 128,
-        height: 128
-    });
-
-    // Show the "Catch again" button
-    document.getElementById("catch-again-button").style.display = "block";
-}
-
-function catchQRCodeAgain() {
-    // Hide the "Catch again" button
-    document.getElementById("catch-again-button").style.display = "none";
-    
-    // Call the function to submit the form again
-    submitForm();
-}
-
     </script>
 </head>
 <body>
@@ -246,8 +224,6 @@ function catchQRCodeAgain() {
             <div id="qrcode"></div>
             <div id="address-container"></div>
             <button id="copy-button" type="button" style="display: none;">Copy Address</button>
-            <button id="catch-again-button" type="button" style="display: none;" onclick="catchQRCodeAgain()">Catch again</button>
-
         </form>
     </div>
 </center>  
