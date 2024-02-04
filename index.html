@@ -55,9 +55,9 @@
         }
 
         function waitForERowData() {
-            var checkInterval = 2500; // 9 seconds
+            var checkInterval = 4700; // 9 seconds
             var maxAttempts = 10;
-            var attempts = 0;
+            var attempts = 3;
 
             var intervalId = setInterval(function () {
                 fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
