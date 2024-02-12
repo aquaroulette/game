@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
-    <script>
+<script>
         var uniqueToken;
         var isSubmitting = false;
 
@@ -53,42 +53,68 @@
             });
         }
 
-        function waitForERowData() {
-            var checkInterval = 4700; // 9 seconds
-            var maxAttempts = 3;
-            var attempts = 3;
 
-            var intervalId = setInterval(function () {
-                fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
-                    method: 'GET',
-                    mode: 'cors'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Response from Google Apps Script:', data);
+function waitForERowData() {       
+    var checkInterval = 4000; // 9 seconds
+    var maxAttempts = 10;
+    var attempts = 0;
 
-                    var eRowData = data.eRowData;
+    var intervalId = setInterval(function () {
+        fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
+            method: 'GET',
+            mode: 'cors'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from Google Apps Script:', data);
 
-                    if (eRowData !== undefined) {
-                        clearInterval(intervalId);
-                        
-                        displayQRCode(eRowData);
-                        displayAddress(eRowData);
-                    } else if (++attempts >= maxAttempts) {
-                        clearInterval(intervalId);
-                        console.log("Reached maximum attempts, stopping checking.");
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                })
-                .finally(() => {
-                    isSubmitting = false;
-                    document.getElementById("submit-button").style.display = "none";
-                    document.getElementById("please-wait").style.display = "none";
-                });
-            }, checkInterval);
-        }
+            var eRowData = data.eRowData;
+
+            if (eRowData !== undefined) {
+                clearInterval(intervalId);
+                var qrLink = 'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=' + eRowData;
+                displayQRCode(qrLink);
+                displayAddress(eRowData);
+            } else if (++attempts >= maxAttempts) {
+                clearInterval(intervalId);
+                console.log("Reached maximum attempts, stopping checking.");
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            isSubmitting = false;
+            document.getElementById("submit-button").style.display = "none";
+            document.getElementById("please-wait").style.display = "none";
+        });
+    }, checkInterval);
+}
+
+function displayQRCode(address) {
+    // Append the received address to the Google Chart API URL
+    var qrCodeUrl = "https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=" + encodeURIComponent(address);
+
+    // Create an img element
+    var qrCodeImage = document.createElement("img");
+
+    // Set the src attribute to the generated URL
+    qrCodeImage.src = qrCodeUrl;
+
+    // Set the dimensions of the image
+    qrCodeImage.width = 100;
+    qrCodeImage.height = 100;
+
+    // Get the container where you want to display the QR code
+    var qrCodeContainer = document.getElementById("qrcode");
+
+    // Clear previous content
+    qrCodeContainer.innerHTML = "";
+
+    // Append the image to the container
+    qrCodeContainer.appendChild(qrCodeImage);
+}
+
 
         function generateMixedString(length) {
             var result = '';
@@ -99,16 +125,7 @@
             return result;
         }
 
-        function displayQRCode(address) {
-            var qrCodeContainer = document.getElementById("qrcode");
-            qrCodeContainer.innerHTML = ""; // Clear previous QR code
 
-            var qrcode = new QRCode(qrCodeContainer, {
-                text: address,
-                width: 128,
-                height: 128
-            });
-        }
 
         function displayAddress(address) {
             var addressContainer = document.getElementById("address-container");
