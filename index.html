@@ -5,7 +5,6 @@
 <head>
 <link rel="stylesheet" type="text/css" href="styles.css">
 
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
         var uniqueToken;
         var isSubmitting = false;
@@ -55,9 +54,9 @@
         }
 
         function waitForERowData() {
-            var checkInterval = 7000;
-            var maxAttempts = 2;
-            var attempts = 2;
+            var checkInterval = 4700; // 9 seconds
+            var maxAttempts = 3;
+            var attempts = 3;
 
             var intervalId = setInterval(function () {
                 fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
@@ -135,6 +134,7 @@
         function showNumberPopup() {
             var popup = document.getElementById("number-popup");
             popup.style.display = "block";
+			popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
         }
 
         function hideNumberPopup() {
@@ -149,22 +149,7 @@
     </script>
 </head>
 <body>
-<h1 class="h1">AquaRoulette</h1>
-<div class="video-container">
-<iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
-</div>
-<b>
-<hr style="Margin:1px auto;margin-top:3%;margin-bottom:-3%;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
-<div id="textcolor2"><p>Payout: 36:1</p></div>
-<div id="textcolor2"><p>MIN BET: 1000 &emsp; MAX BET: 100 000</p></div>
-<hr style="Margin:1px auto;margin-top:-3%;margin-bottom:3%;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
-</b>
-
-
-
-
-    
-    <div id="form-container">
+ <div id="form-container">
         <form onsubmit="event.preventDefault(); submitForm();">
             <label for="text-input">Your receiving address:</label>
             <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
@@ -227,7 +212,9 @@
         </form>
     </div>
 </center>  
-<hr style="Margin:1px auto;margin-bottom:2%;margin-top:2%;clear:both;font-size:1px;height:0px;line-height:1px;" class="grey">
-<center>
+<div class="video-container">
+<iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
+</div>
+<b>
 </body>
 </html>
