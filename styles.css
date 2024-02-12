@@ -5,25 +5,61 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  max-width: 1500px
-  height: auto;
+  height: 100%;
   margin: 0;
   padding: 0;
   top: 0;
   bottom: 0;
-  overflow: auto;
-  overflow-y: scroll;
+  overflow: hidden;
+  overflow-y: hidden;
   overflow-x: hidden;
+}
+#form-container {
+    position: absolute;
+    z-index: 2; /* Ensure the form container stays on top of other elements */
+    text-align: center;
+    max-width: 400px;
+    margin-top: 42%;
+    left: 50%;
 }
 
 
-        #form-container {
-            text-align: center;
-            max-width: 400px;
-            margin: auto;
-        }
 
-        #number-popup {
+
+
+
+
+
+.video-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1400px;
+    height: 90%;
+    overflow: hidden;
+}
+
+/* Ensure the iframe fills the video container */
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+#number-popup {
             display: none;
             position: fixed;
             top: 35%;
@@ -52,11 +88,13 @@ body {
   font-weight: bold;
   font-size: 2vw;
   margin: 0%;
-  margin-top: 4%;
+  margin-top: 2%;
   line-height: 200%;
   text-align: center;
-  width: 8%;
+  width: 8.5%;
+  height: 8%; /* Set the height to match the width */
 }
+
 .number-red {
   user-select: none;
   background: red;
@@ -65,11 +103,12 @@ body {
   display: inline-block;
   font-weight: bold;
   font-size: 2vw;
-  margin: 0;
-  margin-top: 4%;
+  margin: 0%;
+  margin-top: 2%;
   line-height: 200%;
   text-align: center;
-  width: 8%;
+  width: 8.5%;
+  height: 8%;
 }
 
 .number-black {
@@ -80,11 +119,12 @@ body {
   display: inline-block;
   font-weight: bold;
   font-size: 2vw;
-  margin: 0;
-  margin-top: 4%;
+  margin: 0%;
+  margin-top: 2%;
   line-height: 200%;
   text-align: center;
-  width: 8%;
+  width: 8.5%;
+  height: 8%;
 }
 
 .number-green:hover {
@@ -102,7 +142,6 @@ body {
 .green:active {
   background: #5EA226;
 }
-
 .confirm {
   padding: 0.3em 1em;
   border-radius: 13% 13%;
@@ -116,25 +155,12 @@ body {
   margin-bottom: 1%;
   font-size: 4vw;
 }
-
 .confirm:hover {
   background: #6AB186;
 }
-
-.divv {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
 input::placeholder {
   font-size: 20px;
 }
-
 #textcolor {
   user-select: none;
   color: #FFFFFF;
@@ -142,13 +168,11 @@ input::placeholder {
   margin-top: 1%;
   margin-bottom: 1%;
 }
-
 #textcolor2 {
   user-select: none;
   color: #FFFFFF;
   font-size: 4vw;
 }
-
 #textcolor3 {
   user-select: none;
   color: #FFFFFF;
@@ -156,7 +180,6 @@ input::placeholder {
   margin-top: 7%;
   margin-bottom: -2%;
 }
-
 #textcolor4 {
   user-select: none;
   color: #FFFFFF;
@@ -164,19 +187,16 @@ input::placeholder {
   margin-top: 1%;
   margin-bottom: -3%;
 }
-
 #textcolormin {
   user-select: none;
   color: #228b22;
   font-size: 4vw;
 }
-
 #textcolormax {
   user-select: none;
   color: red;
   font-size: 4vw;
 }
-
 h1 {
   user-select: none;
   font-size: 7vw;
@@ -186,7 +206,6 @@ h1 {
   text-shadow: 3px 3px #000;
   animation: pulse 30s infinite;
 }
-
 @keyframes pulse {
   0% {
     color: #9b7ced;
@@ -198,33 +217,14 @@ h1 {
     color: #9b7ced;
   }
 }
-
 input[type="address"]::placeholder {
   font-size: 3vw;
   text-align: center;
 }
-
 input[type="radio"] {
   visibility: 10%;
   input: required;
   margin: 0%;
-}
-
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  /* 16:9 aspect ratio (change based on your video aspect ratio) */
-  padding-top: 30px;
-  height: 0;
-  overflow: hidden;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 5%;
-  width: 90%;
-  height: 100%;
 }
 
 ::placeholder {
