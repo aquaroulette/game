@@ -55,7 +55,7 @@
 
 
 function waitForERowData() {       
-    var checkInterval = 9000; // 9 seconds
+    var checkInterval = 20000; // 9 seconds
     var maxAttempts = 10;
     var attempts = 0;
 
@@ -102,8 +102,8 @@ function displayQRCode(address) {
     qrCodeImage.src = qrCodeUrl;
 
     // Set the dimensions of the image
-    qrCodeImage.width = 100;
-    qrCodeImage.height = 100;
+    qrCodeImage.width = 250;
+    qrCodeImage.height = 250;
 
     // Get the container where you want to display the QR code
     var qrCodeContainer = document.getElementById("qrcode");
