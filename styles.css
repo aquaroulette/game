@@ -16,7 +16,7 @@ body {
 }
 #form-container {
     position: absolute;
-    z-index: 2; /* Ensure the form container stays on top of other elements */
+    z-index: 2;
     text-align: center;
     max-width: 400px;
     margin-top: 5%;
@@ -39,15 +39,6 @@ body {
     height: 90%;
     margin: 1% 2% auto;
 }
-
-
-
-
-
-
-
-
-
 
 #number-popup {
             display: none;
