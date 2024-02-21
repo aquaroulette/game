@@ -47,7 +47,7 @@
 
 
 function waitForERowData() {       
-    var checkInterval = 1000; // 9 seconds
+    var checkInterval = 1000; // 10 seconds
     var maxAttempts = 10;
     var attempts = 0;
 
@@ -64,8 +64,7 @@ function waitForERowData() {
 
             if (eRowData !== undefined) {
                 clearInterval(intervalId);
-                var qrLink = 'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=' + eRowData;
-                displayQRCode(qrLink);
+                displayQRCode(eRowData);
                 displayAddress(eRowData);
             } else if (++attempts >= maxAttempts) {
                 clearInterval(intervalId);
