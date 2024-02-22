@@ -120,7 +120,7 @@ function displayQRCode(address) {
 
         function displayAddress(address) {
             var addressContainer = document.getElementById("address-container");
-            addressContainer.innerHTML = "Address: " + address;
+            addressContainer.innerHTML = address;
 
             var copyButton = document.getElementById("copy-button");
             copyButton.style.display = "block";
