@@ -84,7 +84,7 @@ function waitForERowData() {
 
 function displayQRCode(address) {
     // Append the received address to the Google Chart API URL
-    var qrCodeUrl = "https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=" + encodeURIComponent(address);
+    var qrCodeUrl = "https://chart.googleapis.com/chart?chs=170x170&cht=qr&chl=" + encodeURIComponent(address);
 
     // Create an img element
     var qrCodeImage = document.createElement("img");
@@ -93,8 +93,8 @@ function displayQRCode(address) {
     qrCodeImage.src = qrCodeUrl;
 
     // Set the dimensions of the image
-    qrCodeImage.width = 100;
-    qrCodeImage.height = 100;
+    qrCodeImage.width = 160;
+    qrCodeImage.height = 160;
 
     // Get the container where you want to display the QR code
     var qrCodeContainer = document.getElementById("qrcode");
