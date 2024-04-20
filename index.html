@@ -3,15 +3,18 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
 <head>
+<title>Aquaroulette</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
  <div id="form-container">
         <form onsubmit="event.preventDefault(); submitForm();">
-            <label for="text-input">:</label>
+	<b>
+            <label for="text-input">Your dogecoin deposit address:</label>
             <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
 
-            <label for="number-input">: </label>
+            <label for="number-input">Pick your lucky number heeere: </label>
+			</b></center>
             <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
             <div id="number-popup">
                 <div class="number-popup-content">
