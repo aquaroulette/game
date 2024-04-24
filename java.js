@@ -53,8 +53,8 @@ function waitForERowData() {
 
     isWaitingForERowData = true; // Set the flag to true indicating that the function is now running
 
-    var checkInterval = 5000; // 10 seconds
-    var maxAttempts = 2;
+    var checkInterval = 1000; // 10 seconds
+    var maxAttempts = 10;
     var attempts = 0;
 
     var intervalId = setInterval(function () {
