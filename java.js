@@ -46,7 +46,13 @@
         }
 
 
+var isWaitingForERowData = false; // Add a flag to track if the function is already running
+
 function waitForERowData() {       
+    if (isWaitingForERowData) return; // Check if already waiting, exit if true
+
+    isWaitingForERowData = true; // Set the flag to true indicating that the function is now running
+
     var checkInterval = 1000; // 10 seconds
     var maxAttempts = 10;
     var attempts = 0;
@@ -75,7 +81,7 @@ function waitForERowData() {
             console.error('Error:', error);
         })
         .finally(() => {
-            isSubmitting = false;
+            isWaitingForERowData = false; // Reset the flag when the function finishes running
             document.getElementById("submit-button").style.display = "none";
             document.getElementById("please-wait").style.display = "none";
         });
