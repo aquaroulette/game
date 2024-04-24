@@ -89,36 +89,22 @@ function waitForERowData() {
 }
 
 function displayQRCode(address) {
-    // Append the received address to the Google Chart API URL
-    var qrCodeUrl = "https://chart.googleapis.com/chart?chs=170x170&cht=qr&chl=" + encodeURIComponent(address);
-
-    // Log the generated QR code URL for debugging
-    console.log('QR Code URL:', qrCodeUrl);
-
-    // Create an img element
-    var qrCodeImage = document.createElement("img");
-
-    // Set the src attribute to the generated URL
-    qrCodeImage.src = qrCodeUrl;
-
-    // Set the dimensions of the image
-    qrCodeImage.width = 160;
-    qrCodeImage.height = 160;
-
-    // Get the container where you want to display the QR code
+    // Generate QR code using qrcode.js
     var qrCodeContainer = document.getElementById("qrcode");
+    qrCodeContainer.innerHTML = ""; // Clear previous content
 
-    // Clear previous content
-    qrCodeContainer.innerHTML = "";
+    var qrCode = new QRCode(qrCodeContainer, {
+        text: address,
+        width: 170,
+        height: 170
+    });
 
-    // Append the image to the container
-    qrCodeContainer.appendChild(qrCodeImage);
-
-    // Check if the image fails to load
-    qrCodeImage.onerror = function() {
-        console.error('Failed to load QR code image:', qrCodeUrl);
-        // Optionally, you can display a placeholder image or message here
-    };
+    // Set eRowData to the address
+    var eRowData = address;
+    
+    // Use eRowData for further processing or display
+    // For example:
+    console.log("eRowData:", eRowData);
 }
 
 
