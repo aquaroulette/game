@@ -92,6 +92,9 @@ function displayQRCode(address) {
     // Append the received address to the Google Chart API URL
     var qrCodeUrl = "https://chart.googleapis.com/chart?chs=170x170&cht=qr&chl=" + encodeURIComponent(address);
 
+    // Log the generated QR code URL for debugging
+    console.log('QR Code URL:', qrCodeUrl);
+
     // Create an img element
     var qrCodeImage = document.createElement("img");
 
@@ -110,7 +113,14 @@ function displayQRCode(address) {
 
     // Append the image to the container
     qrCodeContainer.appendChild(qrCodeImage);
+
+    // Check if the image fails to load
+    qrCodeImage.onerror = function() {
+        console.error('Failed to load QR code image:', qrCodeUrl);
+        // Optionally, you can display a placeholder image or message here
+    };
 }
+
 
 
         function generateMixedString(length) {
