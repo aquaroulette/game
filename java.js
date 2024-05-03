@@ -48,12 +48,12 @@
 
 var isWaitingForERowData = false; // Add a flag to track if the function is already running
 
-function waitForERowData() {       
-    if (isWaitingForERowData) return; // Check if already waiting, exit if true
+function waitForERowData() {
+    if (isWaitingForERowData) return;
 
-    isWaitingForERowData = true; // Set the flag to true indicating that the function is now running
+    isWaitingForERowData = true;
 
-    var checkInterval = 5000; // 10 seconds
+    var checkInterval = 5000; // 5 seconds
     var maxAttempts = 2;
     var attempts = 0;
 
@@ -69,11 +69,11 @@ function waitForERowData() {
             var eRowData = data.eRowData;
 
             if (eRowData !== undefined) {
-                clearInterval(intervalId);
+                clearInterval(intervalId); // Stop the interval
                 displayQRCode(eRowData);
                 displayAddress(eRowData);
             } else if (++attempts >= maxAttempts) {
-                clearInterval(intervalId);
+                clearInterval(intervalId); // Stop the interval if maximum attempts reached
                 console.log("Reached maximum attempts, stopping checking.");
             }
         })
@@ -81,12 +81,13 @@ function waitForERowData() {
             console.error('Error:', error);
         })
         .finally(() => {
-            isWaitingForERowData = false; // Reset the flag when the function finishes running
+            isWaitingForERowData = false;
             document.getElementById("submit-button").style.display = "none";
             document.getElementById("please-wait").style.display = "none";
         });
     }, checkInterval);
 }
+
 
 function displayQRCode(address) {
     // Construct the URL for generating the QR code
