@@ -90,7 +90,7 @@ function waitForERowData() {
 
 function displayQRCode(address) {
     // Construct the URL for generating the QR code
-    var qrCodeUrl = "https://chart.googleapis.com/chart?chs=170x170&cht=qr&chl=" + encodeURIComponent(address);
+    var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
 
     // Create an img element for the QR code
     var qrCodeImage = document.createElement("img");
