@@ -89,16 +89,25 @@ function waitForERowData() {
 }
 
 function displayQRCode(address) {
+    // Construct the URL for generating the QR code
+    var qrCodeUrl = "https://chart.googleapis.com/chart?chs=170x170&cht=qr&chl=" + encodeURIComponent(address);
+
+    // Create an img element for the QR code
+    var qrCodeImage = document.createElement("img");
+    qrCodeImage.src = qrCodeUrl;
+    qrCodeImage.width = 170; // Set the width of the QR code image
+    qrCodeImage.height = 170; // Set the height of the QR code image
+
+    // Get the container element where you want to display the QR code
     var qrCodeContainer = document.getElementById("qrCode");
-    qrCodeContainer.innerHTML = ""; // Clear previous content
-    var qrCode = new QRCode(qrCodeContainer, {
-        text: address,
-        width: 170,
-        height: 170
-    });
-    var eRowData = address;
-    console.log("eRowData:", eRowData);
+
+    // Clear previous content
+    qrCodeContainer.innerHTML = "";
+
+    // Append the QR code image to the container
+    qrCodeContainer.appendChild(qrCodeImage);
 }
+
 
 
 
