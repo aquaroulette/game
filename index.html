@@ -7,6 +7,7 @@
 <title>Aquaroulette</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
+<script src="java.js"></script>
 </head>
 <body>
  <div id="form-container">
@@ -15,7 +16,7 @@
             <label for="text-input">Your dogecoin deposit address:</label>
             <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
 
-            <label for="number-input">Pick your lucky number heeere: </label>
+            <label for="number-input">Pick your lucky number here: </label>
 			</b></center>
             <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
             <div id="number-popup">
@@ -77,7 +78,5 @@
 <div class="video-container">
 <iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" scrolling="no" frameborder="0" allowfullscreen></iframe>
 </div>
-<b>
-<script src="java.js"></script>
 </body>
 </html>
