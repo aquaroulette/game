@@ -89,21 +89,14 @@ function waitForERowData() {
 }
 
 function displayQRCode(address) {
-    // Generate QR code using qrcode.js
-    var qrCodeContainer = document.getElementById("qrcode");
+    var qrCodeContainer = document.getElementById("qrCode");
     qrCodeContainer.innerHTML = ""; // Clear previous content
-
     var qrCode = new QRCode(qrCodeContainer, {
         text: address,
         width: 170,
         height: 170
     });
-
-    // Set eRowData to the address
     var eRowData = address;
-    
-    // Use eRowData for further processing or display
-    // For example:
     console.log("eRowData:", eRowData);
 }
 
