@@ -123,16 +123,18 @@ function displayQRCode(address) {
 
 
 
-        function displayAddress(address) {
-            var addressContainer = document.getElementById("address-container");
-            addressContainer.innerHTML = address;
+function displayAddress(address) {
+    var addressContainer = document.getElementById("address-container");
+    addressContainer.innerHTML = address;
+    addressContainer.style.color = "white";
 
-            var copyButton = document.getElementById("copy-button");
-            copyButton.style.display = "block";
-            copyButton.addEventListener("click", function () {
-                copyToClipboard(address);
-            });
-        }
+    var copyButton = document.getElementById("copy-button");
+    copyButton.style.display = "block";
+    copyButton.addEventListener("click", function () {
+        copyToClipboard(address);
+    });
+}
+
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text)
