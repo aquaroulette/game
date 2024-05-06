@@ -53,7 +53,7 @@ function waitForERowData() {
 
     isWaitingForERowData = true;
 
-    var checkInterval = 2000; // 2 seconds
+    var checkInterval = 5000; // 5 seconds
     var maxAttempts = 20;
     var attempts = 0;
 
