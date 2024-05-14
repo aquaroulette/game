@@ -15,9 +15,10 @@ body {
 }
 .video-container {
     position: relative;
-    width: 98%;
+    width: 100%; /* Use full width for consistency */
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
     overflow: hidden;
+    margin: 0 auto; /* Centering the container */
 }
 
 .video-container iframe {
