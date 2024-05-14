@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-
-<html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+<html lang="en">
 <head>
-<title>Aquaroulette</title>
-<link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Aquaroulette</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
     <script src="java.js"></script>
 </head>
 <body>
- <div id="form-container">
+    <div id="form-container">
         <form onsubmit="event.preventDefault(); submitForm();">
-	<b>
-            <label for="text-input" style="color: white;">Your dogecoin deposit address:</label>
-            <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
+            <b>
+                <label for="text-input" style="color: white;">Your dogecoin deposit address:</label>
+                <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
 
-            <label for="number-input" style="color: white;">Pick your lucky number here: </label>
-			</b></center>
+                <label for="number-input" style="color: white;">Pick your lucky number here: </label>
+            </b>
             <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
             <div id="number-popup">
                 <div class="number-popup-content">
@@ -57,25 +56,23 @@
                     <div class="number-black" onclick="selectNumber(33)">33</div>
                     <div class="number-red" onclick="selectNumber(34)">34</div>
                     <div class="number-black" onclick="selectNumber(35)">35</div>
-                    <div class="number-red" onclick="selectNumber(36)">36</div>        
-        </div>
+                    <div class="number-red" onclick="selectNumber(36)">36</div>
+                </div>
                 <button type="button" onclick="hideNumberPopup()">Cancel</button>
             </div><br>
 
             <button id="submit-button" type="submit">Submit</button>
-<div id="please-wait" style="display: none; color: white;">Please wait for generated code...</div>
-
+            <div id="please-wait" style="display: none; color: white;">Please wait for generated code...</div>
 
             <div id="response-container">
                 <p id="response"></p>
             </div>
-<center>
             <div id="qrCode"></div>
             <div id="address-container"></div>
             <button id="copy-button" type="button" style="display: none;">Copy Address</button>
         </form>
     </div>
-</center>  
+
     <div class="video-container">
         <iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
     </div>
