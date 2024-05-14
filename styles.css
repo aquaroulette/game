@@ -13,6 +13,16 @@ body {
   overflow: auto;
 
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and border are included in the total width and height */
+}
+
+body, html {
+    height: 100%;
+}
+
 .video-container {
     position: relative;
     width: 100%; /* Use full width for consistency */
