@@ -166,6 +166,7 @@ input::placeholder {
 #textcolormin {
     user-select: none;
     color: #228b22;
+```css
     font-size: 4vw;
 }
 
