@@ -9,6 +9,7 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 body {
@@ -18,7 +19,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     overflow-x: hidden;
-    overflow-y: auto;
 }
 
 #form-container {
@@ -34,7 +34,8 @@ body {
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 56.25vw; /* Maintain 16:9 aspect ratio */
+    max-height: 100vh; /* Ensure video does not exceed viewport height */
     overflow: hidden;
     margin-bottom: 20px;
 }
@@ -162,7 +163,30 @@ input::placeholder {
     margin-bottom: -3%;
 }
 
-#textcolormin {
-    user-select: none;
-    color: #228b22;
-    font-size: 
+#To ensure the video fits properly without scrolling and is displayed correctly on both PC and mobile devices, here's the updated HTML and CSS. This version includes corrections for the video container and overall responsiveness.
+
+### Updated HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquaroulette</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
+    <script src="java.js"></script>
+</head>
+<body>
+    <div class="video-container">
+        <iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div id="form-container">
+        <form onsubmit="event.preventDefault(); submitForm();">
+            <b>
+                <label for="text-input" style="color: white;">Your dogecoin deposit address:</label>
+                <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
+
+                <label for="number-input" style="color: white;">Pick your lucky number here: </label>
+            </b>
+            <input type="text" id="number-input" readonly onclick="showNumberPopup
