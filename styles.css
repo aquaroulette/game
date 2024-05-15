@@ -27,10 +27,11 @@ body {
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 20%; /* 16:9 aspect ratio */
+    padding-bottom: 10%;
     height: 0;
     overflow: hidden;
     margin-bottom: 0px;
+    overflow-y: auto;
 }
 
 .video-container iframe {
