@@ -29,13 +29,14 @@ body {
     color: white;
     max-width: 600px;
     width: 90%;
+    overflow-y: auto; /* Allow scrolling for form container */
 }
 
 .video-container {
     position: relative;
     width: 100%;
-    height: 56.25vw; /* Maintain 16:9 aspect ratio */
-    max-height: 100vh; /* Ensure video does not exceed viewport height */
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
     overflow: hidden;
     margin-bottom: 20px;
 }
@@ -63,6 +64,7 @@ body {
     width: 90%;
     max-width: 600px;
     border-radius: 10px;
+    overflow-y: auto; /* Ensure popup is scrollable */
 }
 
 .number-popup-content {
@@ -78,12 +80,12 @@ body {
     color: #ffffff;
     display: inline-block;
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 1.5em; /* Adjusted font size */
     margin: 5px;
-    line-height: 3vw;
+    line-height: 2em;
     text-align: center;
-    width: 3vw;
-    height: 3vw;
+    width: 2em;
+    height: 2em;
 }
 
 .number-green {
@@ -121,7 +123,7 @@ body {
     text-decoration: none;
     margin-top: 1%;
     margin-bottom: 1%;
-    font-size: 4vw;
+    font-size: 1em;
 }
 
 .confirm:hover {
@@ -162,31 +164,3 @@ input::placeholder {
     margin-top: 1%;
     margin-bottom: -3%;
 }
-
-#To ensure the video fits properly without scrolling and is displayed correctly on both PC and mobile devices, here's the updated HTML and CSS. This version includes corrections for the video container and overall responsiveness.
-
-### Updated HTML:
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aquaroulette</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
-    <script src="java.js"></script>
-</head>
-<body>
-    <div class="video-container">
-        <iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div id="form-container">
-        <form onsubmit="event.preventDefault(); submitForm();">
-            <b>
-                <label for="text-input" style="color: white;">Your dogecoin deposit address:</label>
-                <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
-
-                <label for="number-input" style="color: white;">Pick your lucky number here: </label>
-            </b>
-            <input type="text" id="number-input" readonly onclick="showNumberPopup
