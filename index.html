@@ -9,6 +9,9 @@
     <script src="java.js"></script>
 </head>
 <body>
+    <div class="video-container">
+        <iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
+    </div>
     <div id="form-container">
         <form onsubmit="event.preventDefault(); submitForm();">
             <b>
@@ -20,6 +23,7 @@
             <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
             <div id="number-popup">
                 <div class="number-popup-content">
+                    <!-- Number options from 0 to 36 as before -->
                     <div class="number-green" onclick="selectNumber(0)">0</div>
                     <div class="number-red" onclick="selectNumber(1)">1</div>
                     <div class="number-black" onclick="selectNumber(2)">2</div>
@@ -71,10 +75,6 @@
             <div id="address-container"></div>
             <button id="copy-button" type="button" style="display: none;">Copy Address</button>
         </form>
-    </div>
-
-    <div class="video-container">
-        <iframe src="https://live.aquaroulette.com/embed/video?autoplay=1&loop=1&autopause=0&muted=1" frameborder="0" allowfullscreen></iframe>
     </div>
 </body>
 </html>
