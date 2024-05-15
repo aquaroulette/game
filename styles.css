@@ -20,7 +20,6 @@ body {
     border-radius: 10px;
     margin: 20px auto;
     color: white;
-    max-width: 600px;
     width: 90%;
     overflow-y: auto; /* Allow scrolling for for||| overflow: hidden; container */
 }
