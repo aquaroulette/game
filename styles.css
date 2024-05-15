@@ -7,6 +7,8 @@
 
 body, html {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -15,29 +17,26 @@ body {
     background-image: url("background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #form-container {
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
-    display: inline-block;
     margin: 20px auto;
-    color: white; /* Ensure text inside the form is white */
+    color: white;
+    max-width: 600px;
+    width: 90%;
 }
 
 .video-container {
     position: relative;
-    width: 98%;
-    max-width: 100%;
+    width: 100%;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
     overflow: hidden;
-    margin: 20px auto; /* Center the container horizontally */
+    margin-bottom: 20px;
 }
 
 .video-container iframe {
@@ -46,28 +45,29 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    border: 0; /* Optional: to remove iframe border if any */
+    border: 0;
 }
 
 /* Popup styling */
 #number-popup {
     display: none;
     position: fixed;
-    top: 35%;
+    top: 50%;
     left: 50%;
-    min-width: 45%;
-    width: 70%;
     transform: translate(-50%, -50%);
     background-color: #f9f9f9;
-    padding: 35px;
-    border: 4px solid #ccc;
-    z-index: 1;
+    padding: 20px;
+    border: 2px solid #ccc;
+    z-index: 1000;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
 }
 
 .number-popup-content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 /* Number styling */
@@ -78,12 +78,11 @@ body {
     display: inline-block;
     font-weight: bold;
     font-size: 3vw;
-    margin: 0;
-    margin-top: 2%;
-    line-height: 200%;
+    margin: 5px;
+    line-height: 3vw;
     text-align: center;
-    width: 9%;
-    height: 9%;
+    width: 3vw;
+    height: 3vw;
 }
 
 .number-green {
@@ -166,34 +165,4 @@ input::placeholder {
 #textcolormin {
     user-select: none;
     color: #228b22;
-```css
-    font-size: 4vw;
-}
-
-#textcolormax {
-    user-select: none;
-    color: red;
-    font-size: 4vw;
-}
-
-h1 {
-    user-select: none;
-    font-size: 7vw;
-    margin: 2%;
-    margin-top: 1%;
-    color: #fff;
-    text-shadow: 3px 3px #000;
-    animation: pulse 30s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        color: #9b7ced;
-    }
-    50% {
-        color: #8c38a5;
-    }
-    100% {
-        color: #9b7ced;
-    }
-}
+    font-size: 
