@@ -14,13 +14,11 @@ body {
 }
 
 .video-container {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    z-index: -1;
+    width: 100%;         /* Adjust width as needed */
+    height: 500px;       /* Set a fixed height */
+    overflow-y: auto;    /* Enable vertical scrolling if content overflows */
 }
+
 
 
 #form-container {
