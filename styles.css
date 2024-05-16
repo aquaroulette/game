@@ -17,6 +17,7 @@ body {
 
 .video-container {
     position: absolute;
+    margin-top: 20%;
     top: 0;
     left: 0;
     width: 90%;
