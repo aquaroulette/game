@@ -15,18 +15,7 @@ body {
     background-size: cover;
 }
 
-.video-container {
-    position: fixed;
-    margin-top: 20%;
-    top: 0;
-    left: 0;
-    width: 90%;
-    height: 85%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
+
 
 .video-container iframe {
     width: 100%;
