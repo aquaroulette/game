@@ -14,9 +14,8 @@ body {
 }
 
 .video-container {
-    width: auto;         /* Adjust width as needed */
-    height: auto;       /* Set a fixed height */
-    overflow-y: auto;    /* Enable vertical scrolling if content overflows */
+    width: auto;
+    height: auto;
 }
 
 
