@@ -1,8 +1,6 @@
 body, html {
     height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Disable scrolling */
+    overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,12 +20,6 @@ body {
     align-items: center;
     overflow: hidden;
     z-index: -1;
-}
-
-.video-container iframe {
-
-    border: 0;
-    object-fit: cover;
 }
 
 
