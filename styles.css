@@ -20,7 +20,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 150%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +28,7 @@ body {
 
 .video-container iframe {
     width: 100%;
-    height: 100%;
+    height: 150%;
     border: 0;
     object-fit: cover;
     align: center;
