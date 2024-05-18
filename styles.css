@@ -36,6 +36,7 @@ height: 100%;
     position: absolute; /* Position it relative to body */
     z-index: 1; /* Ensure it appears above the video */
     padding: 20px;
+    transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     margin: 20px auto;
