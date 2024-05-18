@@ -33,18 +33,20 @@ height: 100%;
 
 
 #form-container {
-    position: absolute; /* Position it relative to body */
-    z-index: 1; /* Ensure it appears above the video */
+    position: absolute;
+    z-index: 1;
     padding: 20px;
-    transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     margin: 20px auto;
     color: white;
     width: 90%;
-    max-width: 600px; /* Center the form container */
-    overflow-y: auto; /* Ensure form container is scrollable */
+    max-width: 600px;
+    overflow-y: auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
 
 /* Popup styling */
 #number-popup {
