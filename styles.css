@@ -23,13 +23,13 @@ body {
   overflow: hidden;
 }
 
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 5%;
-  width: 90%;
-  height: 100%;
-}
+<iframe
+  src="https://your.host/embed/video"
+  title="Owncast"
+  height="350px" width="550px"
+  referrerpolicy="origin"
+  allowfullscreen>
+</iframe>
 
 
 
