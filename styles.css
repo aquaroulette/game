@@ -41,11 +41,8 @@ height: 100%;
     margin: 20px auto;
     color: white;
     width: 90%;
-    height: 60%;
     max-width: 600px;
     overflow-y: auto;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 
