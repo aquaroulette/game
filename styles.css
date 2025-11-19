@@ -1,42 +1,38 @@
 body {
-  text-align: center;
-  background-color: #000000;
-  background-image: url("background.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  width: 100%;
-  height: auto;
-  margin: 0;
-  padding: 0;
-  top: 0;
-  bottom: 0;
-  overflow: auto;
-  overflow-y: scroll;
-  overflow-x: hidden;
+    text-align: center;
+    background-color: #000000;
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
+/* VIDEO */
 .video-container {
-position: relative;
-padding-bottom: 56.25%; /* 16:9 aspect ratio (change based on your video aspect ratio) */
-padding-top: 30px;
-height: 0;
-overflow: hidden;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
 }
-.video-container iframe {
-position: absolute;
-top: 0;
-left: 5%;
-width: 90%;
-height: 100%;
+
+video {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
 }
 
 
-
+/* FORM */
 #form-container {
-    position: absolute;
-    z-index: 1;
+    position: relative;
+    z-index: 5;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75);
     border-radius: 10px;
     margin: 20px auto;
     color: white;
@@ -45,8 +41,7 @@ height: 100%;
     overflow-y: auto;
 }
 
-
-/* Popup styling */
+/* POPUP */
 #number-popup {
     display: none;
     position: fixed;
@@ -56,13 +51,12 @@ height: 100%;
     background-color: #f9f9f9;
     padding: 20px;
     border: 2px solid #ccc;
-    z-index: 1000;
+    z-index: 9999;
     width: 90%;
     max-width: 600px;
     border-radius: 10px;
     overflow-y: auto;
 }
-
 
 .number-popup-content {
     display: flex;
@@ -70,56 +64,36 @@ height: 100%;
     justify-content: space-around;
 }
 
-/* Number styling */
 .number-green, .number-red, .number-black {
     user-select: none;
     border-radius: 50%;
     color: #ffffff;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
-    font-size: 1.5em; /* Adjusted font size */
+    font-size: 1.5em;
     margin: 5px;
-    line-height: 2em;
-    text-align: center;
     width: 2em;
     height: 2em;
 }
 
-.number-green {
-    background: #228b22;
-}
+.number-green { background: #228b22; }
+.number-red { background: red; }
+.number-black { background: #000; }
 
-.number-red {
-    background: red;
-}
-
-.number-black {
-    background-color: #000000;
-}
-
-.number-green:hover {
-    background: #5EA226;
-}
-
-.number-red:hover {
-    background: #FF8886;
-}
-
-.number-black:hover {
-    background: #444444;
-}
+.number-green:hover { background: #5EA226; }
+.number-red:hover { background: #FF8886; }
+.number-black:hover { background: #444; }
 
 .confirm {
     padding: 0.3em 1em;
     border-radius: 13%;
-    color: #FFFFFF;
+    color: #FFF;
     background-color: #4E895C;
     border: 0;
     cursor: pointer;
     margin: 1px;
-    text-decoration: none;
-    margin-top: 1%;
-    margin-bottom: 1%;
     font-size: 1em;
 }
 
@@ -132,32 +106,7 @@ input::placeholder {
     color: #f5f5f5;
 }
 
-#textcolor {
-    user-select: none;
-    color: #FFFFFF;
-    font-size: 6vw;
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-
-#textcolor2 {
-    user-select: none;
-    color: #FFFFFF;
-    font-size: 4vw;
-}
-
-#textcolor3 {
-    user-select: none;
-    color: #FFFFFF;
-    font-size: 6vw;
-    margin-top: 7%;
-    margin-bottom: -2%;
-}
-
-#textcolor4 {
-    user-select: none;
-    color: #FFFFFF;
-    font-size: 6vw;
-    margin-top: 1%;
-    margin-bottom: -3%;
+#copy-button {
+    margin-top: 10px;
+    padding: 10px 20px;
 }
