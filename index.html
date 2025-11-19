@@ -3,28 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="styles.css">
+
     <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
     <script src="java.js" defer></script>
 
-    <style>
-        body {
-            margin: 0;
-            background-color: black;
-        }
-        video {
-            width: 100%;
-            max-height: 100vh;
-            display: block;
-        }
-    </style>
+    <!-- HLS for Owncast -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 
 <body>
 
-<video id="player" controls autoplay muted playsinline></video>
+<!-- VIDEO PLAYER -->
+<div class="video-container">
+    <video id="player" controls autoplay muted playsinline></video>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
 const video = document.getElementById('player');
 const streamURL = "http://live.aquaroulette.com:8080/hls/stream.m3u8";
@@ -40,20 +35,23 @@ if (Hls.isSupported()) {
 
 
 
-<!-- FORM CONTENT STARTS HERE -->
+<!-- FORM -->
 <div id="form-container">
     <form onsubmit="event.preventDefault(); submitForm();">
+
         <b>
-            <label for="text-input" style="color: white;">Your dogecoin deposit address:</label>
+            <label style="color: white;">Your dogecoin deposit address:</label><br>
             <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
 
-            <label for="number-input" style="color: white;">Pick your lucky number here: </label>
+            <label style="color: white;">Pick your lucky number here:</label>
         </b>
 
         <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
 
+        <!-- POPUP -->
         <div id="number-popup">
             <div class="number-popup-content">
+                <!-- 0–36 -->
                 <div class="number-green" onclick="selectNumber(0)">0</div>
                 <div class="number-red" onclick="selectNumber(1)">1</div>
                 <div class="number-black" onclick="selectNumber(2)">2</div>
@@ -92,13 +90,16 @@ if (Hls.isSupported()) {
                 <div class="number-black" onclick="selectNumber(35)">35</div>
                 <div class="number-red" onclick="selectNumber(36)">36</div>
             </div>
+
             <button type="button" onclick="hideNumberPopup()">Cancel</button>
-        </div><br>
+        </div>
+
+        <br>
 
         <button id="submit-button" type="submit">Submit</button>
 
         <div id="please-wait" style="display: none; color: white;">
-            Please wait for generated code... Takes about 15 seconds or refresh if failed
+            Please wait… generating code (15s). Refresh if failed.
         </div>
 
         <div id="response-container">
@@ -107,6 +108,7 @@ if (Hls.isSupported()) {
 
         <div id="qrCode"></div>
         <div id="address-container"></div>
+
         <button id="copy-button" type="button" style="display: none;">Copy Address</button>
     </form>
 </div>
