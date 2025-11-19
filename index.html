@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
-    <script src="java.js"></script>
-</head>
-<body>
+    <script src="java.js" defer></script>
 
-
-<style>
-  video {
-    width: 100%;
-    max-height: 100vh;
-  }
-</style>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+        }
+        video {
+            width: 100%;
+            max-height: 100vh;
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
 
 <video id="player" controls autoplay muted playsinline></video>
@@ -36,70 +39,77 @@ if (Hls.isSupported()) {
 </script>
 
 
-    
-    <div id="form-container">
-        <form onsubmit="event.preventDefault(); submitForm();">
-            <b>
-                <label for="text-input" style="color: white;">Your dogecoin deposit address:</label>
-                <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
 
-                <label for="number-input" style="color: white;">Pick your lucky number here: </label>
-            </b>
-            <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
-            <div id="number-popup">
-                <div class="number-popup-content">
-                    <!-- Number options from 0 to 36 as before -->
-                    <div class="number-green" onclick="selectNumber(0)">0</div>
-                    <div class="number-red" onclick="selectNumber(1)">1</div>
-                    <div class="number-black" onclick="selectNumber(2)">2</div>
-                    <div class="number-red" onclick="selectNumber(3)">3</div>
-                    <div class="number-black" onclick="selectNumber(4)">4</div>
-                    <div class="number-red" onclick="selectNumber(5)">5</div>
-                    <div class="number-black" onclick="selectNumber(6)">6</div>
-                    <div class="number-red" onclick="selectNumber(7)">7</div>
-                    <div class="number-black" onclick="selectNumber(8)">8</div>
-                    <div class="number-red" onclick="selectNumber(9)">9</div>
-                    <div class="number-black" onclick="selectNumber(10)">10</div>
-                    <div class="number-black" onclick="selectNumber(11)">11</div>
-                    <div class="number-red" onclick="selectNumber(12)">12</div>
-                    <div class="number-black" onclick="selectNumber(13)">13</div>
-                    <div class="number-red" onclick="selectNumber(14)">14</div>
-                    <div class="number-black" onclick="selectNumber(15)">15</div>
-                    <div class="number-red" onclick="selectNumber(16)">16</div>
-                    <div class="number-black" onclick="selectNumber(17)">17</div>
-                    <div class="number-red" onclick="selectNumber(18)">18</div>
-                    <div class="number-black" onclick="selectNumber(19)">19</div>
-                    <div class="number-black" onclick="selectNumber(20)">20</div>
-                    <div class="number-red" onclick="selectNumber(21)">21</div>
-                    <div class="number-black" onclick="selectNumber(22)">22</div>
-                    <div class="number-red" onclick="selectNumber(23)">23</div>
-                    <div class="number-black" onclick="selectNumber(24)">24</div>
-                    <div class="number-red" onclick="selectNumber(25)">25</div>
-                    <div class="number-black" onclick="selectNumber(26)">26</div>
-                    <div class="number-red" onclick="selectNumber(27)">27</div>
-                    <div class="number-red" onclick="selectNumber(28)">28</div>
-                    <div class="number-black" onclick="selectNumber(29)">29</div>
-                    <div class="number-red" onclick="selectNumber(30)">30</div>
-                    <div class="number-black" onclick="selectNumber(31)">31</div>
-                    <div class="number-red" onclick="selectNumber(32)">32</div>
-                    <div class="number-black" onclick="selectNumber(33)">33</div>
-                    <div class="number-red" onclick="selectNumber(34)">34</div>
-                    <div class="number-black" onclick="selectNumber(35)">35</div>
-                    <div class="number-red" onclick="selectNumber(36)">36</div>
-                </div>
-                <button type="button" onclick="hideNumberPopup()">Cancel</button>
-            </div><br>
+<!-- FORM CONTENT STARTS HERE -->
+<div id="form-container">
+    <form onsubmit="event.preventDefault(); submitForm();">
+        <b>
+            <label for="text-input" style="color: white;">Your dogecoin deposit address:</label>
+            <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
 
-            <button id="submit-button" type="submit">Submit</button>
-            <div id="please-wait" style="display: none; color: white;">Please wait for generated code... Takes about 15 seconds or refresh if failed</div>
+            <label for="number-input" style="color: white;">Pick your lucky number here: </label>
+        </b>
 
-            <div id="response-container">
-                <p id="response"></p>
+        <input type="text" id="number-input" readonly onclick="showNumberPopup()" required>
+
+        <div id="number-popup">
+            <div class="number-popup-content">
+                <div class="number-green" onclick="selectNumber(0)">0</div>
+                <div class="number-red" onclick="selectNumber(1)">1</div>
+                <div class="number-black" onclick="selectNumber(2)">2</div>
+                <div class="number-red" onclick="selectNumber(3)">3</div>
+                <div class="number-black" onclick="selectNumber(4)">4</div>
+                <div class="number-red" onclick="selectNumber(5)">5</div>
+                <div class="number-black" onclick="selectNumber(6)">6</div>
+                <div class="number-red" onclick="selectNumber(7)">7</div>
+                <div class="number-black" onclick="selectNumber(8)">8</div>
+                <div class="number-red" onclick="selectNumber(9)">9</div>
+                <div class="number-black" onclick="selectNumber(10)">10</div>
+                <div class="number-black" onclick="selectNumber(11)">11</div>
+                <div class="number-red" onclick="selectNumber(12)">12</div>
+                <div class="number-black" onclick="selectNumber(13)">13</div>
+                <div class="number-red" onclick="selectNumber(14)">14</div>
+                <div class="number-black" onclick="selectNumber(15)">15</div>
+                <div class="number-red" onclick="selectNumber(16)">16</div>
+                <div class="number-black" onclick="selectNumber(17)">17</div>
+                <div class="number-red" onclick="selectNumber(18)">18</div>
+                <div class="number-black" onclick="selectNumber(19)">19</div>
+                <div class="number-black" onclick="selectNumber(20)">20</div>
+                <div class="number-red" onclick="selectNumber(21)">21</div>
+                <div class="number-black" onclick="selectNumber(22)">22</div>
+                <div class="number-red" onclick="selectNumber(23)">23</div>
+                <div class="number-black" onclick="selectNumber(24)">24</div>
+                <div class="number-red" onclick="selectNumber(25)">25</div>
+                <div class="number-black" onclick="selectNumber(26)">26</div>
+                <div class="number-red" onclick="selectNumber(27)">27</div>
+                <div class="number-red" onclick="selectNumber(28)">28</div>
+                <div class="number-black" onclick="selectNumber(29)">29</div>
+                <div class="number-red" onclick="selectNumber(30)">30</div>
+                <div class="number-black" onclick="selectNumber(31)">31</div>
+                <div class="number-red" onclick="selectNumber(32)">32</div>
+                <div class="number-black" onclick="selectNumber(33)">33</div>
+                <div class="number-red" onclick="selectNumber(34)">34</div>
+                <div class="number-black" onclick="selectNumber(35)">35</div>
+                <div class="number-red" onclick="selectNumber(36)">36</div>
             </div>
-            <div id="qrCode"></div>
-            <div id="address-container"></div>
-            <button id="copy-button" type="button" style="display: none;">Copy Address</button>
-        </form>
-    </div>
+            <button type="button" onclick="hideNumberPopup()">Cancel</button>
+        </div><br>
+
+        <button id="submit-button" type="submit">Submit</button>
+
+        <div id="please-wait" style="display: none; color: white;">
+            Please wait for generated code... Takes about 15 seconds or refresh if failed
+        </div>
+
+        <div id="response-container">
+            <p id="response"></p>
+        </div>
+
+        <div id="qrCode"></div>
+        <div id="address-container"></div>
+        <button id="copy-button" type="button" style="display: none;">Copy Address</button>
+    </form>
+</div>
+
 </body>
 </html>
