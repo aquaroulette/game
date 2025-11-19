@@ -4,17 +4,13 @@ body {
     background-image: url("background.jpg");
     background-repeat: no-repeat;
     background-size: 100% auto;
-    width: 100%;
-    height: auto;
     margin: 0;
     padding: 0;
-    overflow-y: scroll;
     overflow-x: hidden;
 }
 
 /* VIDEO */
 .video-container {
-    position: relative;
     width: 100%;
     margin-top: 20px;
 }
@@ -26,10 +22,8 @@ video {
     border-radius: 10px;
 }
 
-
 /* FORM */
 #form-container {
-    position: relative;
     z-index: 5;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.75);
@@ -38,7 +32,6 @@ video {
     color: white;
     width: 90%;
     max-width: 600px;
-    overflow-y: auto;
 }
 
 /* POPUP */
@@ -49,33 +42,33 @@ video {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #f9f9f9;
-    padding: 20px;
+    padding: 15px;
     border: 2px solid #ccc;
     z-index: 9999;
-    width: 90%;
-    max-width: 600px;
+    width: 95%;
+    max-width: 450px; /* tighter for mobile */
     border-radius: 10px;
-    overflow-y: auto;
 }
 
 .number-popup-content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
+/* Number buttons */
 .number-green, .number-red, .number-black {
     user-select: none;
     border-radius: 50%;
     color: #ffffff;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    font-size: 1.5em;
-    margin: 5px;
-    width: 2em;
-    height: 2em;
+    font-size: 1.3em; /* slightly smaller for mobile */
+    margin: 6px;
+    width: 1.9em;
+    height: 1.9em;
 }
 
 .number-green { background: #228b22; }
@@ -85,21 +78,6 @@ video {
 .number-green:hover { background: #5EA226; }
 .number-red:hover { background: #FF8886; }
 .number-black:hover { background: #444; }
-
-.confirm {
-    padding: 0.3em 1em;
-    border-radius: 13%;
-    color: #FFF;
-    background-color: #4E895C;
-    border: 0;
-    cursor: pointer;
-    margin: 1px;
-    font-size: 1em;
-}
-
-.confirm:hover {
-    background: #6AB186;
-}
 
 input::placeholder {
     font-size: 20px;
