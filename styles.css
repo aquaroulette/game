@@ -10,17 +10,38 @@ body {
 }
 
 /* VIDEO */
-.video-container {
+
+#player {
     width: 100%;
-    margin-top: 20px;
+    max-height: 100vh;
+    background: black;
+    object-fit: contain;
+    pointer-events: none; /* disables clicking — NO PAUSE */
 }
 
-video {
-    width: 90%;
-    margin: 0 auto;
-    display: block;
-    border-radius: 10px;
+/* Hide iOS video controls */
+video::-webkit-media-controls {
+    display: none !important;
 }
+video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+video::-webkit-media-controls-panel {
+    display: none !important;
+}
+video::-webkit-media-controls-play-button {
+    display: none !important;
+}
+video::-webkit-media-controls-fullscreen-button {
+    display: none !important;
+}
+video::-webkit-media-controls-mute-button {
+    display: none !important;
+}
+video::-webkit-media-controls-timeline {
+    display: none !important;
+}
+
 
 /* FORM */
 #form-container {
