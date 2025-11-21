@@ -67,7 +67,7 @@ video::-webkit-media-controls-timeline {
     border: 2px solid #ccc;
     z-index: 9999;
     width: 95%;
-    max-width:435px; /* tighter for mobile */
+    max-width:384px; /* tighter for mobile */
     border-radius: 10px;
 }
 
