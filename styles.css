@@ -1,3 +1,4 @@
+
 body {
     text-align: center;
     background-color: #000000;
@@ -7,41 +8,17 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    padding-top: 10px; /* tiny space from video */
 }
 
 /* VIDEO */
-
 #player {
     width: 100%;
     max-height: 100vh;
     background: black;
     object-fit: contain;
-    pointer-events: none; /* disables clicking — NO PAUSE */
+    pointer-events: none;
 }
-
-/* Hide iOS video controls */
-video::-webkit-media-controls {
-    display: none !important;
-}
-video::-webkit-media-controls-enclosure {
-    display: none !important;
-}
-video::-webkit-media-controls-panel {
-    display: none !important;
-}
-video::-webkit-media-controls-play-button {
-    display: none !important;
-}
-video::-webkit-media-controls-fullscreen-button {
-    display: none !important;
-}
-video::-webkit-media-controls-mute-button {
-    display: none !important;
-}
-video::-webkit-media-controls-timeline {
-    display: none !important;
-}
-
 
 /* FORM */
 #form-container {
@@ -68,67 +45,63 @@ video::-webkit-media-controls-timeline {
     border: 2px solid #ccc;
     z-index: 9999;
     width: 95%;
-    max-width:354px; /* tighter for mobile */
+    max-width: 354px;
     border-radius: 10px;
 }
 
+/* GRID layout: green ball top center, others 6 per row */
 .number-popup-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    justify-items: center;
+    gap: 10px;
 }
 
+/* Style inputs – fix mobile zoom */
+input, textarea, select {
+    font-size: 16px !important;
+}
 
-
-
-/* Number buttons — FIXED GREEN HOVER + MOBILE FIT */
+/* BALLS */
 .number-green, .number-red, .number-black {
     user-select: none;
-    width: 55px;   /* slightly smaller */
+    width: 55px;
     height: 55px;
     border-radius: 50%;
     color: white;
     font-size: 22px;
     font-weight: bold;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     cursor: pointer;
-
-    /* Darker base gradient to prevent bright flare */
     background: radial-gradient(circle at 30% 30%, #ffffff40, #000000d0);
-
     box-shadow:
         inset 8px 8px 16px #ffffff25,
         inset -8px -8px 16px #00000080,
         0 10px 26px rgba(0,0,0,0.65);
-
     transition: transform 0.12s;
     margin: 8px;
 }
 
-/* Hover — NO brightness increase, only scale */
+/* Hover + active */
 .number-green:hover,
 .number-red:hover,
 .number-black:hover {
     transform: scale(1.05);
 }
-
-/* Active press */
 .number-green:active,
 .number-red:active,
 .number-black:active {
     transform: scale(0.92);
 }
 
-/* Individual colors */
-.number-red { background-color: #b00000 !important; }
+/* Colors */
+.number-red { background-color: #c70000 !important; }
 .number-black { background-color: #000000 !important; }
-.number-green { background-color: #0a5c00 !important; }
+.number-green { background-color: #0f7f00 !important; }
 
-/* MOBILE FIX — smaller balls so they fit */
+/* MOBILE sizing */
 @media (max-width: 480px) {
     .number-green, .number-red, .number-black {
         width: 45px;
@@ -137,51 +110,16 @@ video::-webkit-media-controls-timeline {
         margin: 6px;
     }
 }
-/* Added spacing */
-}
 
-.number-green:hover,
-.number-red:hover,
-.number-black:hover {
-    transform: scale(1.07);
-}
-
-.number-green:active,
-.number-red:active,
-.number-black:active {
-    transform: scale(0.92);
-}
-
-/* Individual colors — keep solid background, do NOT lighten on hover */
-.number-red { background-color: #c70000 !important; }
-.number-black { background-color: #000000 !important; }
-.number-green { background-color: #0f7f00 !important; }
-/* Individual colors */
-.number-red { background-color: #c70000 !important; }
-.number-black { background-color: #000000 !important; }
-.number-green { background-color: #0f7f00 !important; }
-/* slightly smaller for mobile */
-    margin: 6px;
-    width: 1.9em;
-    height: 1.9em;
-}
-
-.number-green { background: #228b22; }
-.number-red { background: red; }
-.number-black { background: #000; }
-
-
-.number-red:hover { background: #FF8886; }
-.number-black:hover { background: #444; }
-
-input::placeholder {
-    font-size: 20px;
-    color: #f5f5f5;
+/* Green ball top-center: force first element to span row and center */
+.number-popup-content .number-green:first-child {
+    grid-column: 1 / -1;
+    justify-self: center;
 }
 
 #copy-button {
     margin-top: 10px;
     padding: 10px 20px;
     display: block;
-    margin: 12px auto;  /* centers horizontally */
+    margin: 12px auto;
 }
