@@ -8,7 +8,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    padding-top: 10px; /* tiny space from video */
+    padding-top: 10px;
 }
 
 /* VIDEO */
@@ -49,39 +49,43 @@ body {
     border-radius: 10px;
 }
 
-/* GRID layout: green ball top center, others 6 per row */
+/* GRID layout: green ball top center, 6 per row */
 .number-popup-content {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     justify-items: center;
-    gap: 10px;
+    gap: 6px; /* smaller gap for fit */
 }
 
-/* Style inputs – fix mobile zoom */
+/* Prevent mobile zoom */
 input, textarea, select {
     font-size: 16px !important;
 }
 
-/* BALLS */
+/* BALLS — resized to fit 6 columns within 354px */
 .number-green, .number-red, .number-black {
     user-select: none;
-    width: 55px;
-    height: 55px;
+    width: 48px;      /* reduced */
+    height: 48px;     /* reduced */
     border-radius: 50%;
     color: white;
-    font-size: 22px;
+    font-size: 18px;  /* reduced */
     font-weight: bold;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     cursor: pointer;
+
     background: radial-gradient(circle at 30% 30%, #ffffff40, #000000d0);
     box-shadow:
-        inset 8px 8px 16px #ffffff25,
-        inset -8px -8px 16px #00000080,
-        0 10px 26px rgba(0,0,0,0.65);
+        inset 6px 6px 10px #ffffff25,
+        inset -6px -6px 10px #00000080,
+        0 6px 16px rgba(0,0,0,0.65);
+
     transition: transform 0.12s;
-    margin: 8px;
+    margin: 0; /* remove margin for fit */
 }
 
 /* Hover + active */
@@ -104,14 +108,13 @@ input, textarea, select {
 /* MOBILE sizing */
 @media (max-width: 480px) {
     .number-green, .number-red, .number-black {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
-        margin: 6px;
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
     }
 }
 
-/* Green ball top-center: force first element to span row and center */
+/* Green ball spans full row top-center */
 .number-popup-content .number-green:first-child {
     grid-column: 1 / -1;
     justify-self: center;
