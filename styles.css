@@ -80,14 +80,15 @@ video::-webkit-media-controls-timeline {
 
 
 
-/* Number buttons — UPGRADED 3D BALL STYLE (Tweaked Hover + Spacing) */
+
+/* Number buttons — FIXED GREEN HOVER + MOBILE FIT */
 .number-green, .number-red, .number-black {
     user-select: none;
-    width: 60px;
-    height: 60px;
+    width: 55px;   /* slightly smaller */
+    height: 55px;
     border-radius: 50%;
     color: white;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
 
     display: flex;
@@ -96,15 +97,47 @@ video::-webkit-media-controls-timeline {
 
     cursor: pointer;
 
-    background: radial-gradient(circle at 30% 30%, #ffffff70, #000000d0);
+    /* Darker base gradient to prevent bright flare */
+    background: radial-gradient(circle at 30% 30%, #ffffff40, #000000d0);
 
     box-shadow:
-        inset 10px 10px 20px #ffffff40,
-        inset -10px -10px 20px #00000090,
-        0 12px 30px rgba(0,0,0,0.8);
+        inset 8px 8px 16px #ffffff25,
+        inset -8px -8px 16px #00000080,
+        0 10px 26px rgba(0,0,0,0.65);
 
-    transition: transform 0.15s;
-    margin: 8px; /* Added spacing */
+    transition: transform 0.12s;
+    margin: 8px;
+}
+
+/* Hover — NO brightness increase, only scale */
+.number-green:hover,
+.number-red:hover,
+.number-black:hover {
+    transform: scale(1.05);
+}
+
+/* Active press */
+.number-green:active,
+.number-red:active,
+.number-black:active {
+    transform: scale(0.92);
+}
+
+/* Individual colors */
+.number-red { background-color: #b00000 !important; }
+.number-black { background-color: #000000 !important; }
+.number-green { background-color: #0a5c00 !important; }
+
+/* MOBILE FIX — smaller balls so they fit */
+@media (max-width: 480px) {
+    .number-green, .number-red, .number-black {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+        margin: 6px;
+    }
+}
+/* Added spacing */
 }
 
 .number-green:hover,
@@ -137,7 +170,7 @@ video::-webkit-media-controls-timeline {
 .number-red { background: red; }
 .number-black { background: #000; }
 
-.number-green:hover { background: #0f7f00; }
+.number-green:hover { background: #5EA226; }
 .number-red:hover { background: #FF8886; }
 .number-black:hover { background: #444; }
 
