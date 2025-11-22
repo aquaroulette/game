@@ -79,7 +79,8 @@ video::-webkit-media-controls-timeline {
 }
 
 
-/* Number buttons — UPGRADED 3D BALL STYLE */
+
+/* Number buttons — UPGRADED 3D BALL STYLE (Tweaked Hover + Spacing) */
 .number-green, .number-red, .number-black {
     user-select: none;
     width: 60px;
@@ -102,7 +103,8 @@ video::-webkit-media-controls-timeline {
         inset -10px -10px 20px #00000090,
         0 12px 30px rgba(0,0,0,0.8);
 
-    transition: 0.15s;
+    transition: transform 0.15s;
+    margin: 8px; /* Added spacing */
 }
 
 .number-green:hover,
@@ -117,6 +119,10 @@ video::-webkit-media-controls-timeline {
     transform: scale(0.92);
 }
 
+/* Individual colors — keep solid background, do NOT lighten on hover */
+.number-red { background-color: #c70000 !important; }
+.number-black { background-color: #000000 !important; }
+.number-green { background-color: #0f7f00 !important; }
 /* Individual colors */
 .number-red { background-color: #c70000 !important; }
 .number-black { background-color: #000000 !important; }
