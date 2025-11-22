@@ -114,7 +114,7 @@ function displayQRCode(address) {
 
         function generateMixedString(length) {
             var result = '';
-            var characters = '!@#$%^&*(){}"?><.,/+thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
+            var characters = 'thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
             for (var i = 0; i < length; i++) {
                 result += characters.charAt(Math.floor(Math.random() * characters.length));
             }
