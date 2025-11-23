@@ -51,6 +51,7 @@ body {
 
 /* GRID layout: green ball top center, 6 per row */
 .number-popup-content {
+    margin-bottom: 12px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     justify-items: center;
