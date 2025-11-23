@@ -137,14 +137,26 @@ function displayAddress(address) {
 
 
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text)
-                .then(() => {
-                    alert("Address copied to clipboard!");
-                })
-                .catch((error) => {
-                    console.error("Unable to copy to clipboard:", error);
-                });
-        }
+    navigator.clipboard.writeText(text)
+        .then(() => {
+
+            // iOS Safari fix — resume video if copying pauses it
+            const video = document.getElementById("player");
+
+            // Give Safari a moment to pause the video before trying to resume
+            setTimeout(() => {
+                if (video.paused) {
+                    video.play().catch(() => {});
+                }
+            }, 100);
+
+            alert("Address copied to clipboard!");
+        })
+        .catch((error) => {
+            console.error("Unable to copy to clipboard:", error);
+        });
+}
+
 
         function showNumberPopup() {
             var popup = document.getElementById("number-popup");
