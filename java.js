@@ -68,10 +68,11 @@ function waitForERowData() {
 
             var eRowData = data.eRowData;
 
-            if (eRowData !== undefined) {
-                clearInterval(intervalId); // Stop the interval
-                displayQRCode(eRowData);
-                displayAddress(eRowData);
+if (eRowData !== undefined) {
+    clearInterval(intervalId);
+    displayQRCode(eRowData.address);
+    displayAddress(eRowData.address);
+}
             } else if (++attempts >= maxAttempts) {
                 clearInterval(intervalId); // Stop the interval if maximum attempts reached
                 console.log("Reached maximum attempts, stopping checking.");
