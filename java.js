@@ -46,47 +46,40 @@
         }
 
 
-var isWaitingForERowData = false; // Add a flag to track if the function is already running
-
 function waitForERowData() {
     if (isWaitingForERowData) return;
 
     isWaitingForERowData = true;
 
-    var checkInterval = 1000;
-    var maxAttempts = 8;
-    var attempts = 0;
+    let attempts = 0;
+    let maxAttempts = 8;
 
-    var intervalId = setInterval(function () {
-        fetch('https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec?token=' + uniqueToken, {
-            method: 'GET',
-            mode: 'cors'
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Response from Google Apps Script:', data);
+    let intervalId = setInterval(() => {
 
-            var eRowData = data.eRowData;
+        fetch(webAppUrl + "?token=" + uniqueToken)
+            .then(r => r.json())
+            .then(data => {
 
-            if (eRowData !== undefined) {
-                clearInterval(intervalId); // Stop the interval
-                displayQRCode(eRowData.address);
-                displayAddress(eRowData.address);
-            } else if (++attempts >= maxAttempts) {
-                clearInterval(intervalId); // Stop the interval if maximum attempts reached
-                console.log("Reached maximum attempts, stopping checking.");
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        })
-        .finally(() => {
-            isWaitingForERowData = false;
-            document.getElementById("submit-button").style.display = "none";
-            document.getElementById("please-wait").style.display = "none";
-        });
-    }, checkInterval);
+                console.log("Google response:", data);
+
+                if (data.eRowData !== undefined) {
+                    clearInterval(intervalId);
+
+                    displayQRCode(data.eRowData.address);
+                    displayAddress(data.eRowData.address);
+
+                    return;
+                }
+
+                if (++attempts >= maxAttempts) {
+                    clearInterval(intervalId);
+                    console.log("Max attempts reached");
+                }
+            })
+            .catch(err => console.error(err));
+    }, 1000);
 }
+
 
 
 function displayQRCode(address) {
