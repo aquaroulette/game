@@ -4,14 +4,16 @@ var isSubmitting = false;
 const webAppUrl = "https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec";
 
 function submitForm() {
-    if (isSubmitting) return;
+    if (isSubmitting) {
+        console.log("Please wait, submission in progress...");
+        return;
+    }
 
     var textInput = document.getElementById("text-input").value;
     var numberInput = document.getElementById("number-input").value;
 
-    // Generate token only (mixedUser removed as requested)
     uniqueToken = generateMixedString(10);
-    console.log("Generated Token:", uniqueToken);
+    console.log('Generated Token:', uniqueToken);
 
     var formData = new FormData();
     formData.append("text", textInput);
@@ -23,57 +25,55 @@ function submitForm() {
     document.getElementById("please-wait").style.display = "block";
 
     fetch(webAppUrl, {
-        method: "POST",
+        method: 'POST',
         body: formData,
-        mode: "cors"
+        mode: 'cors'
     })
     .then(response => response.json())
     .then(data => {
-        console.log("Success:", data);
-        waitForAddress(); // FIXED
+        console.log('POST Success:', data);
+        waitForAddress();
     })
-    .catch(error => {
-        console.error("Error:", error);
+    .catch((error) => {
+        console.error('POST Error:', error);
         resetUI();
     });
 }
 
 function waitForAddress() {
     let attempts = 0;
-    const maxAttempts = 30; // 30 seconds
+    const maxAttempts = 30;
 
-    pollingTimer = setInterval(() => {
+    const pollingTimer = setInterval(() => {
         fetch(`${webAppUrl}?token=${uniqueToken}`)
             .then(res => res.json())
             .then(data => {
                 console.log("GET response:", data);
 
                 const row = data.eRowData;
-
-                // E column is now expected to be a STRING
-                if (row && row.string && row.string.trim() !== "") {
+                if (row && row.address && row.address.trim() !== "") {
                     clearInterval(pollingTimer);
-
-                    displayQRCode(row.string);
-                    displayAddress(row.string);
+                    displayQRCode(row.address);
+                    displayAddress(row.address);
                     return;
                 }
 
                 if (++attempts >= maxAttempts) {
                     clearInterval(pollingTimer);
-                    console.warn("Timeout waiting for string in column E.");
+                    console.warn("Timeout waiting for address.");
                     resetUI();
                 }
             })
-            .catch(err => console.error("GET error:", err));
+            .catch(err => {
+                console.error("GET error:", err);
+                clearInterval(pollingTimer);
+                resetUI();
+            });
     }, 1000);
 }
 
-function displayQRCode(value) {
-    var qrCodeUrl =
-        "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" +
-        encodeURIComponent(value);
-
+function displayQRCode(address) {
+    var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
     var qrCodeImage = document.createElement("img");
     qrCodeImage.src = qrCodeUrl;
     qrCodeImage.width = 170;
@@ -84,28 +84,24 @@ function displayQRCode(value) {
     qrCodeContainer.appendChild(qrCodeImage);
 }
 
-function displayAddress(value) {
+function displayAddress(address) {
     var addressContainer = document.getElementById("address-container");
-    addressContainer.innerHTML = value;
+    addressContainer.innerHTML = address;
     addressContainer.style.color = "white";
 
     var copyButton = document.getElementById("copy-button");
     copyButton.style.display = "block";
-    copyButton.onclick = () => copyToClipboard(value);
+    copyButton.onclick = () => copyToClipboard(address);
 }
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
         .then(() => {
-            // iOS Safari fix
             const video = document.getElementById("player");
-            setTimeout(() => {
-                if (video && video.paused) video.play().catch(() => {});
-            }, 100);
-
-            alert("Copied!");
+            setTimeout(() => { if (video.paused) video.play().catch(()=>{}); }, 100);
+            alert("Address copied to clipboard!");
         })
-        .catch(error => console.error("Clipboard error:", error));
+        .catch(err => console.error("Unable to copy:", err));
 }
 
 function resetUI() {
@@ -115,11 +111,10 @@ function resetUI() {
 }
 
 function generateMixedString(length) {
-    var result = "";
-    var characters =
-        "thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890";
+    var result = '';
+    var chars = 'thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
     for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return result;
 }
