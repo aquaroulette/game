@@ -52,33 +52,37 @@ function waitForERowData() {
     isWaitingForERowData = true;
 
     let attempts = 0;
-    let maxAttempts = 8;
+    let maxAttempts = 30;  // 30 seconds total
+    let interval = 1000;
 
-    let intervalId = setInterval(() => {
+    let timer = setInterval(() => {
 
         fetch(webAppUrl + "?token=" + uniqueToken)
-            .then(r => r.json())
+            .then(res => res.json())
             .then(data => {
 
-                console.log("Google response:", data);
+                console.log("Google Response:", data);
 
-                if (data.eRowData !== undefined) {
-                    clearInterval(intervalId);
+                const row = data.eRowData;
 
-                    displayQRCode(data.eRowData.address);
-                    displayAddress(data.eRowData.address);
+                if (row && row.address && row.address.trim() !== "") {
+                    // SUCCESS — address is ready
+                    clearInterval(timer);
 
-                    return;
+                    displayQRCode(row.address);
+                    displayAddress(row.address);
                 }
 
                 if (++attempts >= maxAttempts) {
-                    clearInterval(intervalId);
-                    console.log("Max attempts reached");
+                    clearInterval(timer);
+                    console.warn("Stopped waiting — address did not appear.");
                 }
+
             })
             .catch(err => console.error(err));
-    }, 1000);
+    }, interval);
 }
+
 
 
 
