@@ -1,6 +1,5 @@
 var uniqueToken;
 var isSubmitting = false;
-
 const webAppUrl = "https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec";
 
 function submitForm() {
@@ -12,12 +11,15 @@ function submitForm() {
     var textInput = document.getElementById("text-input").value;
     var numberInput = document.getElementById("number-input").value;
 
+    var mixedLettersNumbersUser = generateMixedString(30);
+
     uniqueToken = generateMixedString(10);
     console.log('Generated Token:', uniqueToken);
 
     var formData = new FormData();
     formData.append("text", textInput);
     formData.append("number", numberInput);
+    formData.append("mixedUser", mixedLettersNumbersUser);
     formData.append("token", uniqueToken);
 
     isSubmitting = true;
@@ -31,18 +33,20 @@ function submitForm() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('POST Success:', data);
-        waitForAddress();
+        console.log('Success:', data);
+        waitForAddress(); // Polling Column E
     })
     .catch((error) => {
-        console.error('POST Error:', error);
-        resetUI();
+        console.error('Error:', error);
+        isSubmitting = false;
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById("please-wait").style.display = "none";
     });
 }
 
 function waitForAddress() {
     let attempts = 0;
-    const maxAttempts = 30;
+    const maxAttempts = 30; // 30 seconds
 
     const pollingTimer = setInterval(() => {
         fetch(`${webAppUrl}?token=${uniqueToken}`)
@@ -51,10 +55,12 @@ function waitForAddress() {
                 console.log("GET response:", data);
 
                 const row = data.eRowData;
-                if (row && row.address && row.address.trim() !== "") {
+
+                if (row && row.string && row.string.trim() !== "") {
                     clearInterval(pollingTimer);
-                    displayQRCode(row.address);
-                    displayAddress(row.address);
+
+                    displayQRCode(row.string);
+                    displayAddress(row.string);
                     return;
                 }
 
@@ -64,16 +70,13 @@ function waitForAddress() {
                     resetUI();
                 }
             })
-            .catch(err => {
-                console.error("GET error:", err);
-                clearInterval(pollingTimer);
-                resetUI();
-            });
+            .catch(err => console.error("GET error:", err));
     }, 1000);
 }
 
 function displayQRCode(address) {
     var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
+
     var qrCodeImage = document.createElement("img");
     qrCodeImage.src = qrCodeUrl;
     qrCodeImage.width = 170;
@@ -82,6 +85,15 @@ function displayQRCode(address) {
     var qrCodeContainer = document.getElementById("qrCode");
     qrCodeContainer.innerHTML = "";
     qrCodeContainer.appendChild(qrCodeImage);
+}
+
+function generateMixedString(length) {
+    var result = '';
+    var characters = 'thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
 }
 
 function displayAddress(address) {
@@ -98,28 +110,14 @@ function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
         .then(() => {
             const video = document.getElementById("player");
-            setTimeout(() => { if (video.paused) video.play().catch(()=>{}); }, 100);
+            setTimeout(() => {
+                if (video.paused) video.play().catch(() => {});
+            }, 100);
             alert("Address copied to clipboard!");
         })
-        .catch(err => console.error("Unable to copy:", err));
+        .catch((error) => console.error("Unable to copy to clipboard:", error));
 }
 
-function resetUI() {
-    isSubmitting = false;
-    document.getElementById("submit-button").disabled = false;
-    document.getElementById("please-wait").style.display = "none";
-}
-
-function generateMixedString(length) {
-    var result = '';
-    var chars = 'thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
-    for (var i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-}
-
-// Popup functions
 function showNumberPopup() {
     var popup = document.getElementById("number-popup");
     popup.style.display = "block";
@@ -127,10 +125,17 @@ function showNumberPopup() {
 }
 
 function hideNumberPopup() {
-    document.getElementById("number-popup").style.display = "none";
+    var popup = document.getElementById("number-popup");
+    popup.style.display = "none";
 }
 
 function selectNumber(number) {
     document.getElementById("number-input").value = number;
     hideNumberPopup();
+}
+
+function resetUI() {
+    isSubmitting = false;
+    document.getElementById("submit-button").disabled = false;
+    document.getElementById("please-wait").style.display = "none";
 }
