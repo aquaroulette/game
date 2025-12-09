@@ -106,7 +106,6 @@ function resetUI() {
     document.getElementById("please-wait").style.display = "none";
 }
 
-
 function showNumberPopup() {
     var popup = document.getElementById("number-popup");
     popup.style.display = "flex";
@@ -125,4 +124,3 @@ function selectNumber(number) {
     document.getElementById("number-input").value = number;
     hideNumberPopup();
 }
-
