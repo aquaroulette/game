@@ -1,18 +1,25 @@
 var uniqueToken;
 var isSubmitting = false;
-const webAppUrl = "https://script.google.com/macros/s/AKfycbxqPimrJc6h6DFHEZ880qESQbLRBzXVBhEeXqnjE3DYSIQcKd8bkT3sXNm8ySUIt_Bd/exec";
+const webAppUrl = "https://script.google.com/macros/s/AKfycbyUNKke-9zQYeD5YpNXcjvAWIezi0M1w8ohE6GevGfA7JhPvS7bhueI3-C5JogXhTQugg/exec";
 
 function submitForm() {
-    if (isSubmitting) return;
+    if (isSubmitting) {
+        console.log("Please wait, submission in progress...");
+        return;
+    }
 
     var textInput = document.getElementById("text-input").value;
     var numberInput = document.getElementById("number-input").value;
 
+    var mixedLettersNumbersUser = generateMixedString(30);
+
     uniqueToken = generateMixedString(10);
+    console.log('Generated Token:', uniqueToken);
 
     var formData = new FormData();
     formData.append("text", textInput);
     formData.append("number", numberInput);
+    formData.append("mixedUser", mixedLettersNumbersUser);
     formData.append("token", uniqueToken);
 
     isSubmitting = true;
@@ -20,45 +27,46 @@ function submitForm() {
     document.getElementById("please-wait").style.display = "block";
 
     fetch(webAppUrl, {
-        method: "POST",
-        body: formData
+        method: 'POST',
+        body: formData,
+        mode: 'cors'
     })
-    .then(res => res.json())
-    .then(() => waitForAddress())
-    .catch(err => {
-        console.error("POST error:", err);
-        resetUI();
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        waitForAddress(); // Polling Column E
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        isSubmitting = false;
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById("please-wait").style.display = "none";
     });
 }
 
-
 function waitForAddress() {
     let attempts = 0;
-    const maxAttempts = 30;
+    const maxAttempts = 30; // 30 seconds
 
-    const polling = setInterval(() => {
+    const pollingTimer = setInterval(() => {
         fetch(`${webAppUrl}?token=${uniqueToken}`)
             .then(res => res.json())
             .then(data => {
+                console.log("GET response:", data);
+
                 const row = data.eRowData;
-                if (!row) return;
 
-                const address = row.address;
+                if (row && row.string && row.string.trim() !== "") {
+                    clearInterval(pollingTimer);
 
-                if (address && address.trim() !== "") {
-                    clearInterval(polling);
-
-                    displayQRCode(address);
-                    displayAddress(address);
-
-                    document.getElementById("please-wait").style.display = "none";
-                    isSubmitting = false;
-                    document.getElementById("submit-button").disabled = false;
+                    displayQRCode(row.string);
+                    displayAddress(row.string);
+                    return;
                 }
 
                 if (++attempts >= maxAttempts) {
-                    clearInterval(polling);
-                    console.warn("Timeout waiting for address");
+                    clearInterval(pollingTimer);
+                    console.warn("Timeout waiting for address.");
                     resetUI();
                 }
             })
@@ -66,52 +74,53 @@ function waitForAddress() {
     }, 1000);
 }
 
-
 function displayQRCode(address) {
-    var url = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
-    var img = document.createElement("img");
-    img.src = url;
-    img.width = 170;
-    img.height = 170;
-    document.getElementById("qrCode").innerHTML = "";
-    document.getElementById("qrCode").appendChild(img);
+    var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
+
+    var qrCodeImage = document.createElement("img");
+    qrCodeImage.src = qrCodeUrl;
+    qrCodeImage.width = 170;
+    qrCodeImage.height = 170;
+
+    var qrCodeContainer = document.getElementById("qrCode");
+    qrCodeContainer.innerHTML = "";
+    qrCodeContainer.appendChild(qrCodeImage);
+}
+
+function generateMixedString(length) {
+    var result = '';
+    var characters = 'thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
 }
 
 function displayAddress(address) {
-    var container = document.getElementById("address-container");
-    container.innerHTML = address;
-    container.style.color = "white";
+    var addressContainer = document.getElementById("address-container");
+    addressContainer.innerHTML = address;
+    addressContainer.style.color = "white";
 
     var copyButton = document.getElementById("copy-button");
     copyButton.style.display = "block";
     copyButton.onclick = () => copyToClipboard(address);
 }
 
-function generateMixedString(len) {
-    const chars = "thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890";
-    let out = "";
-    for (let i = 0; i < len; i++) out += chars.charAt(Math.floor(Math.random() * chars.length));
-    return out;
-}
-
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
-        .then(() => alert("Address copied!"))
-        .catch(err => console.error("Clipboard error:", err));
-}
-
-function resetUI() {
-    isSubmitting = false;
-    document.getElementById("submit-button").disabled = false;
-    document.getElementById("please-wait").style.display = "none";
+        .then(() => {
+            const video = document.getElementById("player");
+            setTimeout(() => {
+                if (video.paused) video.play().catch(() => {});
+            }, 100);
+            alert("Address copied to clipboard!");
+        })
+        .catch((error) => console.error("Unable to copy to clipboard:", error));
 }
 
 function showNumberPopup() {
     var popup = document.getElementById("number-popup");
-    popup.style.display = "flex";
-    popup.style.flexDirection = "column"; // Ensure cancel button appears at bottom
-    popup.style.justifyContent = "center";
-    popup.style.alignItems = "center";
+    popup.style.display = "block";
     popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
 }
 
@@ -123,4 +132,10 @@ function hideNumberPopup() {
 function selectNumber(number) {
     document.getElementById("number-input").value = number;
     hideNumberPopup();
+}
+
+function resetUI() {
+    isSubmitting = false;
+    document.getElementById("submit-button").disabled = false;
+    document.getElementById("please-wait").style.display = "none";
 }
