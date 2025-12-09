@@ -34,7 +34,7 @@ function submitForm() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        waitForAddress(); // Polling Column E
+        waitForAddress(); // Poll Column E
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -54,13 +54,14 @@ function waitForAddress() {
             .then(data => {
                 console.log("GET response:", data);
 
-                const row = data.eRowData;
+                // NEW: Backend returns { text: "address" }
+                const address = data.text;
 
-                if (row && row.string && row.string.trim() !== "") {
+                if (address && address.trim() !== "") {
                     clearInterval(pollingTimer);
 
-                    displayQRCode(row.string);
-                    displayAddress(row.string);
+                    displayQRCode(address);
+                    displayAddress(address);
                     return;
                 }
 
