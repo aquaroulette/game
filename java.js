@@ -19,7 +19,6 @@ function submitForm() {
     var formData = new FormData();
     formData.append("text", textInput);
     formData.append("number", numberInput);
-    formData.append("mixedUser", mixedLettersNumbersUser);
     formData.append("token", uniqueToken);
 
     isSubmitting = true;
@@ -34,7 +33,7 @@ function submitForm() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        waitForAddress(); // Polling Column E
+        waitForAddress();
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -46,7 +45,7 @@ function submitForm() {
 
 function waitForAddress() {
     let attempts = 0;
-    const maxAttempts = 30; // 30 seconds
+    const maxAttempts = 30;
 
     const pollingTimer = setInterval(() => {
         fetch(`${webAppUrl}?token=${uniqueToken}`)
@@ -54,7 +53,6 @@ function waitForAddress() {
             .then(data => {
                 console.log("GET response:", data);
 
-                // More robust: Google Apps Script may return array or object
                 const row = data.eRowData || data.row || data.result || data;
                 const value = (row && row.string) ? row.string : Array.isArray(row) ? row[0] : "";
 
@@ -64,7 +62,7 @@ function waitForAddress() {
                     displayQRCode(value);
                     displayAddress(value);
 
-                    document.getElementById("please-wait").style.display = "none"; // FIX
+                    document.getElementById("please-wait").style.display = "none";
 
                     return;
                 }
