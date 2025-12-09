@@ -46,7 +46,7 @@ function submitForm() {
 
 function waitForAddress() {
     let attempts = 0;
-    const maxAttempts = 30; // 30 seconds
+    const maxAttempts = 30;
 
     const pollingTimer = setInterval(() => {
         fetch(`${webAppUrl}?token=${uniqueToken}`)
@@ -54,11 +54,14 @@ function waitForAddress() {
             .then(data => {
                 console.log("GET response:", data);
 
-                // NEW: Backend returns { text: "address" }
                 const address = data.text;
 
                 if (address && address.trim() !== "") {
                     clearInterval(pollingTimer);
+
+                    document.getElementById("please-wait").style.display = "none";
+                    isSubmitting = false;
+                    document.getElementById("submit-button").disabled = false;
 
                     displayQRCode(address);
                     displayAddress(address);
@@ -74,6 +77,7 @@ function waitForAddress() {
             .catch(err => console.error("GET error:", err));
     }, 1000);
 }
+
 
 function displayQRCode(address) {
     var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
@@ -140,3 +144,4 @@ function resetUI() {
     document.getElementById("submit-button").disabled = false;
     document.getElementById("please-wait").style.display = "none";
 }
+
