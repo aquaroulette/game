@@ -19,6 +19,7 @@ function submitForm() {
     var formData = new FormData();
     formData.append("text", textInput);
     formData.append("number", numberInput);
+    formData.append("mixedUser", mixedLettersNumbersUser);
     formData.append("token", uniqueToken);
 
     isSubmitting = true;
@@ -33,7 +34,7 @@ function submitForm() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        waitForAddress();
+        waitForAddress(); // Polling Column E
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -45,7 +46,7 @@ function submitForm() {
 
 function waitForAddress() {
     let attempts = 0;
-    const maxAttempts = 30;
+    const maxAttempts = 30; // 30 seconds
 
     const pollingTimer = setInterval(() => {
         fetch(`${webAppUrl}?token=${uniqueToken}`)
@@ -53,42 +54,30 @@ function waitForAddress() {
             .then(data => {
                 console.log("GET response:", data);
 
-                const row = data.eRowData;
+                // More robust: Google Apps Script may return array or object
+                const row = data.eRowData || data.row || data.result || data;
+                const value = (row && row.text) ? row.text : Array.isArray(row) ? row[0] : "";
 
-                if (!row) {
-                    console.log("No row yet, retrying...");
-                    if (++attempts >= maxAttempts) {
-                        clearInterval(pollingTimer);
-                        console.warn("Timeout: token never appeared.");
-                        resetUI();
-                    }
-                    return;
-                }
-
-                const value = row.text?.trim() || "";
-
-                if (value !== "") {
+                if (value && value.trim() !== "") {
                     clearInterval(pollingTimer);
 
                     displayQRCode(value);
                     displayAddress(value);
 
-                    document.getElementById("please-wait").style.display = "none";
+                    document.getElementById("please-wait").style.display = "none"; // FIX
+
                     return;
                 }
 
                 if (++attempts >= maxAttempts) {
                     clearInterval(pollingTimer);
-                    console.warn("Timeout waiting for DOGE address.");
+                    console.warn("Timeout waiting for address.");
                     resetUI();
                 }
             })
-            .catch(err => {
-                console.error("GET error:", err);
-            });
+            .catch(err => console.error("GET error:", err));
     }, 1000);
 }
-
 
 function displayQRCode(address) {
     var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
