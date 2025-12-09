@@ -7,7 +7,6 @@ function submitForm() {
         console.log("Please wait, submission in progress...");
         return;
     }
-
     var textInput = document.getElementById("text-input").value;
     var numberInput = document.getElementById("number-input").value;
 
