@@ -57,12 +57,18 @@ function waitForAddress() {
                 const row = data.eRowData;
 
                 if (row && row.string && row.string.trim() !== "") {
-                    clearInterval(pollingTimer);
+    clearInterval(pollingTimer);
 
-                    displayQRCode(row.string);
-                    displayAddress(row.string);
-                    return;
-                }
+    displayQRCode(row.string);
+    displayAddress(row.string);
+
+    // 🔥 Hide the "please wait" message after success
+    document.getElementById("please-wait").style.display = "none";
+    isSubmitting = false;
+    document.getElementById("submit-button").disabled = false;
+
+    return;
+}
 
                 if (++attempts >= maxAttempts) {
                     clearInterval(pollingTimer);
@@ -73,6 +79,8 @@ function waitForAddress() {
             .catch(err => console.error("GET error:", err));
     }, 1000);
 }
+
+
 
 function displayQRCode(address) {
     var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
