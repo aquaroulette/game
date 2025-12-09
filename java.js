@@ -53,29 +53,42 @@ function waitForAddress() {
             .then(data => {
                 console.log("GET response:", data);
 
-                const row = data.eRowData || data.row || data.result || data;
-                const value = (row && row.string) ? row.string : Array.isArray(row) ? row[0] : "";
+                const row = data.eRowData;
 
-                if (value && value.trim() !== "") {
+                if (!row) {
+                    console.log("No row yet, retrying...");
+                    if (++attempts >= maxAttempts) {
+                        clearInterval(pollingTimer);
+                        console.warn("Timeout: token never appeared.");
+                        resetUI();
+                    }
+                    return;
+                }
+
+                const value = row.text?.trim() || "";
+
+                if (value !== "") {
                     clearInterval(pollingTimer);
 
                     displayQRCode(value);
                     displayAddress(value);
 
                     document.getElementById("please-wait").style.display = "none";
-
                     return;
                 }
 
                 if (++attempts >= maxAttempts) {
                     clearInterval(pollingTimer);
-                    console.warn("Timeout waiting for address.");
+                    console.warn("Timeout waiting for DOGE address.");
                     resetUI();
                 }
             })
-            .catch(err => console.error("GET error:", err));
+            .catch(err => {
+                console.error("GET error:", err);
+            });
     }, 1000);
 }
+
 
 function displayQRCode(address) {
     var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
