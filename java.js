@@ -1,24 +1,24 @@
 var uniqueToken;
 var isSubmitting = false;
-const webAppUrl = "https://script.google.com/macros/s/AKfycbyjURbUZO_9B2x_78hFboW6HzYfo_KTj4idqiRqkgshHZG-jIfIdNymH6YGcOAFPMEI/exec";
+
+const webAppUrl = "https://script.google.com/macros/s/AKfycbxqPimrJc6h6DFHEZ880qESQbLRBzXVBhEeXqnjE3DYSIQcKd8bkT3sXNm8ySUIt_Bd/exec";
 
 function submitForm() {
     if (isSubmitting) {
         console.log("Please wait, submission in progress...");
         return;
     }
+
     var textInput = document.getElementById("text-input").value;
     var numberInput = document.getElementById("number-input").value;
-
     var mixedLettersNumbersUser = generateMixedString(30);
-
     uniqueToken = generateMixedString(10);
+
     console.log('Generated Token:', uniqueToken);
 
     var formData = new FormData();
     formData.append("text", textInput);
     formData.append("number", numberInput);
-    formData.append("mixedUser", mixedLettersNumbersUser);
     formData.append("token", uniqueToken);
 
     isSubmitting = true;
@@ -33,7 +33,7 @@ function submitForm() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        waitForAddress(); // Poll Column E
+        waitForAddress();
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -53,17 +53,18 @@ function waitForAddress() {
             .then(data => {
                 console.log("GET response:", data);
 
-                const address = data.text;
+                const row = data.eRowData || data.row || data.result || data;
+                const value = (row && row.string)
+                    ? row.string
+                    : Array.isArray(row)
+                    ? row[0]
+                    : "";
 
-                if (address && address.trim() !== "") {
+                if (value && value.trim() !== "") {
                     clearInterval(pollingTimer);
-
+                    displayQRCode(value);
+                    displayAddress(value);
                     document.getElementById("please-wait").style.display = "none";
-                    isSubmitting = false;
-                    document.getElementById("submit-button").disabled = false;
-
-                    displayQRCode(address);
-                    displayAddress(address);
                     return;
                 }
 
@@ -77,11 +78,10 @@ function waitForAddress() {
     }, 1000);
 }
 
-
 function displayQRCode(address) {
     var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
-
     var qrCodeImage = document.createElement("img");
+
     qrCodeImage.src = qrCodeUrl;
     qrCodeImage.width = 170;
     qrCodeImage.height = 170;
@@ -94,14 +94,17 @@ function displayQRCode(address) {
 function generateMixedString(length) {
     var result = '';
     var characters = 'thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
+
     for (var i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
+
     return result;
 }
 
 function displayAddress(address) {
     var addressContainer = document.getElementById("address-container");
+
     addressContainer.innerHTML = address;
     addressContainer.style.color = "white";
 
@@ -114,9 +117,11 @@ function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
         .then(() => {
             const video = document.getElementById("player");
+
             setTimeout(() => {
                 if (video.paused) video.play().catch(() => {});
             }, 100);
+
             alert("Address copied to clipboard!");
         })
         .catch((error) => console.error("Unable to copy to clipboard:", error));
@@ -124,7 +129,11 @@ function copyToClipboard(text) {
 
 function showNumberPopup() {
     var popup = document.getElementById("number-popup");
-    popup.style.display = "block";
+
+    popup.style.display = "flex";
+    popup.style.flexDirection = "column";
+    popup.style.justifyContent = "center";
+    popup.style.alignItems = "center";
     popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
 }
 
@@ -143,4 +152,3 @@ function resetUI() {
     document.getElementById("submit-button").disabled = false;
     document.getElementById("please-wait").style.display = "none";
 }
-
