@@ -75,7 +75,7 @@ function waitForAddress() {
                 }
             })
             .catch(err => console.error("GET error:", err));
-    }, 400);
+    }, 1000);
 }
 
 function displayQRCode(address) {
