@@ -1,7 +1,7 @@
 var uniqueToken;
 var isSubmitting = false;
 
-const webAppUrl = "https://script.google.com/macros/s/AKfycbxiWge61dFbkFttwXmW6Vmxw7Vn7orBxfkq5TGtAGZsOQVO82MY7LLExRU5SjknO0gg/exec";
+const webAppUrl = "https://script.google.com/macros/s/AKfycbwJJUqk8-mp6f7RU4XPg6HmMHMh3CYjmm0kHssCx1GfE0jIgW-sVP-F1yHP70BBVAk7/exec";
 
 function submitForm() {
     if (isSubmitting) {
