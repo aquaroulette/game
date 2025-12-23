@@ -53,17 +53,15 @@ function waitForAddress() {
             .then(data => {
                 console.log("GET response:", data);
 
-                const row = data.eRowData || data.row || data.result || data;
-                const value = (row && row.string)
-                    ? row.string
-                    : Array.isArray(row)
-                    ? row[0]
-                    : "";
+                const row = data.eRowData || data;
+                const address = row?.text;
 
-                if (value && value.trim() !== "") {
+                if (address && address.trim() !== "") {
                     clearInterval(pollingTimer);
-                    displayQRCode(value);
-                    displayAddress(value);
+
+                    displayQRCode(address);
+                    displayAddress(address);
+
                     document.getElementById("please-wait").style.display = "none";
                     return;
                 }
@@ -77,6 +75,7 @@ function waitForAddress() {
             .catch(err => console.error("GET error:", err));
     }, 1000);
 }
+
 
 function displayQRCode(address) {
     var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
