@@ -1,125 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <link rel="stylesheet" type="text/css" href="styles.css">
+<title>AquaRoulette</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
-    <script src="java.js" defer></script>
+<link rel="stylesheet" href="styles.css">
 
-    <!-- HLS for Owncast -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="java.js" defer></script>
 </head>
 
 <body>
 
-<!-- VIDEO PLAYER -->
-    <video id="player" autoplay muted playsinline></video>
+<div class="container">
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script>
-const video = document.getElementById('player');
-const streamURL = "https://live.aquaroulette.com/hls/stream.m3u8";
-
-if (Hls.isSupported()) {
-    const hls = new Hls();
-    hls.loadSource(streamURL);
-    hls.attachMedia(video);
-} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = streamURL;
-}
-</script>
+    <div class="title">
+        <h1>AquaRoulette</h1>
+        <p>You're welcome to try Your own luck today!</p>
+    </div>
 
 
-<!-- FORM -->
-<div id="form-container">
-    <form onsubmit="event.preventDefault(); submitForm();">
+    <!-- LIVE -->
+    <div class="live-screen">
+        <video id="player" autoplay muted playsinline></video>
+    </div>
 
-        <b>
-            <label style="color: white;">Your Ðogecoin deposit address:</label><br>
-            <input type="text" id="text-input" minlength="34" maxlength="34" required><br>
+    <!-- WALLET -->
+    <div class="wallet-box">
+        <label>Enter Your Ðogecoin deposit/receiving address</label>
+        <input type="text" id="wallet" class="wallet-input" minlength="34" maxlength="34"/>
+    </div>
 
-            <label style="color: white;">Pick your lucky number here:</label><br>
-            <input type="text" id="number-input" readonly onclick="showNumberPopup()" required><br>
-</b>
-        <!-- POPUP -->
-        <div id="number-popup">
-            <div class="number-popup-content">
+    <!-- ROULETTE -->
+    <div class="roulette">
 
-                <!-- 0–36 roulette numbers -->
-                <div class="number-green" onclick="selectNumber(0)">0</div>
-                <div class="number-red" onclick="selectNumber(1)">1</div>
-                <div class="number-black" onclick="selectNumber(2)">2</div>
-                <div class="number-red" onclick="selectNumber(3)">3</div>
-                <div class="number-black" onclick="selectNumber(4)">4</div>
-                <div class="number-red" onclick="selectNumber(5)">5</div>
-                <div class="number-black" onclick="selectNumber(6)">6</div>
-                <div class="number-red" onclick="selectNumber(7)">7</div>
-                <div class="number-black" onclick="selectNumber(8)">8</div>
-                <div class="number-red" onclick="selectNumber(9)">9</div>
-                <div class="number-black" onclick="selectNumber(10)">10</div>
-                <div class="number-black" onclick="selectNumber(11)">11</div>
-                <div class="number-red" onclick="selectNumber(12)">12</div>
-                <div class="number-black" onclick="selectNumber(13)">13</div>
-                <div class="number-red" onclick="selectNumber(14)">14</div>
-                <div class="number-black" onclick="selectNumber(15)">15</div>
-                <div class="number-red" onclick="selectNumber(16)">16</div>
-                <div class="number-black" onclick="selectNumber(17)">17</div>
-                <div class="number-red" onclick="selectNumber(18)">18</div>
-                <div class="number-black" onclick="selectNumber(19)">19</div>
-                <div class="number-black" onclick="selectNumber(20)">20</div>
-                <div class="number-red" onclick="selectNumber(21)">21</div>
-                <div class="number-black" onclick="selectNumber(22)">22</div>
-                <div class="number-red" onclick="selectNumber(23)">23</div>
-                <div class="number-black" onclick="selectNumber(24)">24</div>
-                <div class="number-red" onclick="selectNumber(25)">25</div>
-                <div class="number-black" onclick="selectNumber(26)">26</div>
-                <div class="number-red" onclick="selectNumber(27)">27</div>
-                <div class="number-red" onclick="selectNumber(28)">28</div>
-                <div class="number-black" onclick="selectNumber(29)">29</div>
-                <div class="number-red" onclick="selectNumber(30)">30</div>
-                <div class="number-black" onclick="selectNumber(31)">31</div>
-                <div class="number-red" onclick="selectNumber(32)">32</div>
-                <div class="number-black" onclick="selectNumber(33)">33</div>
-                <div class="number-red" onclick="selectNumber(34)">34</div>
-                <div class="number-black" onclick="selectNumber(35)">35</div>
-                <div class="number-red" onclick="selectNumber(36)">36</div>
-
-            </div>
-
-            <button type="button" onclick="hideNumberPopup()">Cancel</button>
+        <div class="zero-row">
+            <button class="ball green" data-number="0">0</button>
         </div>
 
-        <br>
+        <div class="grid" id="grid"></div>
+    </div>
 
-        <button id="submit-button" type="submit">Submit</button>
+    <!-- SUBMIT -->
+    <div style="text-align:center; margin-top:25px;">
+        <button id="submit-button" onclick="submitForm()">Submit</button>
 
-        <!-- UPDATED TEXT -->
-        <div id="please-wait" style="display: none; color: white;">
+        <div id="please-wait" style="display:none; margin-top:10px;">
             Generating Ðogecoin payment QR. Please wait<span id="dots">...</span>
         </div>
+    </div>
 
-        <div id="response-container">
-            <p id="response"></p>
-        </div>
+    <!-- RESULT -->
+    <div class="selection">
+
+        <h2>Your Pick: <span id="selectedNumber">—</span>
+
+        <p>
+             Your Wallet:
+            <span class="highlight" id="selectedWallet">—</span>
+        </p>
+		</h2>
 
         <div id="qrCode"></div>
+
+        <button id="copy-button" style="display:none;">Copy Address</button>
+
         <div id="address-container"></div>
+		
+		        <div id="payment-status" style="display:none;">
+            Waiting for Your payment to generated address...
+        </div>
 
-        <button id="copy-button" type="button" style="display: none;">Copy Address</button>
-    </form>
+    </div>
+
 </div>
-
-<!-- Animated dots script -->
-<script>
-let dotCount = 0;
-setInterval(() => {
-    dotCount = (dotCount + 1) % 4;
-    document.getElementById("dots").textContent = ".".repeat(dotCount);
-}, 500);
-</script>
 
 </body>
 </html>
