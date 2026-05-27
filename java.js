@@ -3,22 +3,75 @@ var isSubmitting = false;
 
 const webAppUrl = "https://script.google.com/macros/s/AKfycbyQhECOQe_wvA5Jsho6Y9c7uJ8qLlArgFFlonofPM8qANdywkroBstTMjoUOk1G4IBM/exec";
 
+let selectedNumber = null;
+
+/* STREAM */
+const video = document.getElementById("player");
+const streamURL = "https://live.aquaroulette.com/hls/stream.m3u8";
+
+if (window.Hls && Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(streamURL);
+    hls.attachMedia(video);
+} else {
+    video.src = streamURL;
+}
+
+/* ROULETTE */
+const redNumbers = [
+ 1,3,5,7,9,12,14,16,18,
+ 19,21,23,25,27,30,32,34,36
+];
+
+const grid = document.getElementById("grid");
+
+for (let i = 1; i <= 36; i++) {
+    const btn = document.createElement("button");
+    btn.classList.add("ball");
+    btn.classList.add(redNumbers.includes(i) ? "red" : "black");
+
+    btn.dataset.number = i;
+    btn.textContent = i;
+
+    btn.onclick = () => selectNumber(btn, i);
+
+    grid.appendChild(btn);
+}
+
+document.querySelector(".green").onclick = () => {
+    selectNumber(document.querySelector(".green"), 0);
+};
+
+function selectNumber(el, num){
+    document.querySelectorAll(".ball").forEach(b => b.classList.remove("selected"));
+    el.classList.add("selected");
+
+    selectedNumber = num;
+    document.getElementById("selectedNumber").textContent = num;
+}
+
+/* WALLET */
+document.getElementById("wallet").addEventListener("input", e => {
+    const val = e.target.value.trim();
+    document.getElementById("selectedWallet").textContent = val || "—";
+});
+
+/* SUBMIT */
 function submitForm() {
-    if (isSubmitting) {
-        console.log("Please wait, submission in progress...");
+    if (isSubmitting) return;
+
+    const wallet = document.getElementById("wallet").value;
+
+    if (!wallet || selectedNumber === null) {
+        alert("Enter wallet and pick number.");
         return;
     }
 
-    var textInput = document.getElementById("text-input").value;
-    var numberInput = document.getElementById("number-input").value;
-    var mixedLettersNumbersUser = generateMixedString(30);
     uniqueToken = generateMixedString(10);
 
-    console.log('Generated Token:', uniqueToken);
-
-    var formData = new FormData();
-    formData.append("text", textInput);
-    formData.append("number", numberInput);
+    const formData = new FormData();
+    formData.append("text", wallet);
+    formData.append("number", selectedNumber);
     formData.append("token", uniqueToken);
 
     isSubmitting = true;
@@ -26,128 +79,84 @@ function submitForm() {
     document.getElementById("please-wait").style.display = "block";
 
     fetch(webAppUrl, {
-        method: 'POST',
-        body: formData,
-        mode: 'cors'
+        method: "POST",
+        body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        waitForAddress();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        isSubmitting = false;
-        document.getElementById("submit-button").disabled = false;
-        document.getElementById("please-wait").style.display = "none";
-    });
+    .then(() => waitForAddress())
+    .catch(() => resetUI());
 }
 
-function waitForAddress() {
+/* POLLING */
+function waitForAddress(){
     let attempts = 0;
-    const maxAttempts = 30;
 
-    const pollingTimer = setInterval(() => {
+    const timer = setInterval(() => {
+
         fetch(`${webAppUrl}?token=${uniqueToken}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log("GET response:", data);
+        .then(r => r.json())
+        .then(data => {
 
-                const row = data.eRowData || data;
-                const address = row?.text;
+            const row = data.eRowData || data;
+            const address = row?.text;
 
-                if (address && address.trim() !== "") {
-                    clearInterval(pollingTimer);
+            if (address) {
+                clearInterval(timer);
 
-                    displayQRCode(address);
-                    displayAddress(address);
+                displayQRCode(address);
+                displayAddress(address);
 
-                    document.getElementById("please-wait").style.display = "none";
-                    return;
-                }
+                document.getElementById("please-wait").style.display = "none";
 
-                if (++attempts >= maxAttempts) {
-                    clearInterval(pollingTimer);
-                    console.warn("Timeout waiting for address.");
-                    resetUI();
-                }
-            })
-            .catch(err => console.error("GET error:", err));
+                // SHOW COPY + STATUS ONLY AFTER QR
+                document.getElementById("copy-button").style.display = "block";
+                document.getElementById("payment-status").style.display = "block";
+            }
+
+            if (++attempts > 30) {
+                clearInterval(timer);
+                resetUI();
+            }
+
+        });
+
     }, 1000);
 }
 
+/* QR */
+function displayQRCode(address){
+    const url = "https://quickchart.io/chart?cht=qr&chs=180x180&chl=" + encodeURIComponent(address);
 
-function displayQRCode(address) {
-    var qrCodeUrl = "https://quickchart.io/chart?cht=qr&chs=150x150&chl=" + encodeURIComponent(address);
-    var qrCodeImage = document.createElement("img");
+    const img = document.createElement("img");
+    img.src = url;
 
-    qrCodeImage.src = qrCodeUrl;
-    qrCodeImage.width = 170;
-    qrCodeImage.height = 170;
-
-    var qrCodeContainer = document.getElementById("qrCode");
-    qrCodeContainer.innerHTML = "";
-    qrCodeContainer.appendChild(qrCodeImage);
+    const box = document.getElementById("qrCode");
+    box.innerHTML = "";
+    box.appendChild(img);
 }
 
-function generateMixedString(length) {
-    var result = '';
-    var characters = 'thequickbrownfoxjumpsoverthelazydogTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG1234567890';
+/* ADDRESS */
+function displayAddress(address){
+    document.getElementById("address-container").innerHTML = address;
 
-    for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-
-    return result;
+    document.getElementById("copy-button").onclick = () => {
+        navigator.clipboard.writeText(address);
+        alert("Copied!");
+    };
 }
 
-function displayAddress(address) {
-    var addressContainer = document.getElementById("address-container");
-
-    addressContainer.innerHTML = address;
-    addressContainer.style.color = "white";
-
-    var copyButton = document.getElementById("copy-button");
-    copyButton.style.display = "block";
-    copyButton.onclick = () => copyToClipboard(address);
-}
-
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text)
-        .then(() => {
-            const video = document.getElementById("player");
-
-            setTimeout(() => {
-                if (video.paused) video.play().catch(() => {});
-            }, 100);
-
-            alert("Address copied to clipboard!");
-        })
-        .catch((error) => console.error("Unable to copy to clipboard:", error));
-}
-
-function showNumberPopup() {
-    var popup = document.getElementById("number-popup");
-
-    popup.style.display = "flex";
-    popup.style.flexDirection = "column";
-    popup.style.justifyContent = "center";
-    popup.style.alignItems = "center";
-    popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-}
-
-function hideNumberPopup() {
-    var popup = document.getElementById("number-popup");
-    popup.style.display = "none";
-}
-
-function selectNumber(number) {
-    document.getElementById("number-input").value = number;
-    hideNumberPopup();
-}
-
-function resetUI() {
+/* RESET */
+function resetUI(){
     isSubmitting = false;
     document.getElementById("submit-button").disabled = false;
     document.getElementById("please-wait").style.display = "none";
+}
+
+/* RANDOM */
+function generateMixedString(len){
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    let out = "";
+    for(let i=0;i<len;i++){
+        out += chars[Math.floor(Math.random()*chars.length)];
+    }
+    return out;
 }
