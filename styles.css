@@ -1,129 +1,205 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
 
-body {
+body{
+    min-height:100vh;
+    background: radial-gradient(circle at top, #151515 0%, #090909 55%, #000 100%);
+    display:flex;
+    justify-content:center;
+    padding:30px;
+    color:white;
+}
+
+/* CONTAINER */
+.container{
+    width:100%;
+    max-width:850px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:30px;
+    padding:35px;
+    backdrop-filter:blur(14px);
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.title h1{
+    font-size:2.8rem;
+    color:#8ad7ff;
+}
+
+.title p{
+    color:#9a9a9a;
+}
+
+/* WALLET */
+.wallet-box{
+    margin-bottom:20px;
+}
+
+.wallet-box label{
+    display:block;
+    margin-bottom:10px;
+    color:#d7d7d7;
+    font-weight:600;
     text-align: center;
-    background-color: #000000;
-    background-image: url("background.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    padding-top: 10px;
 }
 
-/* VIDEO */
-#player {
-    width: 100%;
-    max-height: 100vh;
-    background: black;
-    object-fit: contain;
-    pointer-events: none;
+.wallet-input{
+    width:100%;
+    padding:16px 20px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.07);
+    background:#0f0f0f;
+    color:white;
 }
 
-/* FORM */
-#form-container {
-    text-align: center;
-    z-index: 5;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 10px;
-    margin: 20px auto;
-    color: white;
-    width: 90%;
-    max-width: 600px;
+/* LIVE */
+.live-screen{
+    width:100%;
+    height:190px;
+    border-radius:24px;
+    overflow:hidden;
+    margin-bottom:30px;
+    border:1px solid rgba(255,255,255,0.06);
+    background:#000;
 }
 
-/* POPUP */
-#number-popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #f9f9f9;
-    padding: 15px;
-    border: 2px solid #ccc;
-    z-index: 9999;
-    width: 95%;
-    max-width: 354px;
-    border-radius: 10px;
+#player{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-/* GRID layout: green ball top center, 6 per row */
-.number-popup-content {
-    margin-bottom: 12px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    justify-items: center;
-    gap: 6px; /* smaller gap for fit */
+/* ROULETTE */
+.roulette{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
 }
 
-/* Prevent mobile zoom */
-input, textarea, select {
-    font-size: 16px !important;
+.zero-row{
+    display:flex;
+    justify-content:center;
 }
 
-/* BALLS — resized to fit 6 columns within 354px */
-.number-green, .number-red, .number-black {
-    user-select: none;
-    width: 48px;      /* reduced */
-    height: 48px;     /* reduced */
-    border-radius: 50%;
-    color: white;
-    font-size: 18px;  /* reduced */
-    font-weight: bold;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-
-    background: radial-gradient(circle at 30% 30%, #ffffff40, #000000d0);
-    box-shadow:
-        inset 6px 6px 10px #ffffff25,
-        inset -6px -6px 10px #00000080,
-        0 6px 16px rgba(0,0,0,0.65);
-
-    transition: transform 0.12s;
-    margin: 0; /* remove margin for fit */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:15px;
+    max-width:560px;
 }
 
-/* Hover + active */
-.number-green:hover,
-.number-red:hover,
-.number-black:hover {
-    transform: scale(1.05);
-}
-.number-green:active,
-.number-red:active,
-.number-black:active {
-    transform: scale(0.92);
-}
-
-/* Colors */
-.number-red { background-color: #c70000 !important; }
-.number-black { background-color: #000000 !important; }
-.number-green { background-color: #0f7f00 !important; }
-
-/* MOBILE sizing */
-@media (max-width: 480px) {
-    .number-green, .number-red, .number-black {
-        width: 42px;
-        height: 42px;
-        font-size: 16px;
-    }
+/* BALLS — MORE “POP” BUT CONTROLLED */
+.ball{
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    color:white;
+    font-weight:800;
+    font-size:1.05rem;
+    transition:0.15s;
 }
 
-/* Green ball spans full row top-center */
-.number-popup-content .number-green:first-child {
-    grid-column: 1 / -1;
-    justify-self: center;
+/* improved depth + saturation */
+.red{
+    background: radial-gradient(circle at 30% 25%, #ff6b6b, #7a1212 70%);
+    box-shadow: inset -6px -8px 14px rgba(0,0,0,0.55),
+                0 6px 10px rgba(0,0,0,0.35);
 }
 
-#copy-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    display: block;
-    margin: 12px auto;
+.black{
+    background: radial-gradient(circle at 30% 25%, #666, #151515 70%);
+    box-shadow: inset -6px -8px 14px rgba(0,0,0,0.7),
+                0 6px 10px rgba(0,0,0,0.35);
+}
+
+.green{
+    background: radial-gradient(circle at 30% 25%, #42d392, #0b4a2c 70%);
+    box-shadow: inset -6px -8px 14px rgba(0,0,0,0.5),
+                0 6px 10px rgba(0,0,0,0.35);
+}
+
+.ball:hover{
+    transform:scale(1.05);
+}
+
+.ball.selected{
+    outline:2px solid #8ad7ff;
+    transform:scale(1.08);
+}
+
+/* RESULT */
+.selection{
+    margin-top:32px;
+    padding:26px;
+    border-radius:22px;
+    background:rgba(255,255,255,0.02);
+    text-align:center;
+}
+
+.selection h2{
+    color:#8ad7ff;
+    margin-bottom:14px;
+}
+
+.highlight{
+    font-weight:800;
+    color:#8ad7ff;
+}
+
+/* QR CENTER */
+#qrCode{
+    margin-top:14px;
+    display:flex;
+    justify-content:center;
+}
+
+/* BUTTON */
+#submit-button{
+    padding:12px 24px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    background:#8ad7ff;
+    color:#000;
+    font-weight:800;
+}
+
+/* COPY BUTTON */
+#copy-button{
+    margin-top:14px;
+    padding:10px 20px;
+    border:none;
+    border-radius:12px;
+    background:#ffffff10;
+    color:white;
+    cursor:pointer;
+    display:none;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* PAYMENT STATUS */
+#payment-status{
+    margin-top:10px;
+    color:#8ad7ff;
+    font-weight:700;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+    .grid{grid-template-columns:repeat(4,1fr);}
+    .ball{width:60px;height:60px;}
 }
