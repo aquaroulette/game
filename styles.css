@@ -50,7 +50,7 @@ body{
     margin-bottom:10px;
     color:#d7d7d7;
     font-weight:600;
-    text-align: center;
+    text-align:center;
 }
 
 .wallet-input{
@@ -60,6 +60,7 @@ body{
     border:1px solid rgba(255,255,255,0.07);
     background:#0f0f0f;
     color:white;
+    font-size:1rem;
 }
 
 /* LIVE */
@@ -90,45 +91,56 @@ body{
 .zero-row{
     display:flex;
     justify-content:center;
+    width:100%;
 }
 
 .grid{
     display:grid;
     grid-template-columns:repeat(6, 1fr);
-    gap:15px;
+    gap:10px;
+    width:100%;
     max-width:560px;
 }
 
-/* BALLS — MORE “POP” BUT CONTROLLED */
+/* BALLS */
 .ball{
-    width:68px;
-    height:68px;
+    width:100%;
+    aspect-ratio:1/1;
+    max-width:68px;
+
     border-radius:50%;
     border:none;
     cursor:pointer;
+
     color:white;
     font-weight:800;
     font-size:1.05rem;
+
     transition:0.15s;
 }
 
-/* improved depth + saturation */
+/* RED */
 .red{
     background: radial-gradient(circle at 30% 25%, #ff6b6b, #7a1212 70%);
-    box-shadow: inset -6px -8px 14px rgba(0,0,0,0.55),
-                0 6px 10px rgba(0,0,0,0.35);
+    box-shadow:
+        inset -6px -8px 14px rgba(0,0,0,0.55),
+        0 6px 10px rgba(0,0,0,0.35);
 }
 
+/* BLACK */
 .black{
     background: radial-gradient(circle at 30% 25%, #666, #151515 70%);
-    box-shadow: inset -6px -8px 14px rgba(0,0,0,0.7),
-                0 6px 10px rgba(0,0,0,0.35);
+    box-shadow:
+        inset -6px -8px 14px rgba(0,0,0,0.7),
+        0 6px 10px rgba(0,0,0,0.35);
 }
 
+/* GREEN */
 .green{
     background: radial-gradient(circle at 30% 25%, #42d392, #0b4a2c 70%);
-    box-shadow: inset -6px -8px 14px rgba(0,0,0,0.5),
-                0 6px 10px rgba(0,0,0,0.35);
+    box-shadow:
+        inset -6px -8px 14px rgba(0,0,0,0.5),
+        0 6px 10px rgba(0,0,0,0.35);
 }
 
 .ball:hover{
@@ -154,9 +166,21 @@ body{
     margin-bottom:14px;
 }
 
+.wallet-preview{
+    margin-top:10px;
+    line-height:1.5;
+}
+
 .highlight{
     font-weight:800;
     color:#8ad7ff;
+}
+
+/* WRAP LONG TEXT */
+#selectedWallet,
+#address-container{
+    word-break:break-all;
+    overflow-wrap:anywhere;
 }
 
 /* QR CENTER */
@@ -164,6 +188,14 @@ body{
     margin-top:14px;
     display:flex;
     justify-content:center;
+}
+
+/* ADDRESS */
+#address-container{
+    margin-top:14px;
+    font-size:0.95rem;
+    color:#8ad7ff;
+    max-width:100%;
 }
 
 /* BUTTON */
@@ -200,6 +232,48 @@ body{
 
 /* MOBILE */
 @media(max-width:700px){
-    .grid{grid-template-columns:repeat(4,1fr);}
-    .ball{width:60px;height:60px;}
+
+    body{
+        padding:12px;
+    }
+
+    .container{
+        padding:18px;
+        border-radius:20px;
+    }
+
+    .title h1{
+        font-size:2rem;
+    }
+
+    .title p{
+        font-size:0.95rem;
+    }
+
+    .live-screen{
+        height:160px;
+        margin-bottom:22px;
+    }
+
+    .grid{
+        gap:8px;
+    }
+
+    .ball{
+        font-size:0.9rem;
+    }
+
+    .wallet-input{
+        padding:14px 16px;
+        font-size:0.95rem;
+    }
+
+    .selection{
+        padding:18px;
+    }
+
+    #address-container{
+        font-size:0.85rem;
+    }
+
 }
