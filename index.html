@@ -22,7 +22,6 @@
         <p>You're welcome to try Your own luck today!</p>
     </div>
 
-
     <!-- LIVE -->
     <div class="live-screen">
         <video id="player" autoplay muted playsinline></video>
@@ -31,7 +30,13 @@
     <!-- WALLET -->
     <div class="wallet-box">
         <label>Enter Your Ðogecoin deposit/receiving address</label>
-        <input type="text" id="wallet" class="wallet-input" minlength="34" maxlength="34"/>
+        <input
+            type="text"
+            id="wallet"
+            class="wallet-input"
+            minlength="34"
+            maxlength="34"
+        />
     </div>
 
     <!-- ROULETTE -->
@@ -42,35 +47,45 @@
         </div>
 
         <div class="grid" id="grid"></div>
+
     </div>
 
     <!-- SUBMIT -->
     <div style="text-align:center; margin-top:25px;">
-        <button id="submit-button" onclick="submitForm()">Submit</button>
+
+        <button id="submit-button" onclick="submitForm()">
+            Submit
+        </button>
 
         <div id="please-wait" style="display:none; margin-top:10px;">
-            Generating Ðogecoin payment QR. Please wait<span id="dots">...</span>
+            Generating Ðogecoin payment QR. Please wait
+            <span id="dots">...</span>
         </div>
+
     </div>
 
     <!-- RESULT -->
     <div class="selection">
 
-        <h2>Your Pick: <span id="selectedNumber">—</span>
+        <h2>
+            Your Pick:
+            <span id="selectedNumber">—</span>
+        </h2>
 
-        <p>
-             Your Wallet:
+        <p class="wallet-preview">
+            Your Wallet:
             <span class="highlight" id="selectedWallet">—</span>
         </p>
-		</h2>
 
         <div id="qrCode"></div>
 
-        <button id="copy-button" style="display:none;">Copy Address</button>
+        <button id="copy-button" style="display:none;">
+            Copy Address
+        </button>
 
         <div id="address-container"></div>
-		
-		        <div id="payment-status" style="display:none;">
+
+        <div id="payment-status" style="display:none;">
             Waiting for Your payment to generated address...
         </div>
 
