@@ -88,10 +88,17 @@ body{
     gap:16px;
 }
 
+/* ZERO ROW */
 .zero-row{
     display:flex;
     justify-content:center;
     width:100%;
+}
+
+/* GREEN BALL SAME SIZE AS GRID BALLS */
+.zero-row .ball{
+    width:min(68px, calc((100vw - 80px) / 6));
+    aspect-ratio:1/1;
 }
 
 .grid{
