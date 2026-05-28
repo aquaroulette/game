@@ -1,12 +1,360 @@
+# AquaRoulette — Fun 404 Page
+
+## `404.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 — AquaRoulette</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:'Inter', sans-serif;
+
+    background:
+        radial-gradient(circle at top, #151515 0%, #090909 55%, #000 100%);
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    position:relative;
+}
+
+/* floating glow */
+body::before{
+    content:"";
+
+    position:absolute;
+    width:600px;
+    height:600px;
+
+    background:radial-gradient(circle, rgba(138,215,255,0.16), transparent 70%);
+
+    top:-250px;
+    left:50%;
+    transform:translateX(-50%);
+
+    pointer-events:none;
+}
+
+.container{
+    width:100%;
+    max-width:760px;
+
+    text-align:center;
+
+    padding:50px 40px;
+
+    border-radius:32px;
+
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+
+    backdrop-filter:blur(14px);
+
+    position:relative;
+    z-index:2;
+}
+
+.logo{
+    font-size:3rem;
+    font-weight:800;
+    color:#8ad7ff;
+
+    margin-bottom:12px;
+}
+
+.subtitle{
+    color:#8f8f8f;
+    margin-bottom:38px;
+}
+
+.roulette-area{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-bottom:40px;
+
+    perspective:1000px;
+}
+
+.ball{
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:3rem;
+    font-weight:800;
+
+    animation:float 2.8s ease-in-out infinite;
+
+    box-shadow:
+        inset -10px -12px 18px rgba(0,0,0,0.55),
+        0 14px 30px rgba(0,0,0,0.35);
+}
+
+.red{
+    background: radial-gradient(circle at 30% 25%, #ff6b6b, #7a1212 70%);
+}
+
+.black{
+    background: radial-gradient(circle at 30% 25%, #666, #151515 70%);
+}
+
+.green{
+    background: radial-gradient(circle at 30% 25%, #42d392, #0b4a2c 70%);
+}
+
+.ball-group{
+    display:flex;
+    gap:22px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.error-code{
+    font-size:5rem;
+    font-weight:800;
+    color:#8ad7ff;
+
+    margin-bottom:14px;
+
+    text-shadow:0 0 24px rgba(138,215,255,0.25);
+}
+
+.message{
+    font-size:1.25rem;
+    line-height:1.6;
+
+    color:#d6d6d6;
+
+    max-width:560px;
+    margin:0 auto 26px;
+}
+
+.small-text{
+    color:#8d8d8d;
+    margin-bottom:34px;
+}
+
+.home-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:16px 28px;
+
+    border-radius:16px;
+
+    background:#8ad7ff;
+    color:#000;
+
+    text-decoration:none;
+    font-weight:800;
+
+    transition:0.2s;
+}
+
+.home-button:hover{
+    transform:translateY(-3px) scale(1.03);
+
+    box-shadow:0 10px 30px rgba(138,215,255,0.25);
+}
+
+.chips{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.chip{
+    position:absolute;
+
+    width:22px;
+    height:22px;
+
+    border-radius:50%;
+
+    opacity:0.18;
+
+    animation:drift linear infinite;
+}
+
+.chip.red{
+    background:#ff5b5b;
+}
+
+.chip.black{
+    background:#5f5f5f;
+}
+
+.chip.green{
+    background:#42d392;
+}
+
+.chip:nth-child(1){
+    top:10%;
+    left:8%;
+    animation-duration:18s;
+}
+
+.chip:nth-child(2){
+    top:75%;
+    left:12%;
+    animation-duration:22s;
+}
+
+.chip:nth-child(3){
+    top:22%;
+    right:10%;
+    animation-duration:16s;
+}
+
+.chip:nth-child(4){
+    top:80%;
+    right:15%;
+    animation-duration:20s;
+}
+
+.chip:nth-child(5){
+    top:48%;
+    left:4%;
+    animation-duration:26s;
+}
+
+.chip:nth-child(6){
+    top:40%;
+    right:4%;
+    animation-duration:24s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0px) rotateY(0deg);
+    }
+
+    50%{
+        transform:translateY(-10px) rotateY(12deg);
+    }
+}
+
+@keyframes drift{
+    from{
+        transform:translateY(0px) rotate(0deg);
+    }
+
+    to{
+        transform:translateY(-120px) rotate(360deg);
+    }
+}
+
+@media(max-width:700px){
+
+    .container{
+        padding:36px 22px;
+        border-radius:24px;
+    }
+
+    .logo{
+        font-size:2.2rem;
+    }
+
+    .error-code{
+        font-size:4rem;
+    }
+
+    .message{
+        font-size:1rem;
+    }
+
+    .ball{
+        width:82px;
+        height:82px;
+
+        font-size:2rem;
+    }
+
+    .ball-group{
+        gap:14px;
+    }
+
+}
+
+</style>
 </head>
 <body>
-    <h1>404 - Page Not Found</h1>
-    <p>Oops! Page you are looking for does not exist.</p>
+
+<div class="chips">
+    <div class="chip red"></div>
+    <div class="chip black"></div>
+    <div class="chip green"></div>
+    <div class="chip red"></div>
+    <div class="chip black"></div>
+    <div class="chip green"></div>
+</div>
+
+<div class="container">
+
+    <div class="logo">AquaRoulette</div>
+
+    <div class="subtitle">
+        The wheel spun... and landed on missing.
+    </div>
+
+    <div class="roulette-area">
+
+        <div class="ball-group">
+            <div class="ball red">4</div>
+            <div class="ball black">0</div>
+            <div class="ball green">4</div>
+        </div>
+
+    </div>
+
+    <div class="error-code">404</div>
+
+    <div class="message">
+        Looks like this page lost its bet and disappeared from the table.
+    </div>
+
+    <div class="small-text">
+        Try Your luck somewhere else.
+    </div>
+
+    <a href="/" class="home-button">
+        Return to AquaRoulette
+    </a>
+
+</div>
+
 </body>
 </html>
