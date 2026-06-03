@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AquaRoulette</title>
 
@@ -22,21 +22,30 @@
         <p>You're welcome to try Your own luck today!</p>
     </div>
 
-    <!-- LIVE -->
+    <!-- LIVE STREAM -->
     <div class="live-screen">
-        <video id="player" autoplay muted playsinline></video>
+
+        <video
+            id="player"
+            autoplay
+            muted
+            playsinline
+            loop
+        ></video>
+
     </div>
 
     <!-- WALLET -->
     <div class="wallet-box">
         <label>Enter Your Ðogecoin deposit/receiving address to join the game</label>
+
         <input
             type="text"
             id="wallet"
             class="wallet-input"
             minlength="34"
             maxlength="34"
-        />
+        >
     </div>
 
     <!-- ROULETTE -->
@@ -87,7 +96,7 @@
 
         <div id="payment-status" style="display:none;">
             Waiting for Your payment...
-            <p>Min: 30Ð   Max: 1000Ð</p>
+            <p>Min: 30Ð Max: 1000Ð</p>
         </div>
 
     </div>
