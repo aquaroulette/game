@@ -6,15 +6,49 @@ const webAppUrl = "https://script.google.com/macros/s/AKfycbyQhECOQe_wvA5Jsho6Y9
 let selectedNumber = null;
 
 /* STREAM */
-const video = document.getElementById("player");
-const streamURL = "https://live.aquaroulette.com/hls/stream.m3u8";
 
-if (window.Hls && Hls.isSupported()) {
-    const hls = new Hls();
+const video = document.getElementById("player");
+
+const streamURL =
+    "https://live.aquaroulette.com/hls/stream.m3u8";
+
+video.muted = true;
+video.autoplay = true;
+video.playsInline = true;
+
+if (Hls.isSupported()) {
+
+    const hls = new Hls({
+        liveDurationInfinity: true
+    });
+
     hls.loadSource(streamURL);
+
     hls.attachMedia(video);
-} else {
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+
+        video.play().catch(err => {
+            console.log("Autoplay blocked:", err);
+        });
+
+    });
+
+} else if (
+    video.canPlayType(
+        "application/vnd.apple.mpegurl"
+    )
+) {
+
     video.src = streamURL;
+
+    video.addEventListener("loadedmetadata", () => {
+
+        video.play().catch(err => {
+            console.log("Autoplay blocked:", err);
+        });
+
+    });
 }
 
 /* ROULETTE */
