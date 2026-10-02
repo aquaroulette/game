@@ -5,284 +5,477 @@
     font-family:Segoe UI, sans-serif;
 }
 
+
 body{
     min-height:100vh;
-    background: radial-gradient(circle at top, #151515 0%, #090909 55%, #000 100%);
+    background:
+        radial-gradient(
+            circle at top,
+            #151515 0%,
+            #090909 55%,
+            #000 100%
+        );
+
     display:flex;
     justify-content:center;
+
     padding:30px;
+
     color:white;
 }
 
+
 /* CONTAINER */
+
 .container{
     width:100%;
     max-width:850px;
+
     background:rgba(255,255,255,0.03);
+
     border:1px solid rgba(255,255,255,0.06);
+
     border-radius:30px;
+
     padding:35px;
+
     backdrop-filter:blur(14px);
 }
 
+
 /* TITLE */
+
 .title{
     text-align:center;
     margin-bottom:28px;
 }
+
 
 .title h1{
     font-size:2.8rem;
     color:#8ad7ff;
 }
 
+
 .title p{
     color:#9a9a9a;
 }
 
+
 /* WALLET */
+
 .wallet-box{
     margin-bottom:20px;
 }
 
+
 .wallet-box label{
     display:block;
+
     margin-bottom:10px;
+
     color:#d7d7d7;
+
     font-weight:600;
+
     text-align:center;
 }
 
+
 .wallet-input{
     width:100%;
+
     padding:16px 20px;
+
     border-radius:18px;
+
     border:1px solid rgba(255,255,255,0.07);
+
     background:#0f0f0f;
+
     color:white;
+
     font-size:1rem;
 }
 
-/* LIVE SCREEN (FIXED) */
+
+/* LIVE SCREEN */
+
 .live-screen{
     width:100%;
-    aspect-ratio: 16 / 9;
-    max-height: 400px;
+
+    aspect-ratio:16 / 9;
+
+    max-height:400px;
+
     overflow:hidden;
+
     border-radius:24px;
+
     background:#000;
+
     border:1px solid rgba(255,255,255,0.06);
-    position: relative;
+
+    position:relative;
 }
+
 
 #player{
     width:100%;
     height:100%;
-    object-fit:cover; /* change to contain if you don't want cropping */
+
+    object-fit:cover;
+
     display:block;
 }
 
+
 /* ROULETTE */
+
 .roulette{
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     gap:16px;
 }
 
+
 /* ZERO ROW */
+
 .zero-row{
     display:flex;
+
     justify-content:center;
+
     width:100%;
 }
 
-/* GREEN BALL SAME SIZE AS GRID BALLS */
+
 .zero-row .ball{
-    width:min(68px, calc((100vw - 80px) / 6));
+    width:min(
+        68px,
+        calc((100vw - 80px) / 6)
+    );
+
     aspect-ratio:1/1;
 }
+
+
+/* GRID */
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(6, 1fr);
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
     gap:10px;
+
     width:100%;
+
     max-width:560px;
 }
 
+
 /* BALLS */
+
 .ball{
     width:100%;
+
     aspect-ratio:1/1;
+
     max-width:68px;
 
     border-radius:50%;
+
     border:none;
+
     cursor:pointer;
 
     color:white;
+
     font-weight:800;
+
     font-size:1.05rem;
 
     transition:0.15s;
 }
 
+
 /* RED */
+
 .red{
-    background: radial-gradient(circle at 30% 25%, #ff6b6b, #7a1212 70%);
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #ff6b6b,
+            #7a1212 70%
+        );
+
     box-shadow:
         inset -6px -8px 14px rgba(0,0,0,0.55),
         0 6px 10px rgba(0,0,0,0.35);
 }
 
+
 /* BLACK */
+
 .black{
-    background: radial-gradient(circle at 30% 25%, #666, #151515 70%);
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #666,
+            #151515 70%
+        );
+
     box-shadow:
         inset -6px -8px 14px rgba(0,0,0,0.7),
         0 6px 10px rgba(0,0,0,0.35);
 }
 
+
 /* GREEN */
+
 .green{
-    background: radial-gradient(circle at 30% 25%, #42d392, #0b4a2c 70%);
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #42d392,
+            #0b4a2c 70%
+        );
+
     box-shadow:
         inset -6px -8px 14px rgba(0,0,0,0.5),
         0 6px 10px rgba(0,0,0,0.35);
 }
 
+
+/* HOVER */
+
 .ball:hover{
     transform:scale(1.05);
 }
 
+
+/* SELECTED */
+
 .ball.selected{
     outline:2px solid #8ad7ff;
+
     transform:scale(1.08);
 }
 
+
+/* LOCKED */
+
+.ball:disabled{
+    opacity:0.75;
+
+    cursor:not-allowed !important;
+}
+
+
+.ball.selected:disabled{
+    outline:3px solid #8ad7ff;
+
+    transform:scale(1.08);
+}
+
+
 /* RESULT */
+
 .selection{
     margin-top:32px;
+
     padding:26px;
+
     border-radius:22px;
+
     background:rgba(255,255,255,0.02);
+
     text-align:center;
 }
 
+
 .selection h2{
     color:#8ad7ff;
+
     margin-bottom:14px;
 }
 
+
 .wallet-preview{
     margin-top:10px;
+
     line-height:1.5;
+
     color:#8ad7ff;
 }
+
 
 .highlight{
     font-weight:800;
+
     color:#8ad7ff;
 }
 
+
 /* WRAP LONG TEXT */
+
 #selectedWallet,
 #address-container{
     word-break:break-all;
+
     overflow-wrap:anywhere;
 }
 
+
 /* QR CENTER */
+
 #qrCode{
     margin-top:14px;
+
     display:flex;
+
     justify-content:center;
 }
 
+
 /* ADDRESS */
+
 #address-container{
     margin-top:14px;
+
     font-size:0.95rem;
+
     color:#8ad7ff;
+
     max-width:100%;
 }
 
-/* BUTTON */
+
+/* SUBMIT BUTTON */
+
 #submit-button{
     padding:12px 24px;
+
     border:none;
+
     border-radius:14px;
+
     cursor:pointer;
+
     background:#8ad7ff;
+
     color:#000;
+
     font-weight:800;
 }
 
+
+#submit-button:disabled{
+    opacity:0.6;
+
+    cursor:not-allowed;
+}
+
+
 /* COPY BUTTON */
+
 #copy-button{
     margin-top:14px;
+
     padding:10px 20px;
+
     border:none;
+
     border-radius:12px;
+
     background:#ffffff10;
+
     color:white;
+
     cursor:pointer;
+
     display:none;
+
     margin-left:auto;
+
     margin-right:auto;
 }
 
+
 /* PAYMENT STATUS */
+
 #payment-status{
     margin-top:10px;
+
     color:#8ad7ff;
+
     font-weight:700;
 }
 
+
 /* MOBILE */
+
 @media(max-width:700px){
 
     body{
         padding:12px;
     }
 
+
     .container{
         padding:18px;
+
         border-radius:20px;
     }
+
 
     .title h1{
         font-size:2rem;
     }
 
+
     .title p{
         font-size:0.95rem;
     }
 
+
     .live-screen{
-        aspect-ratio: 16 / 9;
-        max-height: 220px;
+        aspect-ratio:16 / 9;
+
+        max-height:220px;
     }
+
 
     .grid{
         gap:8px;
     }
 
+
     .ball{
         font-size:0.9rem;
     }
 
+
     .wallet-input{
         padding:14px 16px;
+
         font-size:0.95rem;
     }
+
 
     .selection{
         padding:18px;
     }
 
+
     #address-container{
         font-size:0.85rem;
     }
+
 }
