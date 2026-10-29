@@ -1,0 +1,546 @@
+
+/* ========================================
+   GLOBAL
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(
+        circle at top,
+        #151515 0%,
+        #090909 55%,
+        #000 100%
+    );
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    color: white;
+}
+
+/* ========================================
+   CONTAINER
+======================================== */
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 30px;
+    padding: 35px;
+    backdrop-filter: blur(14px);
+}
+
+/* ========================================
+   TITLE
+======================================== */
+
+.title {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.title h1 {
+    font-size: 2.8rem;
+    color: #8ad7ff;
+    font-family: "Stardos Stencil", sans-serif;
+}
+
+.title p {
+    color: #9a9a9a;
+}
+
+/* ========================================
+   WALLET
+======================================== */
+
+.wallet-box {
+    margin-bottom: 20px;
+}
+
+.wallet-box label {
+    display: block;
+    margin-bottom: 10px;
+    color: #d7d7d7;
+    font-weight: 600;
+    text-align: center;
+}
+
+.wallet-input {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: #0f0f0f;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* ========================================
+   LIVE SCREEN
+======================================== */
+
+.live-screen {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+}
+
+#player {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* ========================================
+   ROULETTE
+======================================== */
+
+.roulette {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+/* ZERO ROW */
+
+.zero-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.zero-row .ball {
+    width: min(68px, calc((100vw - 100px) / 6));
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    display: block;
+    flex-shrink: 0;
+    line-height: 1;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* NUMBER GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 560px;
+}
+
+/* NUMBER BALLS */
+
+.ball {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 68px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    color: white;
+    font-weight: 800;
+    font-size: 1.05rem;
+
+    transition: transform 0.15s;
+}
+
+/* RED */
+
+.red {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #ff6b6b,
+        #7a1212 70%
+    );
+
+    box-shadow:
+        inset -6px -8px 14px rgba(0, 0, 0, 0.55),
+        0 6px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* BLACK */
+
+.black {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #666,
+        #151515 70%
+    );
+
+    box-shadow:
+        inset -6px -8px 14px rgba(0, 0, 0, 0.7),
+        0 6px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* GREEN */
+
+.green {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #42d392,
+        #0b4a2c 70%
+    );
+
+    box-shadow:
+        inset -6px -8px 14px rgba(0, 0, 0, 0.5),
+        0 6px 10px rgba(0, 0, 0, 0.35);
+}
+
+.ball:hover {
+    transform: scale(1.05);
+}
+
+.ball.selected {
+    outline: 2px solid #8ad7ff;
+    transform: scale(1.08);
+}
+
+/* ========================================
+   SUBMIT BUTTON CONTAINER
+======================================== */
+
+.submit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 25px;
+}
+
+/* ========================================
+   AQUAROULETTE VORTEX BUTTON
+======================================== */
+
+#submit-button.vortex-button {
+    position: relative;
+    isolation: isolate;
+
+    width: 105px;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+    border: 1px solid rgba(67, 180, 255, 0.45);
+
+    background: radial-gradient(
+        circle,
+        #071321 35%,
+        #030811 75%
+    );
+
+    color: #eefaff;
+    cursor: pointer;
+    overflow: hidden;
+
+    box-shadow:
+        0 0 18px rgba(0, 125, 255, 0.12),
+        inset 0 0 22px rgba(0, 105, 255, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* ROTATING VORTEX */
+
+#submit-button.vortex-button::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    inset: -35%;
+    border-radius: 50%;
+    pointer-events: none;
+
+    background: conic-gradient(
+        from 0deg,
+        transparent 40%,
+        rgba(0, 119, 255, 0.15) 52%,
+        #46dfff 57%,
+        rgba(0, 119, 255, 0.25) 61%,
+        transparent 72%
+    );
+
+    animation: aquaVortexSpin 7s linear infinite;
+    opacity: 0.85;
+}
+
+/* DARK INNER CORE */
+
+#submit-button.vortex-button::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 5px;
+    border-radius: 50%;
+    pointer-events: none;
+
+    background: radial-gradient(
+        circle,
+        #071321 48%,
+        #030811 76%
+    );
+}
+
+/* SUBMIT TEXT */
+
+#submit-button .button-text {
+    position: relative;
+    z-index: 1;
+
+    font-family: "Segoe UI", sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    color: #eefaff;
+    text-shadow: 0 0 12px rgba(70, 223, 255, 0.2);
+}
+
+/* HOVER */
+
+#submit-button.vortex-button:hover {
+    transform: scale(1.025);
+
+    box-shadow:
+        0 0 25px rgba(0, 145, 255, 0.22),
+        inset 0 0 25px rgba(0, 105, 255, 0.12);
+}
+
+/* PRESS */
+
+#submit-button.vortex-button:active {
+    transform: scale(0.98);
+}
+
+/* KEYBOARD FOCUS */
+
+#submit-button.vortex-button:focus-visible {
+    outline: 2px solid #8deaff;
+    outline-offset: 6px;
+}
+
+/* VORTEX ANIMATION */
+
+@keyframes aquaVortexSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* LOADING MESSAGE */
+
+#please-wait {
+    color: #8ad7ff;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ========================================
+   COPY ADDRESS BUTTON
+======================================== */
+
+#copy-button {
+    margin-top: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+
+    background: #ffffff10;
+    color: white;
+    cursor: pointer;
+
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========================================
+   RESULT
+======================================== */
+
+.selection {
+    margin-top: 32px;
+    padding: 26px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.02);
+    text-align: center;
+}
+
+.selection h2 {
+    color: #8ad7ff;
+    margin-bottom: 14px;
+}
+
+.wallet-preview {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #8ad7ff;
+}
+
+.highlight {
+    font-weight: 800;
+    color: #8ad7ff;
+}
+
+/* WRAP LONG TEXT */
+
+#selectedWallet,
+#address-container {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+/* QR CODE */
+
+#qrCode {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+}
+
+/* PAYMENT ADDRESS */
+
+#address-container {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    color: #00c871;
+    max-width: 100%;
+}
+
+/* PAYMENT STATUS */
+
+#payment-status {
+    margin-top: 10px;
+    color: #8ad7ff;
+    font-weight: 700;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .title h1 {
+        font-size: 2rem;
+    }
+
+    .title p {
+        font-size: 0.95rem;
+    }
+
+    .live-screen {
+        aspect-ratio: 16 / 9;
+        max-height: 220px;
+    }
+
+    .grid {
+        gap: 8px;
+    }
+
+    .ball {
+        font-size: 0.9rem;
+    }
+
+    .wallet-input {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
+
+    .selection {
+        padding: 18px;
+    }
+
+    #address-container {
+        font-size: 0.85rem;
+    }
+
+    #submit-button.vortex-button {
+        width: 90px;
+    }
+
+    #submit-button .button-text {
+        font-size: 15px;
+        letter-spacing: 2.5px;
+    }
+}
+
+/* ========================================
+   REDUCED MOTION ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #submit-button.vortex-button::before {
+        animation: none;
+    }
+
+    #submit-button.vortex-button {
+        transition: none;
+    }
+
+    .ball {
+        transition: none;
+    }
+}
+
+/* ========================================
+   PAGE BACKGROUND AND SCROLLING
+======================================== */
+
+html,
+body {
+    background-color: #0b0b0f;
+    overscroll-behavior-y: auto;
+}
+
+
+
+/* Large arrow after clicking Submit */
+#submit-button.arrow-active .button-text {
+    font-size: 58px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: none;
+    text-shadow: 0 0 16px rgba(70, 223, 255, 0.5);
+}
+

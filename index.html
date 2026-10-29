@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>AquaRoulette</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="java.js" defer></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="title">
+            <h1>AquaRoulette</h1>
+            <p>Not a Simulation. Take Your Chance.</p>
+        </div>
+
+        <!-- LIVE STREAM -->
+        <div class="live-screen">
+            <video
+                id="player"
+                autoplay
+                muted
+                playsinline
+                loop
+            ></video>
+        </div>
+
+        <!-- WALLET -->
+        <div class="wallet-box">
+            <label for="wallet">
+                Ready? Enter Your Ðogecoin receiving address:
+            </label>
+
+
+
+		<input
+			type="text"
+			id="wallet"
+			class="wallet-input"
+			minlength="34"
+			maxlength="34"
+			pattern="[A-Za-z0-9]{34}"
+			required
+			oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '').slice(0, 34)"
+		>
+
+
+        </div>
+
+        <!-- ROULETTE -->
+        <div class="roulette">
+
+            <div class="zero-row">
+                <button type="button" class="ball green" data-number="0">0</button>
+            </div>
+
+            <div class="grid" id="grid"></div>
+
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="submit-container">
+
+
+		
+		
+
+		<button
+			id="submit-button"
+			class="vortex-button"
+			type="button"
+			onclick="
+				const wallet = document.getElementById('wallet').value;
+				const number = document.getElementById('selectedNumber').textContent.trim();
+		
+				if (!/^[A-Za-z0-9]{34}$/.test(wallet)) {
+					document.getElementById('wallet').focus();
+					document.getElementById('wallet').reportValidity();
+					return;
+				}
+		
+				if (number === '' || number === '—') {
+					alert('Please select a roulette number first.');
+					return;
+				}
+
+				submitForm();
+
+				this.classList.add('arrow-active');
+				this.querySelector('.button-text').textContent = '↓';
+			"
+		>
+			<span class="button-text">Submit</span>
+		</button>
+
+
+
+
+
+            <div id="please-wait" style="display:none; margin-top:10px;">
+                Generating Ðogecoin payment QR code. Please wait
+                <span id="dots">...</span>
+            </div>
+
+        </div>
+
+        <!-- RESULT -->
+        <div class="selection">
+
+            <h2>
+                Your Pick:
+                <span id="selectedNumber">—</span>
+            </h2>
+
+            <p class="wallet-preview">
+                Your Wallet:
+                <span class="highlight" id="selectedWallet">—</span>
+            </p>
+
+            <div id="qrCode"></div>
+
+            <button id="copy-button" style="display:none;">
+                Copy Address
+            </button>
+
+            <div id="address-container"></div>
+
+            <div id="payment-status" style="display:none;">
+                Waiting for Your payment...
+                <p>Min: 30Ð Max: 3000Ð</p>
+				<p>Payout: 36:1</p>
+				<p>QR valid until game starts</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
