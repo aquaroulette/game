@@ -1,7 +1,7 @@
 var uniqueToken;
 var isSubmitting = false;
 
-const webAppUrl = "https://script.google.com/macros/s/AKfycbyQhECOQe_wvA5Jsho6Y9c7uJ8qLlArgFFlonofPM8qANdywkroBstTMjoUOk1G4IBM/exec";
+const webAppUrl = "https://script.google.com/macros/s/AKfycbzax8_Qqa0tnJlXaQbdjlCx3m9cM7IbppD49o_3Yb1ncI3SrketApGfkLp14D0N7GOZ/exec";
 
 let selectedNumber = null;
 let lockedNumber = null;
