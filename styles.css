@@ -10,32 +10,191 @@
     font-family: "Segoe UI", sans-serif;
 }
 
+html,
+body {
+    min-height: 100%;
+    background-color: #0b0b0f;
+    overscroll-behavior-y: auto;
+}
+
 body {
     min-height: 100vh;
-    background: radial-gradient(
-        circle at top,
-        #151515 0%,
-        #090909 55%,
-        #000 100%
-    );
+
+    /* Deep-ocean base with layered aqua and electric-blue light */
+    background:
+        radial-gradient(ellipse at 12% 18%, rgba(0, 210, 190, 0.20), transparent 34%),
+        radial-gradient(ellipse at 88% 12%, rgba(0, 125, 255, 0.22), transparent 38%),
+        radial-gradient(ellipse at 52% 88%, rgba(0, 75, 145, 0.28), transparent 42%),
+        linear-gradient(135deg, #020b18 0%, #061a2b 42%, #030914 100%);
+
     display: flex;
     justify-content: center;
+
     padding: 30px;
     color: white;
+
+    position: relative;
+    isolation: isolate;
+}
+
+/* Soft, slowly shifting underwater aurora */
+body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 25% 35%, rgba(0, 255, 213, 0.13), transparent 28%),
+        radial-gradient(ellipse at 75% 55%, rgba(20, 120, 255, 0.16), transparent 32%),
+        radial-gradient(ellipse at 50% 90%, rgba(0, 190, 255, 0.10), transparent 30%);
+    filter: blur(45px);
+    animation: oceanAurora 24s ease-in-out infinite alternate;
+}
+
+@keyframes oceanAurora {
+    0% {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+    }
+    100% {
+        transform: translate3d(2%, 2%, 0) scale(1.08);
+    }
 }
 
 /* ========================================
-   CONTAINER
+   ANIMATED BACKGROUND
+======================================== */
+
+.chips {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.chip {
+    position: absolute;
+
+    width: var(--size);
+    height: var(--size);
+
+    left: var(--start-x);
+    top: var(--start-y);
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    will-change: transform, opacity;
+
+    animation: randomDrift
+        var(--duration)
+        cubic-bezier(0.35, 0, 0.65, 1)
+        var(--delay)
+        infinite alternate;
+}
+
+/* RED CIRCLES */
+
+.chip.red {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #942222,
+        #941f1f 70%
+    );
+
+    box-shadow:
+        inset -4px -5px 8px rgba(0, 0, 0, 0.55),
+        0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+/* BLACK CIRCLES */
+
+.chip.black {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #000000,
+        #242424 70%
+    );
+
+    box-shadow:
+        inset -4px -5px 8px rgba(0, 0, 0, 0.7),
+        0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* THE GREEN CIRCLE */
+
+.chip.green {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #5be6a5,
+        #12633b 70%
+    );
+
+    box-shadow:
+        inset -4px -5px 8px rgba(0, 0, 0, 0.5),
+        0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+/* RANDOM MOVEMENT + FADE IN / FADE OUT */
+
+@keyframes randomDrift {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate3d(0, 0, 0)
+            rotate(0deg)
+            scale(0.65);
+    }
+
+    12% {
+        opacity: 0.24;
+    }
+
+    80% {
+        opacity: 0.24;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate3d(var(--move-x), var(--move-y), 0)
+            rotate(360deg)
+            scale(1.15);
+    }
+}
+
+/* ========================================
+   MAIN CONTAINER
 ======================================== */
 
 .container {
     width: 100%;
     max-width: 850px;
+
     background: rgba(255, 255, 255, 0.03);
+
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 30px;
+
     padding: 35px;
+
     backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    position: relative;
+    z-index: 1;
 }
 
 /* ========================================
@@ -68,6 +227,7 @@ body {
 .wallet-box label {
     display: block;
     margin-bottom: 10px;
+
     color: #d7d7d7;
     font-weight: 600;
     text-align: center;
@@ -75,11 +235,15 @@ body {
 
 .wallet-input {
     width: 100%;
+
     padding: 16px 20px;
+
     border-radius: 18px;
     border: 1px solid rgba(255, 255, 255, 0.07);
+
     background: #203E58;
     color: white;
+
     font-size: 1rem;
     text-align: center;
 }
@@ -92,16 +256,20 @@ body {
     width: 100%;
     aspect-ratio: 16 / 9;
     max-height: 400px;
+
     overflow: hidden;
     border-radius: 24px;
+
     background: #000;
     border: 1px solid rgba(255, 255, 255, 0.06);
+
     position: relative;
 }
 
 #player {
     width: 100%;
     height: 100%;
+
     object-fit: contain;
     display: block;
 }
@@ -127,11 +295,15 @@ body {
 
 .zero-row .ball {
     width: min(68px, calc((100vw - 100px) / 6));
+
     aspect-ratio: 1 / 1;
     padding: 0;
+
     display: block;
     flex-shrink: 0;
+
     line-height: 1;
+
     appearance: none;
     -webkit-appearance: none;
 }
@@ -141,7 +313,9 @@ body {
 .grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+
     gap: 10px;
+
     width: 100%;
     max-width: 560px;
 }
@@ -152,8 +326,10 @@ body {
     width: 100%;
     aspect-ratio: 1 / 1;
     max-width: 68px;
+
     border-radius: 50%;
     border: none;
+
     cursor: pointer;
 
     color: white;
@@ -168,8 +344,8 @@ body {
 .red {
     background: radial-gradient(
         circle at 30% 25%,
-        #ff6b6b,
-        #7a1212 70%
+        #ff8585,
+        #941f1f 70%
     );
 
     box-shadow:
@@ -182,8 +358,8 @@ body {
 .black {
     background: radial-gradient(
         circle at 30% 25%,
-        #666,
-        #151515 70%
+        #858585,
+        #242424 70%
     );
 
     box-shadow:
@@ -196,8 +372,8 @@ body {
 .green {
     background: radial-gradient(
         circle at 30% 25%,
-        #42d392,
-        #0b4a2c 70%
+        #5be6a5,
+        #12633b 70%
     );
 
     box-shadow:
@@ -222,6 +398,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     text-align: center;
     margin-top: 25px;
 }
@@ -237,6 +414,7 @@ body {
     width: 105px;
     max-width: 100%;
     aspect-ratio: 1 / 1;
+
     padding: 0;
 
     display: grid;
@@ -264,6 +442,7 @@ body {
         box-shadow 0.2s ease;
 
     -webkit-tap-highlight-color: transparent;
+
     appearance: none;
     -webkit-appearance: none;
 }
@@ -272,10 +451,13 @@ body {
 
 #submit-button.vortex-button::before {
     content: "";
+
     position: absolute;
     z-index: -2;
+
     inset: -35%;
     border-radius: 50%;
+
     pointer-events: none;
 
     background: conic-gradient(
@@ -295,10 +477,13 @@ body {
 
 #submit-button.vortex-button::after {
     content: "";
+
     position: absolute;
     z-index: -1;
+
     inset: 5px;
     border-radius: 50%;
+
     pointer-events: none;
 
     background: radial-gradient(
@@ -315,9 +500,11 @@ body {
     z-index: 1;
 
     font-family: "Segoe UI", sans-serif;
+
     font-size: 17px;
     font-weight: 600;
     letter-spacing: 3px;
+
     text-transform: uppercase;
 
     color: #eefaff;
@@ -347,7 +534,7 @@ body {
     outline-offset: 6px;
 }
 
-/* VORTEX ANIMATION */
+/* ANIMATION */
 
 @keyframes aquaVortexSpin {
     to {
@@ -370,14 +557,17 @@ body {
 #copy-button {
     margin-top: 14px;
     padding: 10px 20px;
+
     border: none;
     border-radius: 12px;
 
     background: #ffffff10;
     color: white;
+
     cursor: pointer;
 
     display: none;
+
     margin-left: auto;
     margin-right: auto;
 }
@@ -389,20 +579,26 @@ body {
 .selection {
     margin-top: 32px;
     padding: 26px;
+
     border-radius: 22px;
+
     background: rgba(255, 255, 255, 0.02);
+
     text-align: center;
 }
 
 .selection h2 {
     color: #8ad7ff;
     margin-bottom: 14px;
+	font-family: "Stardos Stencil", sans-serif;
 }
 
 .wallet-preview {
     margin-top: 8px;
+
     font-size: 0.8rem;
     line-height: 1.4;
+
     color: #8ad7ff;
 }
 
@@ -423,6 +619,7 @@ body {
 
 #qrCode {
     margin-top: 14px;
+
     display: flex;
     justify-content: center;
 }
@@ -431,8 +628,10 @@ body {
 
 #address-container {
     margin-top: 14px;
+
     font-size: 0.95rem;
     color: #00c871;
+
     max-width: 100%;
 }
 
@@ -440,6 +639,7 @@ body {
 
 #payment-status {
     margin-top: 10px;
+
     color: #8ad7ff;
     font-weight: 700;
 }
@@ -501,6 +701,7 @@ body {
         font-size: 15px;
         letter-spacing: 2.5px;
     }
+
 }
 
 /* ========================================
@@ -508,6 +709,10 @@ body {
 ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
+
+    body::before {
+        animation: none;
+    }
 
     #submit-button.vortex-button::before {
         animation: none;
@@ -520,27 +725,26 @@ body {
     .ball {
         transition: none;
     }
+
+    .chip {
+        animation: none;
+        opacity: 0.12;
+    }
+
 }
 
 /* ========================================
-   PAGE BACKGROUND AND SCROLLING
+   LARGE ARROW AFTER CLICKING SUBMIT
 ======================================== */
 
-html,
-body {
-    background-color: #0b0b0f;
-    overscroll-behavior-y: auto;
-}
-
-
-
-/* Large arrow after clicking Submit */
 #submit-button.arrow-active .button-text {
     font-size: 58px;
     font-weight: 400;
+
     letter-spacing: 0;
     line-height: 1;
+
     text-transform: none;
+
     text-shadow: 0 0 16px rgba(70, 223, 255, 0.5);
 }
-
