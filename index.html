@@ -1,712 +1,393 @@
 
-/* ========================================
-   GLOBAL
-======================================== */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
-}
-
-html,
-body {
-    min-height: 100%;
-    background-color: #0b0b0f;
-    overscroll-behavior-y: auto;
-}
-
-body {
-    min-height: 100vh;
-
-    /* Deep-ocean base with layered aqua and electric-blue light */
-    background:
-        radial-gradient(ellipse at 12% 18%, rgba(0, 210, 190, 0.20), transparent 34%),
-        radial-gradient(ellipse at 88% 12%, rgba(0, 125, 255, 0.22), transparent 38%),
-        radial-gradient(ellipse at 52% 88%, rgba(0, 75, 145, 0.28), transparent 42%),
-        linear-gradient(135deg, #020b18 0%, #061a2b 42%, #030914 100%);
-
-    display: flex;
-    justify-content: center;
-
-    padding: 30px;
-    color: white;
-
-    position: relative;
-    isolation: isolate;
-}
-
-/* Soft, slowly shifting underwater aurora */
-body::before {
-    content: "";
-    position: fixed;
-    inset: -20%;
-    z-index: -1;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse at 25% 35%, rgba(0, 255, 213, 0.13), transparent 28%),
-        radial-gradient(ellipse at 75% 55%, rgba(20, 120, 255, 0.16), transparent 32%),
-        radial-gradient(ellipse at 50% 90%, rgba(0, 190, 255, 0.10), transparent 30%);
-    filter: blur(45px);
-    animation: oceanAurora 24s ease-in-out infinite alternate;
-}
-
-@keyframes oceanAurora {
-    0% {
-        transform: translate3d(-2%, -1%, 0) scale(1);
-    }
-    100% {
-        transform: translate3d(2%, 2%, 0) scale(1.08);
-    }
-}
-
-/* ========================================
-   ANIMATED BACKGROUND
-======================================== */
-
-.chips {
-    position: fixed;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    overflow: hidden;
-    pointer-events: none;
-
-    z-index: 0;
-}
-
-.chip {
-    position: absolute;
-
-    width: var(--size);
-    height: var(--size);
-
-    left: 0;
-    top: 0;
-
-    border-radius: 50%;
-
-    opacity: 0.15;
-
-    pointer-events: none;
-
-    will-change: transform, opacity;
-}
-
-/* RED CIRCLES */
-
-.chip.red {
-    background: radial-gradient(
-        circle at 30% 25%,
-        #942222,
-        #941f1f 70%
-    );
-
-    box-shadow:
-        inset -4px -5px 8px rgba(0, 0, 0, 0.55),
-        0 3px 10px rgba(0, 0, 0, 0.22);
-}
-
-/* BLACK CIRCLES */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>AquaRoulette</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="java.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ANIMATED BACKGROUND: EXACTLY 200 CIRCLES -->
+    <div class="chips" id="background-chips" aria-hidden="true"></div>
+
+    <div class="container">
+
+        <div class="title">
+            <h1>AquaRoulette</h1>
+            <p>Not a Simulation. Take Your Chance.</p>
+        </div>
+
+        <!-- LIVE STREAM -->
+        <div class="live-screen">
+            <video
+                id="player"
+                autoplay
+                muted
+                playsinline
+                loop
+            ></video>
+        </div>
+
+        <!-- WALLET -->
+        <div class="wallet-box">
+            <label for="wallet">
+                Ready? Enter Your Ðogecoin receiving address:
+            </label>
+
+            <input
+                type="text"
+                id="wallet"
+                class="wallet-input"
+                minlength="34"
+                maxlength="34"
+                pattern="[A-Za-z0-9]{34}"
+                required
+                oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '').slice(0, 34)"
+            >
+        </div>
+
+        <!-- ROULETTE -->
+        <div class="roulette">
+
+            <div class="zero-row">
+                <button type="button" class="ball green" data-number="0">0</button>
+            </div>
+
+            <div class="grid" id="grid"></div>
 
-.chip.black {
-    background: radial-gradient(
-        circle at 30% 25%,
-        #000000,
-        #242424 70%
-    );
-
-    box-shadow:
-        inset -4px -5px 8px rgba(0, 0, 0, 0.7),
-        0 3px 10px rgba(0, 0, 0, 0.3);
-}
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="submit-container">
 
-/* THE GREEN CIRCLE */
-
-.chip.green {
-    background: radial-gradient(
-        circle at 30% 25%,
-        #5be6a5,
-        #12633b 70%
-    );
-
-    box-shadow:
-        inset -4px -5px 8px rgba(0, 0, 0, 0.5),
-        0 3px 10px rgba(0, 0, 0, 0.22);
-}
+            <button
+                id="submit-button"
+                class="vortex-button"
+                type="button"
+                onclick="
+                    const wallet = document.getElementById('wallet').value;
+                    const number = document.getElementById('selectedNumber').textContent.trim();
 
-/* ========================================
-   MAIN CONTAINER
-======================================== */
+                    if (!/^[A-Za-z0-9]{34}$/.test(wallet)) {
+                        document.getElementById('wallet').focus();
+                        document.getElementById('wallet').reportValidity();
+                        return;
+                    }
 
-.container {
-    width: 100%;
-    max-width: 850px;
-
-    background: rgba(255, 255, 255, 0.03);
-
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 30px;
+                    if (number === '' || number === '—') {
+                        alert('Please select a roulette number first.');
+                        return;
+                    }
 
-    padding: 35px;
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
-    position: relative;
-    z-index: 1;
-}
+                    submitForm();
 
-/* ========================================
-   TITLE
-======================================== */
+                    this.classList.add('arrow-active');
+                    this.querySelector('.button-text').textContent = '↓';
+                "
+            >
+                <span class="button-text">Submit</span>
+            </button>
 
-.title {
-    text-align: center;
-    margin-bottom: 28px;
-}
+            <div id="please-wait" style="display:none; margin-top:10px;">
+                Generating Ðogecoin payment QR code. Please wait
+                <span id="dots">...</span>
+            </div>
 
-.title h1 {
-    font-size: 2.8rem;
-    color: #8ad7ff;
-    font-family: "Stardos Stencil", sans-serif;
-}
+        </div>
 
-.title p {
-    color: #9a9a9a;
-}
+        <!-- RESULT -->
+        <div class="selection">
 
-/* ========================================
-   WALLET
-======================================== */
+            <h2>
+                Your Pick:
+                <span id="selectedNumber">—</span>
+            </h2>
 
-.wallet-box {
-    margin-bottom: 20px;
-}
+            <p class="wallet-preview">
+                Your Wallet:
+                <span class="highlight" id="selectedWallet">—</span>
+            </p>
 
-.wallet-box label {
-    display: block;
-    margin-bottom: 10px;
+            <div id="qrCode"></div>
 
-    color: #d7d7d7;
-    font-weight: 600;
-    text-align: center;
-}
+            <button id="copy-button" style="display:none;">
+                Copy Address
+            </button>
 
-.wallet-input {
-    width: 100%;
+            <div id="address-container"></div>
 
-    padding: 16px 20px;
+            <div id="payment-status" style="display:none;">
+                Waiting for Your payment...
+                <p>Min: 30Ð Max: 3000Ð</p>
+                <p>Payout: 36:1</p>
+                <p>QR valid until game starts</p>
+            </div>
 
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
+        </div>
 
-    background: #203E58;
-    color: white;
+    </div>
 
-    font-size: 1rem;
-    text-align: center;
-}
+    <!-- PHYSICS-BASED ANIMATED BACKGROUND -->
+    <script>
+    (() => {
 
-/* ========================================
-   LIVE SCREEN
-======================================== */
+        const background = document.getElementById('background-chips');
 
-.live-screen {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    max-height: 400px;
+        const colors = ['red', 'black'];
 
-    overflow: hidden;
-    border-radius: 24px;
+        const totalChips = 200;
 
-    background: #000;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+        const chips = [];
 
-    position: relative;
-}
+        let width = window.innerWidth;
+        let height = window.innerHeight;
 
-#player {
-    width: 100%;
-    height: 100%;
+        // ----------------------------------
+        // CREATE EXACTLY 200 CIRCLES
+        // ----------------------------------
 
-    object-fit: contain;
-    display: block;
-}
+        for (let i = 0; i < totalChips; i++) {
 
-/* ========================================
-   ROULETTE
-======================================== */
+            const chip = document.createElement('div');
 
-.roulette {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
+            // Exactly one green circle.
+            // Remaining 199 are randomly red or black.
 
-/* ZERO ROW */
+            const color = i === 0
+                ? 'green'
+                : colors[Math.floor(Math.random() * colors.length)];
 
-.zero-row {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
+            const size = 5 + Math.random() * 30;
 
-.zero-row .ball {
-    width: min(68px, calc((100vw - 100px) / 6));
+            const radius = size / 2;
 
-    aspect-ratio: 1 / 1;
-    padding: 0;
+            chip.className = 'chip ' + color;
 
-    display: block;
-    flex-shrink: 0;
+            chip.style.setProperty('--size', size + 'px');
 
-    line-height: 1;
+            background.appendChild(chip);
 
-    appearance: none;
-    -webkit-appearance: none;
-}
+            chips.push({
 
-/* NUMBER GRID */
+                element: chip,
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+                x: Math.random() * (width - size),
+                y: Math.random() * (height - size),
 
-    gap: 10px;
+                radius: radius,
 
-    width: 100%;
-    max-width: 560px;
-}
+                mass: radius * radius,
 
-/* NUMBER BALLS */
+                vx: (Math.random() - 0.5) * 100,
+                vy: (Math.random() - 0.5) * 100,
 
-.ball {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    max-width: 68px;
+                phase: Math.random() * Math.PI * 2
 
-    border-radius: 50%;
-    border: none;
+            });
 
-    cursor: pointer;
+        }
 
-    color: white;
-    font-weight: 800;
-    font-size: 1.05rem;
+        // ----------------------------------
+        // SCREEN RESIZE
+        // ----------------------------------
 
-    transition: transform 0.15s;
-}
+        window.addEventListener('resize', () => {
 
-/* RED */
+            width = window.innerWidth;
+            height = window.innerHeight;
 
-.red {
-    background: radial-gradient(
-        circle at 30% 25%,
-        #ff8585,
-        #941f1f 70%
-    );
+            chips.forEach(chip => {
 
-    box-shadow:
-        inset -6px -8px 14px rgba(0, 0, 0, 0.55),
-        0 6px 10px rgba(0, 0, 0, 0.35);
-}
+                chip.x = Math.max(
+                    chip.radius,
+                    Math.min(width - chip.radius, chip.x)
+                );
 
-/* BLACK */
+                chip.y = Math.max(
+                    chip.radius,
+                    Math.min(height - chip.radius, chip.y)
+                );
 
-.black {
-    background: radial-gradient(
-        circle at 30% 25%,
-        #858585,
-        #242424 70%
-    );
+            });
 
-    box-shadow:
-        inset -6px -8px 14px rgba(0, 0, 0, 0.7),
-        0 6px 10px rgba(0, 0, 0, 0.35);
-}
+        });
 
-/* GREEN */
+        // ----------------------------------
+        // COLLISION DETECTION
+        // ----------------------------------
 
-.green {
-    background: radial-gradient(
-        circle at 30% 25%,
-        #5be6a5,
-        #12633b 70%
-    );
+        function checkCollisions() {
 
-    box-shadow:
-        inset -6px -8px 14px rgba(0, 0, 0, 0.5),
-        0 6px 10px rgba(0, 0, 0, 0.35);
-}
+            for (let i = 0; i < chips.length; i++) {
 
-.ball:hover {
-    transform: scale(1.05);
-}
+                for (let j = i + 1; j < chips.length; j++) {
 
-.ball.selected {
-    outline: 2px solid #8ad7ff;
-    transform: scale(1.08);
-}
+                    const a = chips[i];
+                    const b = chips[j];
 
-/* ========================================
-   SUBMIT BUTTON CONTAINER
-======================================== */
+                    const dx = b.x - a.x;
+                    const dy = b.y - a.y;
 
-.submit-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
 
-    text-align: center;
-    margin-top: 25px;
-}
+                    const minDistance = a.radius + b.radius;
 
-/* ========================================
-   AQUAROULETTE VORTEX BUTTON
-======================================== */
+                    if (distance < minDistance) {
 
-#submit-button.vortex-button {
-    position: relative;
-    isolation: isolate;
+                        // Collision direction
 
-    width: 105px;
-    max-width: 100%;
-    aspect-ratio: 1 / 1;
+                        const nx = distance === 0 ? 1 : dx / distance;
+                        const ny = distance === 0 ? 0 : dy / distance;
 
-    padding: 0;
+                        // Separate overlapping circles
 
-    display: grid;
-    place-items: center;
+                        const overlap = minDistance - distance;
 
-    border-radius: 50%;
-    border: 1px solid rgba(67, 180, 255, 0.45);
+                        const totalMass = a.mass + b.mass;
 
-    background: radial-gradient(
-        circle,
-        #071321 35%,
-        #030811 75%
-    );
+                        a.x -= nx * overlap * (b.mass / totalMass);
+                        a.y -= ny * overlap * (b.mass / totalMass);
 
-    color: #eefaff;
-    cursor: pointer;
-    overflow: hidden;
+                        b.x += nx * overlap * (a.mass / totalMass);
+                        b.y += ny * overlap * (a.mass / totalMass);
 
-    box-shadow:
-        0 0 18px rgba(0, 125, 255, 0.12),
-        inset 0 0 22px rgba(0, 105, 255, 0.08);
+                        // Relative velocity
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+                        const relativeVelocity =
+                            (b.vx - a.vx) * nx +
+                            (b.vy - a.vy) * ny;
 
-    -webkit-tap-highlight-color: transparent;
+                        // Only bounce when moving towards each other
 
-    appearance: none;
-    -webkit-appearance: none;
-}
+                        if (relativeVelocity < 0) {
 
-/* ROTATING VORTEX */
+                            const restitution = 0.95;
 
-#submit-button.vortex-button::before {
-    content: "";
+                            const impulse =
+                                -(1 + restitution) *
+                                relativeVelocity /
+                                (1 / a.mass + 1 / b.mass);
 
-    position: absolute;
-    z-index: -2;
+                            a.vx -= impulse * nx / a.mass;
+                            a.vy -= impulse * ny / a.mass;
 
-    inset: -35%;
-    border-radius: 50%;
+                            b.vx += impulse * nx / b.mass;
+                            b.vy += impulse * ny / b.mass;
 
-    pointer-events: none;
+                        }
 
-    background: conic-gradient(
-        from 0deg,
-        transparent 40%,
-        rgba(0, 119, 255, 0.15) 52%,
-        #46dfff 57%,
-        rgba(0, 119, 255, 0.25) 61%,
-        transparent 72%
-    );
+                    }
 
-    animation: aquaVortexSpin 7s linear infinite;
-    opacity: 0.85;
-}
+                }
 
-/* DARK INNER CORE */
+            }
 
-#submit-button.vortex-button::after {
-    content: "";
+        }
 
-    position: absolute;
-    z-index: -1;
+        // ----------------------------------
+        // BOUNCE OFF SCREEN EDGES
+        // ----------------------------------
 
-    inset: 5px;
-    border-radius: 50%;
+        function checkWalls(chip) {
 
-    pointer-events: none;
+            if (chip.x - chip.radius < 0) {
 
-    background: radial-gradient(
-        circle,
-        #071321 48%,
-        #030811 76%
-    );
-}
+                chip.x = chip.radius;
+                chip.vx = Math.abs(chip.vx);
 
-/* SUBMIT TEXT */
+            }
 
-#submit-button .button-text {
-    position: relative;
-    z-index: 1;
+            if (chip.x + chip.radius > width) {
 
-    font-family: "Segoe UI", sans-serif;
+                chip.x = width - chip.radius;
+                chip.vx = -Math.abs(chip.vx);
 
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: 3px;
+            }
 
-    text-transform: uppercase;
+            if (chip.y - chip.radius < 0) {
 
-    color: #eefaff;
-    text-shadow: 0 0 12px rgba(70, 223, 255, 0.2);
-}
+                chip.y = chip.radius;
+                chip.vy = Math.abs(chip.vy);
 
-/* HOVER */
+            }
 
-#submit-button.vortex-button:hover {
-    transform: scale(1.025);
+            if (chip.y + chip.radius > height) {
 
-    box-shadow:
-        0 0 25px rgba(0, 145, 255, 0.22),
-        inset 0 0 25px rgba(0, 105, 255, 0.12);
-}
+                chip.y = height - chip.radius;
+                chip.vy = -Math.abs(chip.vy);
 
-/* PRESS */
+            }
 
-#submit-button.vortex-button:active {
-    transform: scale(0.98);
-}
+        }
 
-/* KEYBOARD FOCUS */
+        // ----------------------------------
+        // ANIMATION LOOP
+        // ----------------------------------
 
-#submit-button.vortex-button:focus-visible {
-    outline: 2px solid #8deaff;
-    outline-offset: 6px;
-}
+        let previousTime = 0;
 
-/* ANIMATION */
+        function animate(time) {
 
-@keyframes aquaVortexSpin {
-    to {
-        transform: rotate(360deg);
-    }
-}
+            const dt = previousTime
+                ? Math.min((time - previousTime) / 1000, 0.025)
+                : 0;
 
-/* LOADING MESSAGE */
+            previousTime = time;
 
-#please-wait {
-    color: #8ad7ff;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
+            // Move circles
 
-/* ========================================
-   COPY ADDRESS BUTTON
-======================================== */
+            chips.forEach(chip => {
 
-#copy-button {
-    margin-top: 14px;
-    padding: 10px 20px;
+                chip.x += chip.vx * dt;
+                chip.y += chip.vy * dt;
 
-    border: none;
-    border-radius: 12px;
+                checkWalls(chip);
 
-    background: #ffffff10;
-    color: white;
+            });
 
-    cursor: pointer;
+            // Detect collisions
 
-    display: none;
+            checkCollisions();
 
-    margin-left: auto;
-    margin-right: auto;
-}
+            // Draw circles
 
-/* ========================================
-   RESULT
-======================================== */
+            chips.forEach(chip => {
 
-.selection {
-    margin-top: 32px;
-    padding: 26px;
+                chip.element.style.transform =
+                    `translate3d(${chip.x - chip.radius}px,
+                                 ${chip.y - chip.radius}px, 0)`;
 
-    border-radius: 22px;
+                // Slow fade in / fade out
 
-    background: rgba(255, 255, 255, 0.02);
+                const opacity =
+                    0.04 +
+                    0.20 *
+                    (0.5 + 0.5 * Math.sin(time * 0.0003 + chip.phase));
 
-    text-align: center;
-}
+                chip.element.style.opacity = opacity;
 
-.selection h2 {
-    color: #8ad7ff;
-    margin-bottom: 14px;
-    font-family: "Stardos Stencil", sans-serif;
-}
+            });
 
-.wallet-preview {
-    margin-top: 8px;
+            requestAnimationFrame(animate);
 
-    font-size: 0.8rem;
-    line-height: 1.4;
+        }
 
-    color: #8ad7ff;
-}
+        requestAnimationFrame(animate);
 
-.highlight {
-    font-weight: 800;
-    color: #8ad7ff;
-}
+    })();
+    </script>
 
-/* WRAP LONG TEXT */
-
-#selectedWallet,
-#address-container {
-    word-break: break-all;
-    overflow-wrap: anywhere;
-}
-
-/* QR CODE */
-
-#qrCode {
-    margin-top: 14px;
-
-    display: flex;
-    justify-content: center;
-}
-
-/* PAYMENT ADDRESS */
-
-#address-container {
-    margin-top: 14px;
-
-    font-size: 0.95rem;
-    color: #00c871;
-
-    max-width: 100%;
-}
-
-/* PAYMENT STATUS */
-
-#payment-status {
-    margin-top: 10px;
-
-    color: #8ad7ff;
-    font-weight: 700;
-}
-
-/* ========================================
-   MOBILE
-======================================== */
-
-@media (max-width: 700px) {
-
-    body {
-        padding: 12px;
-    }
-
-    .container {
-        padding: 18px;
-        border-radius: 20px;
-    }
-
-    .title h1 {
-        font-size: 2rem;
-    }
-
-    .title p {
-        font-size: 0.95rem;
-    }
-
-    .live-screen {
-        aspect-ratio: 16 / 9;
-        max-height: 220px;
-    }
-
-    .grid {
-        gap: 8px;
-    }
-
-    .ball {
-        font-size: 0.9rem;
-    }
-
-    .wallet-input {
-        padding: 14px 16px;
-        font-size: 0.95rem;
-    }
-
-    .selection {
-        padding: 18px;
-    }
-
-    #address-container {
-        font-size: 0.85rem;
-    }
-
-    #submit-button.vortex-button {
-        width: 90px;
-    }
-
-    #submit-button .button-text {
-        font-size: 15px;
-        letter-spacing: 2.5px;
-    }
-
-}
-
-/* ========================================
-   REDUCED MOTION ACCESSIBILITY
-======================================== */
-
-@media (prefers-reduced-motion: reduce) {
-
-    body::before {
-        animation: none;
-    }
-
-    #submit-button.vortex-button::before {
-        animation: none;
-    }
-
-    #submit-button.vortex-button {
-        transition: none;
-    }
-
-    .ball {
-        transition: none;
-    }
-
-    .chip {
-        opacity: 0.12;
-    }
-
-}
-
-/* ========================================
-   LARGE ARROW AFTER CLICKING SUBMIT
-======================================== */
-
-#submit-button.arrow-active .button-text {
-    font-size: 58px;
-    font-weight: 400;
-
-    letter-spacing: 0;
-    line-height: 1;
-
-    text-transform: none;
-
-    text-shadow: 0 0 16px rgba(70, 223, 255, 0.5);
-}
+</body>
+</html>
