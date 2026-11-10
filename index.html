@@ -139,39 +139,48 @@
 
     </div>
 
-    <!-- PHYSICS-BASED ANIMATED BACKGROUND -->
+    <!-- GENERATE EXACTLY 200 RANDOM BOUNCING CIRCLES -->
     <script>
     (() => {
 
         const background = document.getElementById('background-chips');
 
-        const colors = ['red', 'black'];
-
         const totalChips = 200;
 
+        const colors = ['red', 'black'];
+
         const chips = [];
+
+        const restitution = 0.95;
+
+        const FADE_IN = 8;
+        const FADE_OUT = 18;
 
         let width = window.innerWidth;
         let height = window.innerHeight;
 
-        // ----------------------------------
-        // CREATE EXACTLY 200 CIRCLES
-        // ----------------------------------
+        let lastTime = 0;
 
-        for (let i = 0; i < totalChips; i++) {
+        // Random number helper.
+        function random(min, max) {
+            return min + Math.random() * (max - min);
+        }
+
+        // Give every circle a new independent lifetime.
+        function randomLifetime() {
+            return random(120, 300);
+        }
+
+        // Create a circle.
+        function createChip(index) {
 
             const chip = document.createElement('div');
 
-            // Exactly one green circle.
-            // Remaining 199 are randomly red or black.
-
-            const color = i === 0
+            const color = index === 0
                 ? 'green'
                 : colors[Math.floor(Math.random() * colors.length)];
 
-            const size = 5 + Math.random() * 30;
-
-            const radius = size / 2;
+            const size = random(5, 35);
 
             chip.className = 'chip ' + color;
 
@@ -179,56 +188,55 @@
 
             background.appendChild(chip);
 
-            chips.push({
+            const lifetime = randomLifetime();
+
+            return {
 
                 element: chip,
 
-                x: Math.random() * (width - size),
-                y: Math.random() * (height - size),
+                radius: size / 2,
 
-                radius: radius,
+                x: random(size, width - size),
+                y: random(size, height - size),
 
-                mass: radius * radius,
+                vx: random(-100, 100),
+                vy: random(-100, 100),
 
-                vx: (Math.random() - 0.5) * 100,
-                vy: (Math.random() - 0.5) * 100,
+                age: random(0, lifetime * 0.75),
 
-                phase: Math.random() * Math.PI * 2
+                lifetime: lifetime,
 
-            });
+                opacity: 0
+
+            };
+        }
+
+        // Create all 200 circles.
+        for (let i = 0; i < totalChips; i++) {
+
+            chips.push(createChip(i));
 
         }
 
-        // ----------------------------------
-        // SCREEN RESIZE
-        // ----------------------------------
+        // Give a circle a fresh life when its lifetime ends.
+        function respawn(chip) {
 
-        window.addEventListener('resize', () => {
+            chip.x = random(chip.radius, width - chip.radius);
+            chip.y = random(chip.radius, height - chip.radius);
 
-            width = window.innerWidth;
-            height = window.innerHeight;
+            chip.vx = random(-100, 100);
+            chip.vy = random(-100, 100);
 
-            chips.forEach(chip => {
+            chip.age = 0;
 
-                chip.x = Math.max(
-                    chip.radius,
-                    Math.min(width - chip.radius, chip.x)
-                );
+            chip.lifetime = randomLifetime();
 
-                chip.y = Math.max(
-                    chip.radius,
-                    Math.min(height - chip.radius, chip.y)
-                );
+            chip.opacity = 0;
 
-            });
+        }
 
-        });
-
-        // ----------------------------------
-        // COLLISION DETECTION
-        // ----------------------------------
-
-        function checkCollisions() {
+        // Handle collisions between circles.
+        function handleCollisions() {
 
             for (let i = 0; i < chips.length; i++) {
 
@@ -244,51 +252,40 @@
 
                     const minDistance = a.radius + b.radius;
 
-                    if (distance < minDistance) {
-
-                        // Collision direction
-
-                        const nx = distance === 0 ? 1 : dx / distance;
-                        const ny = distance === 0 ? 0 : dy / distance;
-
-                        // Separate overlapping circles
-
-                        const overlap = minDistance - distance;
-
-                        const totalMass = a.mass + b.mass;
-
-                        a.x -= nx * overlap * (b.mass / totalMass);
-                        a.y -= ny * overlap * (b.mass / totalMass);
-
-                        b.x += nx * overlap * (a.mass / totalMass);
-                        b.y += ny * overlap * (a.mass / totalMass);
-
-                        // Relative velocity
-
-                        const relativeVelocity =
-                            (b.vx - a.vx) * nx +
-                            (b.vy - a.vy) * ny;
-
-                        // Only bounce when moving towards each other
-
-                        if (relativeVelocity < 0) {
-
-                            const restitution = 0.95;
-
-                            const impulse =
-                                -(1 + restitution) *
-                                relativeVelocity /
-                                (1 / a.mass + 1 / b.mass);
-
-                            a.vx -= impulse * nx / a.mass;
-                            a.vy -= impulse * ny / a.mass;
-
-                            b.vx += impulse * nx / b.mass;
-                            b.vy += impulse * ny / b.mass;
-
-                        }
-
+                    if (distance === 0 || distance >= minDistance) {
+                        continue;
                     }
+
+                    const nx = dx / distance;
+                    const ny = dy / distance;
+
+                    const overlap = minDistance - distance;
+
+                    // Separate overlapping circles.
+                    a.x -= nx * overlap / 2;
+                    a.y -= ny * overlap / 2;
+
+                    b.x += nx * overlap / 2;
+                    b.y += ny * overlap / 2;
+
+                    // Calculate relative velocity.
+                    const relativeVelocity =
+                        (b.vx - a.vx) * nx +
+                        (b.vy - a.vy) * ny;
+
+                    if (relativeVelocity > 0) {
+                        continue;
+                    }
+
+                    // Collision impulse.
+                    const impulse =
+                        -(1 + restitution) * relativeVelocity / 2;
+
+                    a.vx -= impulse * nx;
+                    a.vy -= impulse * ny;
+
+                    b.vx += impulse * nx;
+                    b.vy += impulse * ny;
 
                 }
 
@@ -296,93 +293,121 @@
 
         }
 
-        // ----------------------------------
-        // BOUNCE OFF SCREEN EDGES
-        // ----------------------------------
-
-        function checkWalls(chip) {
-
-            if (chip.x - chip.radius < 0) {
-
-                chip.x = chip.radius;
-                chip.vx = Math.abs(chip.vx);
-
-            }
-
-            if (chip.x + chip.radius > width) {
-
-                chip.x = width - chip.radius;
-                chip.vx = -Math.abs(chip.vx);
-
-            }
-
-            if (chip.y - chip.radius < 0) {
-
-                chip.y = chip.radius;
-                chip.vy = Math.abs(chip.vy);
-
-            }
-
-            if (chip.y + chip.radius > height) {
-
-                chip.y = height - chip.radius;
-                chip.vy = -Math.abs(chip.vy);
-
-            }
-
-        }
-
-        // ----------------------------------
-        // ANIMATION LOOP
-        // ----------------------------------
-
-        let previousTime = 0;
-
+        // Main animation loop.
         function animate(time) {
 
-            const dt = previousTime
-                ? Math.min((time - previousTime) / 1000, 0.025)
-                : 0;
+            if (!lastTime) {
+                lastTime = time;
+            }
 
-            previousTime = time;
+            const delta = Math.min((time - lastTime) / 1000, 0.05);
 
-            // Move circles
+            lastTime = time;
 
-            chips.forEach(chip => {
+            for (const chip of chips) {
 
-                chip.x += chip.vx * dt;
-                chip.y += chip.vy * dt;
+                // Update individual lifetime.
+                chip.age += delta;
 
-                checkWalls(chip);
+                // Respawn independently when lifetime ends.
+                if (chip.age >= chip.lifetime) {
 
-            });
+                    respawn(chip);
 
-            // Detect collisions
+                }
 
-            checkCollisions();
+                // Calculate independent fade-in.
+                const fadeIn = Math.min(
+                    chip.age / FADE_IN,
+                    1
+                );
 
-            // Draw circles
+                // Calculate independent fade-out.
+                const remaining =
+                    chip.lifetime - chip.age;
 
-            chips.forEach(chip => {
+                const fadeOut = Math.min(
+                    remaining / FADE_OUT,
+                    1
+                );
+
+                chip.opacity =
+                    0.24 * Math.min(fadeIn, fadeOut);
+
+                // Move circle.
+                chip.x += chip.vx * delta;
+                chip.y += chip.vy * delta;
+
+                // Bounce off left and right walls.
+                if (chip.x - chip.radius < 0) {
+
+                    chip.x = chip.radius;
+                    chip.vx = Math.abs(chip.vx);
+
+                }
+
+                if (chip.x + chip.radius > width) {
+
+                    chip.x = width - chip.radius;
+                    chip.vx = -Math.abs(chip.vx);
+
+                }
+
+                // Bounce off top and bottom walls.
+                if (chip.y - chip.radius < 0) {
+
+                    chip.y = chip.radius;
+                    chip.vy = Math.abs(chip.vy);
+
+                }
+
+                if (chip.y + chip.radius > height) {
+
+                    chip.y = height - chip.radius;
+                    chip.vy = -Math.abs(chip.vy);
+
+                }
+
+            }
+
+            // Handle circle-to-circle collisions.
+            handleCollisions();
+
+            // Render circles.
+            for (const chip of chips) {
 
                 chip.element.style.transform =
-                    `translate3d(${chip.x - chip.radius}px,
-                                 ${chip.y - chip.radius}px, 0)`;
+                    `translate3d(${chip.x - chip.radius}px, ${chip.y - chip.radius}px, 0)`;
 
-                // Slow fade in / fade out
+                chip.element.style.opacity = chip.opacity;
 
-                const opacity =
-                    0.04 +
-                    0.20 *
-                    (0.5 + 0.5 * Math.sin(time * 0.0003 + chip.phase));
-
-                chip.element.style.opacity = opacity;
-
-            });
+            }
 
             requestAnimationFrame(animate);
 
         }
+
+        // Keep circles inside the screen after resizing.
+        window.addEventListener('resize', () => {
+
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            for (const chip of chips) {
+
+                chip.x = Math.max(
+                    chip.radius,
+                    Math.min(width - chip.radius, chip.x)
+                );
+
+                chip.y = Math.max(
+                    chip.radius,
+                    Math.min(height - chip.radius, chip.y)
+                );
+
+            }
+
+        });
 
         requestAnimationFrame(animate);
 
