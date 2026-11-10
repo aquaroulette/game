@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&display=swap" rel="stylesheet">
 
     <title>AquaRoulette</title>
-
     <link rel="stylesheet" href="styles.css">
+
     <script src="https://cdn.jsdelivr.net/npm/qrcode@latest" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="java.js" defer></script>
 </head>
 
 <body>
+
+    <!-- ANIMATED BACKGROUND: EXACTLY 200 CIRCLES -->
+    <div class="chips" id="background-chips" aria-hidden="true"></div>
 
     <div class="container">
 
@@ -42,20 +46,16 @@
                 Ready? Enter Your Ðogecoin receiving address:
             </label>
 
-
-
-		<input
-			type="text"
-			id="wallet"
-			class="wallet-input"
-			minlength="34"
-			maxlength="34"
-			pattern="[A-Za-z0-9]{34}"
-			required
-			oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '').slice(0, 34)"
-		>
-
-
+            <input
+                type="text"
+                id="wallet"
+                class="wallet-input"
+                minlength="34"
+                maxlength="34"
+                pattern="[A-Za-z0-9]{34}"
+                required
+                oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '').slice(0, 34)"
+            >
         </div>
 
         <!-- ROULETTE -->
@@ -72,41 +72,33 @@
         <!-- SUBMIT -->
         <div class="submit-container">
 
+            <button
+                id="submit-button"
+                class="vortex-button"
+                type="button"
+                onclick="
+                    const wallet = document.getElementById('wallet').value;
+                    const number = document.getElementById('selectedNumber').textContent.trim();
 
-		
-		
+                    if (!/^[A-Za-z0-9]{34}$/.test(wallet)) {
+                        document.getElementById('wallet').focus();
+                        document.getElementById('wallet').reportValidity();
+                        return;
+                    }
 
-		<button
-			id="submit-button"
-			class="vortex-button"
-			type="button"
-			onclick="
-				const wallet = document.getElementById('wallet').value;
-				const number = document.getElementById('selectedNumber').textContent.trim();
-		
-				if (!/^[A-Za-z0-9]{34}$/.test(wallet)) {
-					document.getElementById('wallet').focus();
-					document.getElementById('wallet').reportValidity();
-					return;
-				}
-		
-				if (number === '' || number === '—') {
-					alert('Please select a roulette number first.');
-					return;
-				}
+                    if (number === '' || number === '—') {
+                        alert('Please select a roulette number first.');
+                        return;
+                    }
 
-				submitForm();
+                    submitForm();
 
-				this.classList.add('arrow-active');
-				this.querySelector('.button-text').textContent = '↓';
-			"
-		>
-			<span class="button-text">Submit</span>
-		</button>
-
-
-
-
+                    this.classList.add('arrow-active');
+                    this.querySelector('.button-text').textContent = '↓';
+                "
+            >
+                <span class="button-text">Submit</span>
+            </button>
 
             <div id="please-wait" style="display:none; margin-top:10px;">
                 Generating Ðogecoin payment QR code. Please wait
@@ -139,13 +131,63 @@
             <div id="payment-status" style="display:none;">
                 Waiting for Your payment...
                 <p>Min: 30Ð Max: 3000Ð</p>
-				<p>Payout: 36:1</p>
-				<p>QR valid until game starts</p>
+                <p>Payout: 36:1</p>
+                <p>QR valid until game starts</p>
             </div>
 
         </div>
 
     </div>
+
+    <!-- 200 RANDOM BACKGROUND CIRCLES -->
+    <script>
+    (() => {
+
+        const background = document.getElementById('background-chips');
+
+        const colors = ['red', 'black'];
+
+        for (let i = 0; i < 200; i++) {
+
+            const chip = document.createElement('div');
+
+            // Exactly one green circle.
+            // Remaining 199 are randomly red or black.
+            const color = i === 0
+                ? 'green'
+                : colors[Math.floor(Math.random() * colors.length)];
+
+            const size = 5 + Math.random() * 30;
+
+            // Random starting position.
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
+
+            // Random destination, allowing large movement.
+            const moveX = (Math.random() - 0.5) * 180;
+            const moveY = (Math.random() - 0.5) * 180;
+
+            // Longer duration, with different speeds per circle.
+            const duration = 70 + Math.random() * 40;
+
+            // Random starting point in the animation cycle.
+            const delay = -Math.random() * duration;
+
+            chip.className = 'chip ' + color;
+
+            chip.style.setProperty('--size', size + 'px');
+            chip.style.setProperty('--start-x', startX + 'vw');
+            chip.style.setProperty('--start-y', startY + 'vh');
+            chip.style.setProperty('--move-x', moveX + 'vw');
+            chip.style.setProperty('--move-y', moveY + 'vh');
+            chip.style.setProperty('--duration', duration + 's');
+            chip.style.setProperty('--delay', delay + 's');
+
+            background.appendChild(chip);
+        }
+
+    })();
+    </script>
 
 </body>
 </html>
