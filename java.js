@@ -78,8 +78,8 @@ for (let i = 1; i <= 36; i++) {
     grid.appendChild(btn);
 }
 
-document.querySelector(".green").onclick = () => {
-    selectNumber(document.querySelector(".green"), 0);
+document.querySelector(".ball.green").onclick = () => {
+    selectNumber(document.querySelector(".ball.green"), 0);
 };
 
 function selectNumber(el, num) {
