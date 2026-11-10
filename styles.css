@@ -84,22 +84,16 @@ body::before {
     width: var(--size);
     height: var(--size);
 
-    left: var(--start-x);
-    top: var(--start-y);
+    left: 0;
+    top: 0;
 
     border-radius: 50%;
 
-    opacity: 0;
+    opacity: 0.15;
 
     pointer-events: none;
 
     will-change: transform, opacity;
-
-    animation: randomDrift
-        var(--duration)
-        cubic-bezier(0.35, 0, 0.65, 1)
-        var(--delay)
-        infinite alternate;
 }
 
 /* RED CIRCLES */
@@ -142,37 +136,6 @@ body::before {
     box-shadow:
         inset -4px -5px 8px rgba(0, 0, 0, 0.5),
         0 3px 10px rgba(0, 0, 0, 0.22);
-}
-
-/* RANDOM MOVEMENT + FADE IN / FADE OUT */
-
-@keyframes randomDrift {
-
-    0% {
-        opacity: 0;
-
-        transform:
-            translate3d(0, 0, 0)
-            rotate(0deg)
-            scale(0.65);
-    }
-
-    12% {
-        opacity: 0.24;
-    }
-
-    80% {
-        opacity: 0.24;
-    }
-
-    100% {
-        opacity: 0;
-
-        transform:
-            translate3d(var(--move-x), var(--move-y), 0)
-            rotate(360deg)
-            scale(1.15);
-    }
 }
 
 /* ========================================
@@ -590,7 +553,7 @@ body::before {
 .selection h2 {
     color: #8ad7ff;
     margin-bottom: 14px;
-	font-family: "Stardos Stencil", sans-serif;
+    font-family: "Stardos Stencil", sans-serif;
 }
 
 .wallet-preview {
@@ -727,7 +690,6 @@ body::before {
     }
 
     .chip {
-        animation: none;
         opacity: 0.12;
     }
 
