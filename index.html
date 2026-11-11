@@ -139,13 +139,13 @@
 
     </div>
 
-    <!-- GENERATE EXACTLY 200 RANDOM BOUNCING CIRCLES -->
+    <!-- EXACTLY 100 -->
     <script>
     (() => {
 
         const background = document.getElementById('background-chips');
 
-        const totalChips = 200;
+        const totalChips = 100;
 
         const colors = ['red', 'black'];
 
@@ -161,17 +161,17 @@
 
         let lastTime = 0;
 
-        // Random number helper.
+        // number helper.
         function random(min, max) {
             return min + Math.random() * (max - min);
         }
 
-        // Give every circle a new independent lifetime.
+        // independent lifetime.
         function randomLifetime() {
             return random(120, 300);
         }
 
-        // Create a circle.
+        // a circle.
         function createChip(index) {
 
             const chip = document.createElement('div');
@@ -211,14 +211,14 @@
             };
         }
 
-        // Create all 200 circles.
+        // all 100 circles.
         for (let i = 0; i < totalChips; i++) {
 
             chips.push(createChip(i));
 
         }
 
-        // Give a circle a fresh life when its lifetime ends.
+        // bacground circles fresh life when its lifetime ends.
         function respawn(chip) {
 
             chip.x = random(chip.radius, width - chip.radius);
@@ -235,7 +235,7 @@
 
         }
 
-        // Handle collisions between circles.
+        // collisions.
         function handleCollisions() {
 
             for (let i = 0; i < chips.length; i++) {
@@ -261,14 +261,14 @@
 
                     const overlap = minDistance - distance;
 
-                    // Separate overlapping circles.
+                    // circles.
                     a.x -= nx * overlap / 2;
                     a.y -= ny * overlap / 2;
 
                     b.x += nx * overlap / 2;
                     b.y += ny * overlap / 2;
 
-                    // Calculate relative velocity.
+                    // velocity.
                     const relativeVelocity =
                         (b.vx - a.vx) * nx +
                         (b.vy - a.vy) * ny;
@@ -277,7 +277,7 @@
                         continue;
                     }
 
-                    // Collision impulse.
+                    // impulse.
                     const impulse =
                         -(1 + restitution) * relativeVelocity / 2;
 
